@@ -1,0 +1,13 @@
+SYSC 2101 Project – Simple Puzzle Game Engine
+
+Bruno:  -Java doc for class (Tile, Item, Wall)	
+
+Boris:  -Java doc for class (Board, Position )
+	-Sequence diagram
+	
+Jonathan: -Java doc for class (Avatar, Hero, NPC)
+	  -Documentation
+
+We all contributed to the UML Diagram
+
+There was no changes made to the previous deliverable becasue its our first Milestone. Next what we are gonna have to do before Tuesday March 1st is to write the code in the methods that we have in our UML diagram. 
