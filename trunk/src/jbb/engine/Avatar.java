@@ -10,8 +10,6 @@ import javax.swing.ImageIcon;
 
 public abstract class Avatar extends Tile {
 	
-	public static final Position DEFAULT_POSITION = new Position(0,0);
-	
 	private int hitPoints;
 	private int lives;
 	
@@ -33,7 +31,7 @@ public abstract class Avatar extends Tile {
 	
 	/**
 	 * this function checks to see if the tile has an item that can be picked up by
-	 * the Avatar.
+	 * the Avatar. If so, the item will do what it is supposed to.
 	 * 
 	 * @param position of tile
 	 * @return true if the object can be picked up by Avatar
@@ -54,6 +52,7 @@ public abstract class Avatar extends Tile {
 		try {
 			if (canMoveTo(position)) {
 				boolean pickup = hasGoodie(position);
+				
 				this.setPosition(position);
 				return pickup;
 			}
