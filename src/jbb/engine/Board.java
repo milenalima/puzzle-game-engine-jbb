@@ -16,7 +16,7 @@ public class Board {
 	private int width;
 	private int height;
 	
-	private ArrayList<Avatar> moveableTiles;
+	protected ArrayList<Avatar> moveableTiles;
 	
 	/**
 	 * Constructor. Initialises instance variables 
@@ -59,7 +59,7 @@ public class Board {
 	{
 		boolean itemPickedUp = false;
 		//Hero is always the last element of the ArrayList
-		Avatar hero = moveableTiles.get(moveableTiles.size());
+		Avatar hero = moveableTiles.get(moveableTiles.size()-1);
 		for(int i = 0; i<moveableTiles.size()-1; i++)
 		{
 			//check if an item was picked up by an NPC
@@ -88,7 +88,7 @@ public class Board {
 			for(int j = 0; j < height; j++)
 			{
 				if(itemMap[i][j] instanceof Item)
-					playingField[i][j] = itemMap[i][j];
+				playingField[i][j] = itemMap[i][j];
 			}
 		}
 		
@@ -135,7 +135,7 @@ public class Board {
 		
 		for(int i = 0; i < width; i++)
 		{
-			for(int j = 0; j < width; j++)
+			for(int j = 0; j < height; j++)
 			{
 				s = s + " " + playingField[i][j].toString();
 			}
