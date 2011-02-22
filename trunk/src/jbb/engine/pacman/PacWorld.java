@@ -8,14 +8,13 @@ public class PacWorld extends Board{
 	
 	public PacWorld() {
 		super(WIDTH, HEIGHT);
-		populatePlayingField();
-		// TODO Auto-generated constructor stub
 	}
 	
-	private void populatePlayingField()
+	@Override
+	protected void populatePlayingField()
 	{
 		// Hero is always at the end of the list;
-		moveableTiles.add(new PacMan(1,3,this,new Position(4,2)));
+		moveableTiles.add(new PacMan(new Position(4,2), this));
 		playingField[0][0] = new PacDot(new Position(0,0),this, true);
 		playingField[0][1] = new PacDot(new Position(0,1),this, false);
 		playingField[0][2] = new PacDot(new Position(0,2),this, false);
@@ -50,9 +49,14 @@ public class PacWorld extends Board{
 	public static void main(String[] args) {
 		PacWorld pw = new PacWorld();
 		System.out.println(pw.toString());
-		PacMan pm = (PacMan) pw.getTile(new Position(4,2));
-		pw.playTurn(new Position(4,4));
+		pw.playTurn(new Position(4,0));
 		System.out.println(pw.toString());
+		pw.playTurn(new Position(4,0));
+		System.out.println(pw.toString());
+		pw.playTurn(new Position(0,0));
+		System.out.println(pw.toString());
+		pw.playTurn(new Position(0,0));
+		System.out.println(pw.toString());
+		pw.playTurn(new Position(0,0));
 	}
-
 }

@@ -20,7 +20,7 @@ public abstract class NPC extends Avatar{
 	 * @param board represents the board that is associated to this NPC
 	 * @param position represents the position of the NPC on the Board
 	 */
-	public NPC(ImageIcon image, int hitPoints, int lives, Board board, Position position) {
-		super(image, hitPoints, lives, board, position);
+	public NPC(ImageIcon image, int hitPoints, int lives, Position position, Board board) {
+		super(image, hitPoints, lives, position, board);
 	}
 }

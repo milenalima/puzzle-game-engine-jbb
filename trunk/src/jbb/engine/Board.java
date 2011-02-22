@@ -30,16 +30,17 @@ public class Board {
 		this.width = width;
 		this.height = height;
 		playingField = new Tile[width][height];	
-		itemMap = new Tile[width][height];	
-		populatePlayingField();
+		itemMap = new Tile[width][height];
 		moveableTiles = new ArrayList<Avatar>();
+		populatePlayingField();
+		populateItemMap();
 	}
 	
 	/**
 	 * Abstract method to be implemented by game-specific classes that 
 	 * extend Board. The method will populate the board with tiles.
 	 */
-	private void populatePlayingField()
+	protected void populatePlayingField()
 	{
 		for(int i = 0; i < width; i++)
 		{
@@ -47,6 +48,18 @@ public class Board {
 			{
 				playingField[i][j] = new Tile(new Position(i,j), this);
 				itemMap[i][j] = new Tile(new Position(i,j), this);
+			}
+		}
+	}
+	
+	protected void populateItemMap() {
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				if (!(playingField[i][j] instanceof Avatar)) {
+					itemMap[i][j] = playingField[i][j];
+				} else {
+					itemMap[i][j] = new Tile(new Position(i,j),this);
+				}
 			}
 		}
 	}
@@ -81,13 +94,13 @@ public class Board {
 		}
 		syncItemMapAndField();
 	}
+	
 	public void syncItemMapAndField()
 	{
 		for(int i = 0; i < width; i++)
 		{
 			for(int j = 0; j < height; j++)
 			{
-				if(itemMap[i][j] instanceof Item)
 				playingField[i][j] = itemMap[i][j];
 			}
 		}
@@ -137,9 +150,9 @@ public class Board {
 		{
 			for(int j = 0; j < height; j++)
 			{
-				s = s + " " + playingField[i][j].toString();
+				s += " " + playingField[i][j].toString();
 			}
-			s=s+"\n";
+			s += "\n";
 		}
 		
 		return s;
