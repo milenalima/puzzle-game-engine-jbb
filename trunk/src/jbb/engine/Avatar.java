@@ -117,27 +117,27 @@ public abstract class Avatar extends Tile {
 		Position newPos;
 		switch (direction) {
 			case TOP:
-				newPos = new Position(position.getRow(), position.getCol()-1);
+				newPos = new Position(position.getRow()-1, position.getCol());
 				pickup = hasGoodie(newPos);
-				if (!this.canMoveTo(position)) throw(new IllegalArgumentException("Move is not permitted"));
+				if (!this.canMoveTo(newPos)) throw(new IllegalArgumentException("Move is not permitted"));
 				setPosition(newPos);
 				return pickup;
 			case BOTTOM:
-				newPos = new Position(position.getRow(), position.getCol()+1);
+				newPos = new Position(position.getRow()+1, position.getCol());
 				pickup = hasGoodie(newPos);
-				if (!this.canMoveTo(position)) throw(new IllegalArgumentException("Move is not permitted"));
+				if (!this.canMoveTo(newPos)) throw(new IllegalArgumentException("Move is not permitted"));
 				setPosition(newPos);
 				return pickup;
 			case LEFT:
-				newPos = new Position(position.getRow()-1, position.getCol());
+				newPos = new Position(position.getRow(), position.getCol()-1);
 				pickup = hasGoodie(newPos);
-				if (!this.canMoveTo(position)) throw(new IllegalArgumentException("Move is not permitted"));
+				if (!this.canMoveTo(newPos)) throw(new IllegalArgumentException("Move is not permitted"));
 				setPosition(newPos);
 				return pickup;
 			case RIGHT:
-				newPos = new Position(position.getRow()+1, position.getCol());
+				newPos = new Position(position.getRow(), position.getCol()+1);
 				pickup = hasGoodie(newPos);
-				if (!this.canMoveTo(position)) throw(new IllegalArgumentException("Move is not permitted"));
+				if (!this.canMoveTo(newPos)) throw(new IllegalArgumentException("Move is not permitted"));
 				setPosition(newPos);
 				return pickup;
 			default:
@@ -153,12 +153,11 @@ public abstract class Avatar extends Tile {
 	 * @throws ArrayIndexOutOfBoundsException if the position given is out of bounds for the board
 	 */
 	public boolean canMoveTo(Position position) {
-		if (Math.abs(position.getRow() - this.position.getRow()) != 1)
-			return false;
-		else if (Math.abs(position.getCol() - this.position.getCol()) != 1)
+		if (!(Math.abs(position.getRow() - this.position.getRow()) == 1 ^
+				Math.abs(position.getCol() - this.position.getCol()) == 1))
 			return false;
 		else if (position.getRow() < 0 || position.getCol() < 0
-				|| position.getRow() > board.getHeight() || position.getCol() < board.getWidth())
+				|| position.getRow() >= board.getHeight() || position.getCol() >= board.getWidth())
 			return false;
 		else if (!board.getTile(position).getAccessible()) return false;
 		else return true;

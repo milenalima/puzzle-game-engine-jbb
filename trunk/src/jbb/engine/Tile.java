@@ -35,8 +35,8 @@ public class Tile{
 	public Tile(Position position, Board board){
 		accessible = true;
 		image = new ImageIcon();
-		setPosition(position);
 		this.board = board;
+		setPosition(position);
 	}
 	
 	/**
