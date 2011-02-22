@@ -11,8 +11,8 @@ package jbb.engine;
 import java.util.ArrayList; 
 
 public class Board {
-	private Tile[][] playingField;
-	private Tile[][] itemMap;
+	protected Tile[][] playingField;
+	protected Tile[][] itemMap;
 	private int width;
 	private int height;
 	
@@ -127,5 +127,21 @@ public class Board {
 			throw new IndexOutOfBoundsException("Col out of bounds");
 		else
 			return playingField[position.getRow()][position.getCol()];
+	}
+	
+	public String toString()
+	{
+		String s = "";
+		
+		for(int i = 0; i < width; i++)
+		{
+			for(int j = 0; j < width; j++)
+			{
+				s = s + " " + playingField[i][j].toString();
+			}
+			s=s+"\n";
+		}
+		
+		return s;
 	}
 }
