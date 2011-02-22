@@ -9,6 +9,9 @@ import jbb.engine.Tile;
 
 public class PacMan extends Hero {
 	
+	public static final int INVULN_LEN = 10; // invulnerability timer lasts 10 turns
+	
+	private int timer;
 	private boolean invulnerable;
 
 	/**
@@ -23,6 +26,7 @@ public class PacMan extends Hero {
 	public PacMan(int hitPoints, int lives, Board board, Position position) {
 		super(new ImageIcon(), hitPoints, lives, board, position);
 		invulnerable = false;
+		timer = 0;
 	}
 	
 	public boolean getInvulnerable() {
@@ -31,6 +35,15 @@ public class PacMan extends Hero {
 	
 	public void setInvulnerable(boolean invulnerable) {
 		this.invulnerable = invulnerable;
+		timer = INVULN_LEN;
+	}
+	
+	public boolean moveTo(Position position) {
+		boolean returnVal = super.moveTo(position);
+		if (--timer == 0) {
+			setInvulnerable(false);
+		}
+		return returnVal;
 	}
 
 	protected boolean hasGoodie(Position position) {
@@ -41,6 +54,13 @@ public class PacMan extends Hero {
 			return true;
 		}
 		return false;
+	}
+	
+	public String toString() {
+		if (invulnerable) {
+			return "C";
+		}
+		return "c";
 	}
 
 }

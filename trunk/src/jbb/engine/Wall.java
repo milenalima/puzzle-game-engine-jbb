@@ -15,4 +15,8 @@ public class Wall extends Tile{
 		super(position, board);
 		setAccessible(false);
 	}
+	
+	public String toString() {
+		return "X";
+	}
 }
