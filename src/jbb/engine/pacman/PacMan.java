@@ -10,6 +10,8 @@ import jbb.engine.Tile;
 public class PacMan extends Hero {
 	
 	public static final int INVULN_LEN = 10; // invulnerability timer lasts 10 turns
+	public static final int HIT_POINTS = 1;
+	public static final int LIVES = 3;
 	
 	private int timer;
 	private boolean invulnerable;
@@ -23,8 +25,8 @@ public class PacMan extends Hero {
 	 * @param board represents the board that is associated to this Hero
 	 * @param position represents the position of the Hero on the Board
 	 */
-	public PacMan(int hitPoints, int lives, Board board, Position position) {
-		super(new ImageIcon(), hitPoints, lives, board, position);
+	public PacMan(Position position, Board board) {
+		super(new ImageIcon(), HIT_POINTS, LIVES, position, board);
 		invulnerable = false;
 		timer = 0;
 	}

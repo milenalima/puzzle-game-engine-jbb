@@ -22,7 +22,7 @@ public abstract class Avatar extends Tile {
 	 * @param board represents the board that is associated to this Avatar
 	 * @param position represents the position of the Avatar on the Board
 	 */
-	public Avatar(ImageIcon image, int hitPoints, int lives, Board board, Position position) {
+	public Avatar(ImageIcon image, int hitPoints, int lives, Position position, Board board) {
 		super(position, board);
 		setImage(image);
 		this.hitPoints = hitPoints;
