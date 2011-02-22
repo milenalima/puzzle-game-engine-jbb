@@ -8,8 +8,7 @@ public class TileTest extends TestCase {
 	
 	public void setUp() {
 		board = new Board(10,10);
-		board.populatePlayingField();
-		// populate playing field creates an array of array
+		// board constructor creates an array of array
 		// of Tiles, so I will use these in the test cases.
 	}
 	

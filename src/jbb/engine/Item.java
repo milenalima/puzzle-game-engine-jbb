@@ -4,9 +4,9 @@
 
 package jbb.engine;
 
-public class Item extends Tile {
+public abstract class Item extends Tile {
 
-	private int pointValue;
+	protected int pointValue;
 		
 	/**
 	 * The constructor create an item
@@ -34,9 +34,7 @@ public class Item extends Tile {
 	}
 	
 	/**
-	 * The method will return if the Item has been picked up
+	 * The method will alter the Avatar based on if the Item has been picked up
 	 */
-	public boolean isPickedUp(){
-		return true;
-	}
+	public abstract void pickedUp(Avatar picker);
 }
