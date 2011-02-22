@@ -132,4 +132,8 @@ public class Tile{
 		}
 		return new Tile[0];
 	}
+	
+	public String toString() {
+		return " "; // blank tile
+	}
 }

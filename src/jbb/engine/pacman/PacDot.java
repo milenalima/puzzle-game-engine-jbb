@@ -26,6 +26,15 @@ public class PacDot extends Item {
 	public void pickedUp(Avatar picker) {
 		PacMan p = (PacMan) picker;
 		p.addPoints(pointValue);
+		if (powerPellet) {
+			p.setInvulnerable(true);
+		}
 	}
 
+	public String toString() {
+		if (powerPellet) {
+			return "o";
+		}
+		return ".";
+	}
 }
