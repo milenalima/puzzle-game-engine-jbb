@@ -1,0 +1,227 @@
+/**
+ * The Abstract Avatar class defines the controllable tile on the board: it is the only one that will be moved.
+ * Avatar may pick up items, but not go through walls (generally). The behaviour is further developed in the subclasses Hero and NPC.
+ */
+
+package jbb.engine;
+
+import javax.swing.ImageIcon;
+
+
+public abstract class Avatar extends Tile {
+	
+	public static final Position DEFAULT_POSITION = new Position(0,0);
+	
+	private int hitPoints;
+	private int lives;
+	
+	/**
+	 * Constructor for Avatar using specified Position.
+	 * 
+	 * @param image pictorial representation of the Avatar to be used on a Tile
+	 * @param hitPoints represents the starting health of the Avatar
+	 * @param lives represents the starting number of lives of the Avatar
+	 * @param board represents the board that is associated to this Avatar
+	 * @param position represents the position of the Avatar on the Board
+	 */
+	public Avatar(ImageIcon image, int hitPoints, int lives, Board board, Position position) {
+		super(position, board);
+		setImage(image);
+		this.hitPoints = hitPoints;
+		this.lives = lives;
+	}
+	
+	/**
+	 * this function checks to see if the tile has an item that can be picked up by
+	 * the Avatar.
+	 * 
+	 * @param position of tile
+	 * @return true if the object can be picked up by Avatar
+	 */
+	protected abstract boolean hasGoodie(Position position);
+	
+	/**
+	 * Determines if the position given is possible (accessible, within the 
+	 * boundaries, within one tile of movement), if so, move to this position,
+	 * otherwise, calculate what is assumed to be the desired direction
+	 * 
+	 * @param position position to move to or towards
+	 * @throws IllegalArgumentException if move is out of bounds, or if the Avatar
+	 * will move into a wall.
+	 * @return true if the Avatar picks up an object where it moved.
+	 */
+	public boolean moveTo(Position position) throws IllegalArgumentException{
+		try {
+			if (canMoveTo(position)) {
+				boolean pickup = hasGoodie(position);
+				this.setPosition(position);
+				return pickup;
+			}
+		} catch (ArrayIndexOutOfBoundsException exc) {
+			throw new IllegalArgumentException("Not a possible move");
+		}
+		// determine which direction is wanted
+		/*
+		 * + - - - - - - - - - -
+		 * + + - - - - - - - - +
+		 * + + + - - - - - - + +
+		 * + + + + - - - - + + +
+		 * + + + + + - - + + + +
+		 * + + + + + 0 + + + + +
+		 * + + + + - - + + + + +
+		 * + + + - - - - + + + +
+		 * + + - - - - - - + + +
+		 * + - - - - - - - - + +
+		 * - - - - - - - - - - +
+		 * 
+		 * The pluses and minuses indicate which direction (up,down,left,right)
+		 * to move in depending on where the user clicked.
+		 */
+		int gotoRow = position.getRow();
+		int gotoCol = position.getCol();
+		int myRow = this.position.getRow();
+		int myCol = this.position.getCol();
+		try {
+			if (gotoRow <= myRow) { // we are moving upwards
+				if (gotoCol <= myCol) { // we are moving left or up
+					if (myCol-gotoCol >= myRow-gotoRow) moveTo(LEFT);
+					else return moveTo(TOP);
+				} else { // we are moving right or up
+					if (gotoCol-myCol > myRow-gotoRow) moveTo(RIGHT);
+					else return moveTo(TOP);
+				}
+			} else { // we are moving downwards
+				if (myCol <= gotoCol) { // we are moving left or down
+					if (myCol-gotoCol > myRow-gotoRow) moveTo(LEFT);
+					else return moveTo(BOTTOM);
+				} else { // we are moving right or down
+					if (gotoCol-myCol > myRow-gotoRow) moveTo(RIGHT);
+					else return moveTo(BOTTOM);
+				}
+			}
+		} catch (IllegalArgumentException exc) {
+			throw new IllegalArgumentException("Not a possible move");
+		}
+		return false; //?
+	}
+	
+	/**
+	 * Tells the Avatar to move in a certain direction if the move is allowed.
+	 * 
+	 * @param direction will be either TOP, BOTTOM, RIGHT or LEFT (constants defined in Tile class)
+	 * @throws IllegalArgumentException when an "Invalid direction" is received (such as TOP_RIGHT)
+	 * or if the "Move is not permitted" due to a Wall for example.
+	 * @throws ArrayIndexOutOfBoundsException when the move is "Not within boundaries" of the board
+	 */
+	protected boolean moveTo(int direction) throws IllegalArgumentException {
+		boolean pickup;
+		Position newPos;
+		switch (direction) {
+			case TOP:
+				newPos = new Position(position.getRow(), position.getCol()-1);
+				pickup = hasGoodie(newPos);
+				if (!this.canMoveTo(position)) throw(new IllegalArgumentException("Move is not permitted"));
+				setPosition(newPos);
+				return pickup;
+			case BOTTOM:
+				newPos = new Position(position.getRow(), position.getCol()+1);
+				pickup = hasGoodie(newPos);
+				if (!this.canMoveTo(position)) throw(new IllegalArgumentException("Move is not permitted"));
+				setPosition(newPos);
+				return pickup;
+			case LEFT:
+				newPos = new Position(position.getRow()-1, position.getCol());
+				pickup = hasGoodie(newPos);
+				if (!this.canMoveTo(position)) throw(new IllegalArgumentException("Move is not permitted"));
+				setPosition(newPos);
+				return pickup;
+			case RIGHT:
+				newPos = new Position(position.getRow()+1, position.getCol());
+				pickup = hasGoodie(newPos);
+				if (!this.canMoveTo(position)) throw(new IllegalArgumentException("Move is not permitted"));
+				setPosition(newPos);
+				return pickup;
+			default:
+				throw(new IllegalArgumentException("Invalid direction"));
+		}
+	}
+
+	/**
+	 * Determines if the Tile at that position is Accessible and is adjacent to the current Position
+	 * 
+	 * @param position
+	 * @return false if the position not accessible, true if if the new position is possible
+	 * @throws ArrayIndexOutOfBoundsException if the position given is out of bounds for the board
+	 */
+	public boolean canMoveTo(Position position) {
+		if (Math.abs(position.getRow() - this.position.getRow()) != 1)
+			return false;
+		else if (Math.abs(position.getCol() - this.position.getCol()) != 1)
+			return false;
+		else if (position.getRow() < 0 || position.getCol() < 0
+				|| position.getRow() > board.getHeight() || position.getCol() < board.getWidth())
+			return false;
+		else if (!board.getTile(position).getAccessible()) return false;
+		else return true;
+	}
+	
+	/**
+	 * Get number of hitPoints remaining
+	 * 
+	 * @return hitPoints value
+	 */
+	public int getHitPoints() {
+		return hitPoints;
+	}
+	
+	/**
+	 * Subtracts current hitPoints by amount specified and decreases
+	 * the number of lives if health reaches 0;
+	 * 
+	 * @return true if the number of HitPoints has reached 0 or less
+	 */
+	public boolean damageHitPoints(int amount) {
+		if (hitPoints-amount <= 0) {
+			removeLife();
+			return true;
+		}
+		hitPoints -= amount;
+		return false;
+	}
+	
+	/**
+	 * Increase current hitPoints by amount specified
+	 */
+	public void healHitPoints(int amount) {
+		hitPoints += amount;
+	}
+	
+	/**
+	 * Get number of lives remaining
+	 * 
+	 * @return
+	 */
+	public int getLives() {
+		return lives;
+	}
+	
+	/**
+	 * Increment lives by 1
+	 */
+	public void addLife() {
+		lives++;
+	}
+	
+	/**
+	 * Decrement lives by 1
+	 * 
+	 * @return true if the number of lives has reached 0 or less
+	 */
+	public boolean removeLife() {
+		lives--;
+		if (lives == 0) {
+			return true;
+		}
+		return false;
+	}
+}
