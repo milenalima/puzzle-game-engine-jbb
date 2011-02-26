@@ -10,7 +10,7 @@ package jbb.engine;
 
 import java.util.ArrayList; 
 
-public class Board {
+public abstract class Board {
 	protected Tile[][] playingField;
 	protected Tile[][] itemMap;
 	private int width;
@@ -40,18 +40,12 @@ public class Board {
 	 * Abstract method to be implemented by game-specific classes that 
 	 * extend Board. The method will populate the board with tiles.
 	 */
-	protected void populatePlayingField()
-	{
-		for(int i = 0; i < width; i++)
-		{
-			for(int j = 0; j < height; j++)
-			{
-				playingField[i][j] = new Tile(new Position(i,j), this);
-				itemMap[i][j] = new Tile(new Position(i,j), this);
-			}
-		}
-	}
+	protected abstract void populatePlayingField();
 	
+	/**
+	 * Will copy all the content from playingField, other than the avatars (or
+	 * movable objects)
+	 */
 	protected void populateItemMap() {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
@@ -140,6 +134,10 @@ public class Board {
 			throw new IndexOutOfBoundsException("Col out of bounds");
 		else
 			return playingField[position.getRow()][position.getCol()];
+	}
+	
+	public void placeItem(Item item) {
+		itemMap[item.getPosition().getRow()][item.getPosition().getCol()] = item;
 	}
 	
 	public String toString()

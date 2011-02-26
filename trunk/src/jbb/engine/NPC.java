@@ -23,4 +23,94 @@ public abstract class NPC extends Avatar{
 	public NPC(ImageIcon image, int hitPoints, int lives, Position position, Board board) {
 		super(image, hitPoints, lives, position, board);
 	}
+	
+	/**
+	 * NPCs will move towards given position and find a way around obstructing walls.
+	 * The current method defines stupid AI that may move repeatedly to the same position.
+	 * This will be redefined later.
+	 */
+	public boolean moveTo(Position position) throws IllegalArgumentException {
+		try {
+			return super.moveTo(position);
+		} catch (IllegalArgumentException ex1) {
+			int gotoRow = position.getRow();
+			int gotoCol = position.getCol();
+			int myRow = this.position.getRow();
+			int myCol = this.position.getCol();
+			// see where the NPC can move
+			if (gotoRow >= myRow) {// try to move down
+				try {
+					return moveTo(BOTTOM);
+				} catch (IllegalArgumentException ex2) {
+					if (gotoCol >= myCol) { // try to move right
+						try {
+							return moveTo(RIGHT);
+						} catch (IllegalArgumentException ex3) {
+							try {
+								return moveTo(TOP);
+							} catch (IllegalArgumentException ex4) {
+								// do nothing
+							}
+							try {
+								return moveTo(LEFT);
+							} catch (IllegalArgumentException ex4) {
+								// do nothing
+							}
+						}
+					} else { // try to move left
+						try {
+							return moveTo(LEFT);
+						} catch (IllegalArgumentException ex3) {
+							try {
+								return moveTo(TOP);
+							} catch (IllegalArgumentException ex4) {
+								// do nothing
+							}
+							try {
+								return moveTo(RIGHT);
+							} catch (IllegalArgumentException ex4) {
+								// do nothing
+							}
+						}
+					}
+				}
+			} else { // try to move up
+				try {
+					return moveTo(TOP);
+				} catch (IllegalArgumentException ex2) {
+					if (gotoCol > myCol) { // try to move right
+						try {
+							return moveTo(RIGHT);
+						} catch (IllegalArgumentException ex3) {
+							try {
+								return moveTo(BOTTOM);
+							} catch (IllegalArgumentException ex4) {
+								// do nothing
+							}
+							try {
+								return moveTo(LEFT);
+							} catch (IllegalArgumentException ex4) {
+								// do nothing
+							}
+						}
+					} else { // try to move left
+						try {
+							return moveTo(LEFT);
+						} catch (IllegalArgumentException ex3) {
+							try {
+								return moveTo(BOTTOM);
+							} catch (IllegalArgumentException ex4) {
+								// do nothing
+							}
+							try {
+								return moveTo(RIGHT);
+							} catch (IllegalArgumentException ex4) {
+								// do nothing
+							}
+						}
+					}
+				}
+			}
+		} return false; // dont move at all
+	}
 }

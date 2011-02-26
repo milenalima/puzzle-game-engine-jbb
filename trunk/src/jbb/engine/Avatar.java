@@ -113,7 +113,6 @@ public abstract class Avatar extends Tile {
 	 * @return true if avatar picks up something that it may use
 	 * @throws IllegalArgumentException when an "Invalid direction" is received (such as TOP_RIGHT)
 	 * or if the "Move is not permitted" due to a Wall for example.
-	 * @throws ArrayIndexOutOfBoundsException when the move is "Not within boundaries" of the board
 	 */
 	protected boolean moveTo(int direction) throws IllegalArgumentException {
 		boolean pickup;
@@ -153,7 +152,6 @@ public abstract class Avatar extends Tile {
 	 * 
 	 * @param position
 	 * @return false if the position not accessible, true if if the new position is possible
-	 * @throws ArrayIndexOutOfBoundsException if the position given is out of bounds for the board
 	 */
 	public boolean canMoveTo(Position position) {
 		if (position.getRow() < 0 || position.getCol() < 0
