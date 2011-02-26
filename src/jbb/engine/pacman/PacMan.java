@@ -42,7 +42,7 @@ public class PacMan extends Hero {
 	
 	public boolean moveTo(Position position) {
 		boolean returnVal = super.moveTo(position);
-		if (--timer == 0) {
+		if (timer > 0 && --timer == 0) {
 			setInvulnerable(false);
 		}
 		return returnVal;

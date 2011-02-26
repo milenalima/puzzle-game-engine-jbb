@@ -19,7 +19,7 @@ public class PacGame {
 		System.out.println("You must play until the end");
 		while (true) {
 			System.out.println(board);
-			System.out.print("Type next position in form [row] [int]: ");
+			System.out.print("Type next position in form [row](space)[col]: ");
 			s = new Scanner(System.in);
 			try {
 				newPos = new Position(s.nextInt(),s.nextInt());
