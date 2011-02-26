@@ -8,16 +8,21 @@ import jbb.engine.Position;
 
 public class Ghost extends NPC{
 
-	public Ghost(ImageIcon image, int hitPoints, int lives, Position position,
-			Board board) {
-		super(image, hitPoints, lives, position, board);
+	public static final int HIT_POINTS = 1;
+	public static final int LIVES = 1;
+	
+	public Ghost(Position position, Board board) {
+		super(new ImageIcon(), HIT_POINTS, LIVES, position, board);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	protected boolean hasGoodie(Position position) {
-		// TODO Auto-generated method stub
-		return false;
+		return false; // ghost cannot pick up goodies
+	}
+	
+	public String toString() {
+		return "G";
 	}
 
 }

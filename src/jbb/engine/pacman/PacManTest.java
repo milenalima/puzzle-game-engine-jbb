@@ -27,8 +27,8 @@ public class PacManTest extends TestCase {
 		pacman.healHitPoints(19); // pacman has 1 hp...
 		assertFalse(pacman.damageHitPoints((PacMan.HIT_POINTS+19)/2)); // remove half the hp
 		assertEquals(PacMan.HIT_POINTS+19 - (PacMan.HIT_POINTS+19)/2, pacman.getHitPoints());
-		assertTrue(pacman.damageHitPoints(PacMan.HIT_POINTS)); // kill pacman
-		assertTrue(pacman.damageHitPoints(PacMan.HIT_POINTS)); // beat him while he's down
+		assertTrue(pacman.damageHitPoints(PacMan.HIT_POINTS+19)); // kill pacman
+		assertTrue(pacman.damageHitPoints(PacMan.HIT_POINTS+19)); // beat him while he's down
 	}
 	
 	public void testHealHitPoints() {

@@ -14,12 +14,14 @@ public class PacWorld extends Board{
 	protected void populatePlayingField()
 	{
 		// Hero is always at the end of the list;
+		moveableTiles.add(new Ghost(new Position(0,4), this));
+		moveableTiles.add(new Ghost(new Position(4,0), this));
 		moveableTiles.add(new PacMan(new Position(4,2), this));
 		playingField[0][0] = new PacDot(new Position(0,0),this, true);
 		playingField[0][1] = new PacDot(new Position(0,1),this, false);
 		playingField[0][2] = new PacDot(new Position(0,2),this, false);
 		playingField[0][3] = new PacDot(new Position(0,3),this, false);
-		playingField[0][4] = new PacDot(new Position(0,4),this, false);
+		playingField[0][4] = moveableTiles.get(0);
 		
 		playingField[1][0] = new PacDot(new Position(1,0),this, false);
 		playingField[1][1] = new Wall(new Position(1,1),this);
@@ -39,24 +41,10 @@ public class PacWorld extends Board{
 		playingField[3][3] = new Wall(new Position(3,3),this);
 		playingField[3][4] = new PacDot(new Position(3,4),this, false);
 		
-		playingField[4][0] = new PacDot(new Position(4,0),this, false);
+		playingField[4][0] = moveableTiles.get(1);
 		playingField[4][1] = new PacDot(new Position(4,1),this, false);
 		playingField[4][2] = moveableTiles.get(moveableTiles.size()-1);
 		playingField[4][3] = new PacDot(new Position(4,3),this, false);
 		playingField[4][4] = new PacDot(new Position(4,4),this, false);
-	}
-	
-	public static void main(String[] args) {
-		PacWorld pw = new PacWorld();
-		System.out.println(pw.toString());
-		pw.playTurn(new Position(4,0));
-		System.out.println(pw.toString());
-		pw.playTurn(new Position(4,0));
-		System.out.println(pw.toString());
-		pw.playTurn(new Position(0,0));
-		System.out.println(pw.toString());
-		pw.playTurn(new Position(0,0));
-		System.out.println(pw.toString());
-		pw.playTurn(new Position(0,0));
 	}
 }
