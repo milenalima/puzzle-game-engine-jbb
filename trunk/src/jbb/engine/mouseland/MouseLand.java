@@ -31,7 +31,7 @@ public class MouseLand extends Board{
 		
 		playingField[2][0] = new Tile(new Position(2,0),this);
 		playingField[2][1] = new Tile(new Position(2,1),this);
-		playingField[2][2] = moveableTiles.get(moveableTiles.size()-2);
+		playingField[2][2] = new Mouse(new Position(2,2),this);
 		playingField[2][3] = new Tile(new Position(2,3),this);
 		playingField[2][4] = new Tile(new Position(2,4),this);
 

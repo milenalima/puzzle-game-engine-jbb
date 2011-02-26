@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import jbb.engine.Hero;
 import jbb.engine.Position;
 
 public class MouselandGame{
@@ -16,25 +17,30 @@ public class MouselandGame{
 	
 	public void play() {
 		Position newPos;
-		Scanner s;
+		Scanner s1;
+		Scanner s2;
 		System.out.println("You must play until the end");
 		while (true) {
-			Random randomGenerator = new Random();
-		    for (int idx = 1; idx <= 10; ++idx){
-		      int randomInt = randomGenerator.nextInt(5);
-		      log("Generated : " + randomInt);
-		    }
+			//Random randomGenerator = new Random();
+		    //for (int idx = 1; idx <= 10; ++idx){
+		      //int randomInt = randomGenerator.nextInt(5);
+		      //log("Generated : " + randomInt);
+		    //}
 		    
-		    log("Done.");
+		    //log("Done.");
 		  
 			System.out.println(board);
-			System.out.print("Type y to drop mousetrap or n not to drop it then (space) [row] (space) [col]: "); 
-			s = new Scanner(System.in);
+			System.out.print("Press 'y' to drop mousetrap or anything else not to: "); 
+			s1 = new Scanner(System.in);
+			if(s1.hasNext("y")){
+				MouseHero mh = (MouseHero) board.getHero();
+				mh.setTrap();
+			}
+			System.out.print("Type next position in form [row](space)[col]: "); 
+			s2 = new Scanner(System.in);
 			try {
-				if(s.hasNext("y")){
-					
-				}
-				newPos = new Position(s.nextInt(),s.nextInt());
+				
+				newPos = new Position(s2.nextInt(),s2.nextInt());
 				board.playTurn(newPos);
 			} catch (IllegalArgumentException iae) {
 				System.out.println(iae.getMessage());

@@ -38,7 +38,12 @@ public MouseHero(Position position, Board board) {
 	}
 	
 	public void setTrap(){
-		this.board.placeItem(new MouseTrap(this.position,this.board));
+		numMouseTraps-=1;
+		if(numMouseTraps<0){
+			System.out.print("you do not have any mouse traps left \n");
+		}
+		else 
+			this.board.placeItem(new MouseTrap(this.position,this.board));
 	}
 
 	public boolean getInvulnerable() {
