@@ -1,16 +1,17 @@
 package jbb.engine.mouseland;
+import java.util.Random;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import jbb.engine.Position;
 
-public class MouselandGame {
+public class MouselandGame{
 	
-	private MouseWorld board;
+	private MouseLand board;
 	
 	public MouselandGame() {
-		board = new MouseWorld();
+		board = new MouseLand();
 	}
 	
 	public void play() {
@@ -18,10 +19,21 @@ public class MouselandGame {
 		Scanner s;
 		System.out.println("You must play until the end");
 		while (true) {
+			Random randomGenerator = new Random();
+		    for (int idx = 1; idx <= 10; ++idx){
+		      int randomInt = randomGenerator.nextInt(5);
+		      log("Generated : " + randomInt);
+		    }
+		    
+		    log("Done.");
+		  
 			System.out.println(board);
-			System.out.print("Type next position in form [row] space [col]: ");
+			System.out.print("Type y to drop mousetrap or n not to drop it then (space) [row] (space) [col]: "); 
 			s = new Scanner(System.in);
 			try {
+				if(s.hasNext("y")){
+					
+				}
 				newPos = new Position(s.nextInt(),s.nextInt());
 				board.playTurn(newPos);
 			} catch (IllegalArgumentException iae) {
@@ -32,7 +44,13 @@ public class MouselandGame {
 				System.out.println("Invalid Input)");
 			}
 		}
+	
 	}
+	  
+	  private static void log(String aMessage){
+	    System.out.println(aMessage);
+	  }
+	
 	
 	public static void main(String[] args) {
 		MouselandGame game = new MouselandGame();
@@ -40,3 +58,4 @@ public class MouselandGame {
 		game.play();
 	}
 }
+

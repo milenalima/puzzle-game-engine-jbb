@@ -53,10 +53,8 @@ public Mouse(Position position, Board board) {
 	protected boolean hasGoodie(Position position) {
 		Tile tile = board.getTile(position);
 		if (tile instanceof MouseTrap) {
-			MouseTrap pd = (MouseTrap) tile;
-			if(pd.isPowerPellet()){
+			this.removeLife();
 			return true;
-			}
 		}
 		return false;
 	}
