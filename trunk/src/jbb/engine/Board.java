@@ -85,7 +85,7 @@ public class Board {
 			}
 		}
 		//check if an item was picked up by the Hero
-		itemPickedUp = hero.moveTo(position); 
+		itemPickedUp = hero.moveTo(position);
 		if(itemPickedUp)
 		{
 			//remove item from itemMap

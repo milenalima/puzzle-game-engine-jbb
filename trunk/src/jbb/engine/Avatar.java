@@ -66,7 +66,7 @@ public abstract class Avatar extends Tile {
 		 * + + + - - - - - - + +
 		 * + + + + - - - - + + +
 		 * + + + + + - - + + + +
-		 * + + + + + 0 + + + + +
+		 * + + + + +   + + + + +
 		 * + + + + - - + + + + +
 		 * + + + - - - - + + + +
 		 * + + - - - - - - + + +
@@ -80,34 +80,37 @@ public abstract class Avatar extends Tile {
 		int gotoCol = position.getCol();
 		int myRow = this.position.getRow();
 		int myCol = this.position.getCol();
+		if (myRow == gotoRow && myCol == gotoCol) {
+			throw new IllegalArgumentException("Cannot move to same position");
+		}
 		try {
 			if (gotoRow <= myRow) { // we are moving upwards
 				if (gotoCol <= myCol) { // we are moving left or up
-					if (myCol-gotoCol >= myRow-gotoRow) moveTo(LEFT);
+					if (myCol-gotoCol >= myRow-gotoRow) return moveTo(LEFT);
 					else return moveTo(TOP);
 				} else { // we are moving right or up
-					if (gotoCol-myCol > myRow-gotoRow) moveTo(RIGHT);
+					if (gotoCol-myCol > myRow-gotoRow) return moveTo(RIGHT);
 					else return moveTo(TOP);
 				}
 			} else { // we are moving downwards
-				if (myCol <= gotoCol) { // we are moving left or down
-					if (myCol-gotoCol > myRow-gotoRow) moveTo(LEFT);
+				if (gotoCol <= myCol) { // we are moving left or down
+					if (myCol-gotoCol > myRow-gotoRow) return moveTo(LEFT);
 					else return moveTo(BOTTOM);
 				} else { // we are moving right or down
-					if (gotoCol-myCol > myRow-gotoRow) moveTo(RIGHT);
+					if (gotoCol-myCol > myRow-gotoRow) return moveTo(RIGHT);
 					else return moveTo(BOTTOM);
 				}
 			}
 		} catch (IllegalArgumentException exc) {
 			throw new IllegalArgumentException("Not a possible move");
 		}
-		return false; //?
 	}
 	
 	/**
 	 * Tells the Avatar to move in a certain direction if the move is allowed.
 	 * 
 	 * @param direction will be either TOP, BOTTOM, RIGHT or LEFT (constants defined in Tile class)
+	 * @return true if avatar picks up something that it may use
 	 * @throws IllegalArgumentException when an "Invalid direction" is received (such as TOP_RIGHT)
 	 * or if the "Move is not permitted" due to a Wall for example.
 	 * @throws ArrayIndexOutOfBoundsException when the move is "Not within boundaries" of the board
@@ -153,14 +156,15 @@ public abstract class Avatar extends Tile {
 	 * @throws ArrayIndexOutOfBoundsException if the position given is out of bounds for the board
 	 */
 	public boolean canMoveTo(Position position) {
-		if (!(Math.abs(position.getRow() - this.position.getRow()) == 1 ^
-				Math.abs(position.getCol() - this.position.getCol()) == 1))
-			return false;
-		else if (position.getRow() < 0 || position.getCol() < 0
+		if (position.getRow() < 0 || position.getCol() < 0
 				|| position.getRow() >= board.getHeight() || position.getCol() >= board.getWidth())
 			return false;
 		else if (!board.getTile(position).getAccessible()) return false;
-		else return true;
+		else if ((Math.abs(position.getRow() - this.position.getRow()) == 1 && Math.abs(position.getCol() - this.position.getCol()) == 0))
+			return true; // moved one space vertically
+		else if ((Math.abs(position.getRow() - this.position.getRow()) == 0 && Math.abs(position.getCol() - this.position.getCol()) == 1))
+			return true; // moved one space horizontally
+		else return false;
 	}
 	
 	/**
@@ -173,14 +177,13 @@ public abstract class Avatar extends Tile {
 	}
 	
 	/**
-	 * Subtracts current hitPoints by amount specified and decreases
-	 * the number of lives if health reaches 0;
+	 * Subtracts current hitPoints by amount specified
 	 * 
+	 * @param amount how much damage is taken
 	 * @return true if the number of HitPoints has reached 0 or less
 	 */
 	public boolean damageHitPoints(int amount) {
 		if (hitPoints-amount <= 0) {
-			removeLife();
 			return true;
 		}
 		hitPoints -= amount;
