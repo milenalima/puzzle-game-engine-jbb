@@ -16,7 +16,7 @@ public abstract class Board {
 	private int width;
 	private int height;
 	
-	protected ArrayList<Avatar> moveableTiles;
+	protected ArrayList<Avatar> movableTiles;
 	
 	/**
 	 * Constructor. Initialises instance variables 
@@ -31,32 +31,31 @@ public abstract class Board {
 		this.height = height;
 		playingField = new Tile[width][height];	
 		itemMap = new Tile[width][height];
-		moveableTiles = new ArrayList<Avatar>();
-		populatePlayingField();
+		movableTiles = new ArrayList<Avatar>();
 		populateItemMap();
 	}
 	
 	/**
-	 * Abstract method to be implemented by game-specific classes that 
-	 * extend Board. The method will populate the board with tiles.
+	 * Place items on the game board, as well as the movable tiles. The
+	 * movableTiles should contain the Hero at index 0.
 	 */
-	protected abstract void populatePlayingField();
-	
-	/**
-	 * Will copy all the content from playingField, other than the avatars (or
-	 * movable objects)
-	 */
-	protected void populateItemMap() {
-		for (int i = 0; i < width; i++) {
-			for (int j = 0; j < height; j++) {
-				if (!(playingField[i][j] instanceof Avatar)) {
-					itemMap[i][j] = playingField[i][j];
-				} else {
-					itemMap[i][j] = new Tile(new Position(i,j),this);
-				}
+	protected void populatePlayingField(ArrayList<Avatar> movableTiles)
+	{
+		// Hero is always at the beginning of the list
+		for (int i = 0; i < itemMap.length; i++) {
+			for (int j = 0; j < itemMap[i].length; j++) {
+				playingField[i][j] = itemMap[i][j];
 			}
 		}
+		for (Tile t: movableTiles) {
+			playingField[t.getPosition().getRow()][t.getPosition().getCol()] = t;
+		}
 	}
+	
+	/**
+	 * Set up tiles on the board that do not move
+	 */
+	protected abstract void populateItemMap();	
 	
 	/**
 	 * This method will handle a turn in the game.
@@ -65,19 +64,13 @@ public abstract class Board {
 	public void playTurn(Position position)
 	{
 		boolean itemPickedUp = false;
-		//Hero is always the last element of the ArrayList
-		Avatar hero = moveableTiles.get(moveableTiles.size()-1);
-		for(int i = 0; i<moveableTiles.size()-1; i++)
-		{
-			//check if an item was picked up by an NPC
-			itemPickedUp = moveableTiles.get(i).moveTo(hero.getPosition());
-			if(itemPickedUp)
-			{	
-				//remove item from itemMap
-				Position current = moveableTiles.get(i).getPosition();
-				itemMap[current.getRow()][current.getCol()] = new Tile(current,this);
-			}
-		}
+		//Hero is always the first element of the ArrayList
+		Avatar hero = movableTiles.get(0);
+		Position oldPosition = hero.getPosition();
+		/* 
+		 * move the hero first, so the move selection error will be
+		 * thrown before the npc's are moved (if the move is invalid)
+		 */
 		//check if an item was picked up by the Hero
 		itemPickedUp = hero.moveTo(position);
 		if(itemPickedUp)
@@ -85,6 +78,17 @@ public abstract class Board {
 			//remove item from itemMap
 			Position current = hero.getPosition();
 			itemMap[current.getRow()][current.getCol()] = new Tile(current,this);
+		}
+		for(int i = 1; i < movableTiles.size(); i++)
+		{
+			//check if an item was picked up by an NPC
+			itemPickedUp = movableTiles.get(i).moveTo(oldPosition);
+			if(itemPickedUp)
+			{	
+				//remove item from itemMap
+				Position current = movableTiles.get(i).getPosition();
+				itemMap[current.getRow()][current.getCol()] = new Tile(current,this);
+			}
 		}
 		syncItemMapAndField();
 	}
@@ -99,7 +103,7 @@ public abstract class Board {
 			}
 		}
 		
-		for(Avatar mT: moveableTiles)
+		for(Avatar mT: movableTiles)
 		{
 			playingField[mT.getPosition().getRow()][mT.getPosition().getCol()] = mT;
 		}
@@ -134,6 +138,10 @@ public abstract class Board {
 			throw new IndexOutOfBoundsException("Col out of bounds");
 		else
 			return playingField[position.getRow()][position.getCol()];
+	}
+	
+	public Hero getHero() {
+		return (Hero) movableTiles.get(0);
 	}
 	
 	public void placeItem(Item item) {

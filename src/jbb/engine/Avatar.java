@@ -27,6 +27,7 @@ public abstract class Avatar extends Tile {
 		setImage(image);
 		this.hitPoints = hitPoints;
 		this.lives = lives;
+		setAccessible(false);
 	}
 	
 	/**
@@ -94,10 +95,10 @@ public abstract class Avatar extends Tile {
 				}
 			} else { // we are moving downwards
 				if (gotoCol <= myCol) { // we are moving left or down
-					if (myCol-gotoCol > myRow-gotoRow) return moveTo(LEFT);
+					if (myCol-gotoCol > gotoRow-myRow) return moveTo(LEFT);
 					else return moveTo(BOTTOM);
 				} else { // we are moving right or down
-					if (gotoCol-myCol > myRow-gotoRow) return moveTo(RIGHT);
+					if (gotoCol-myCol > gotoRow-myRow) return moveTo(RIGHT);
 					else return moveTo(BOTTOM);
 				}
 			}
