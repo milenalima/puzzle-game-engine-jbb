@@ -10,7 +10,6 @@ import jbb.engine.Tile;
 public class MouseHero extends Hero{
 
 	public static final int INVULN_LEN = 10; // invulnerability timer lasts 10 turns
-	public static final int HIT_POINTS = 1;
 	public static final int LIVES = 3;
 	
 	private int timer;
@@ -28,7 +27,7 @@ public class MouseHero extends Hero{
  * @param position represents the position of the Hero on the Board
  */
 public MouseHero(Position position, Board board) {
-	super(new ImageIcon(), HIT_POINTS, LIVES, position, board);
+	super(new ImageIcon(), LIVES, position, board);
 	invulnerable = false;
 	timer = 0;
 }

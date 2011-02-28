@@ -49,18 +49,10 @@ public class MouseLand extends Board{
 		itemMap[4][3] = new Tile(new Position(4,3),this);
 		itemMap[4][4] = new Tile(new Position(4,4),this);
 	}
-	
-	public static void main(String[] args) {
-		MouseLand pw = new MouseLand();
-		System.out.println(pw.toString());
-		pw.playTurn(new Position(4,0));
-		System.out.println(pw.toString());
-		pw.playTurn(new Position(4,0));
-		System.out.println(pw.toString());
-		pw.playTurn(new Position(0,0));
-		System.out.println(pw.toString());
-		pw.playTurn(new Position(0,0));
-		System.out.println(pw.toString());
-		pw.playTurn(new Position(0,0));
+
+	@Override
+	protected void resetPlayingField() {
+		// TODO Auto-generated method stub
+		
 	}
 }

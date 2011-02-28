@@ -19,23 +19,7 @@ public class PacManTest extends TestCase {
 		assertEquals(new Position(0,0), pacman.getPosition());
 		assertEquals(0, pacman.getPoints());
 		assertFalse(pacman.getInvulnerable());
-		assertEquals(PacMan.HIT_POINTS, pacman.getHitPoints());
 		assertEquals(PacMan.LIVES, pacman.getLives());
-	}
-	
-	public void testDamageHitPoints() {
-		pacman.healHitPoints(19); // pacman has 1 hp...
-		assertFalse(pacman.damageHitPoints((PacMan.HIT_POINTS+19)/2)); // remove half the hp
-		assertEquals(PacMan.HIT_POINTS+19 - (PacMan.HIT_POINTS+19)/2, pacman.getHitPoints());
-		assertTrue(pacman.damageHitPoints(PacMan.HIT_POINTS+19)); // kill pacman
-		assertTrue(pacman.damageHitPoints(PacMan.HIT_POINTS+19)); // beat him while he's down
-	}
-	
-	public void testHealHitPoints() {
-		assertEquals(PacMan.HIT_POINTS, pacman.getHitPoints());
-		pacman.healHitPoints(20);
-		assertEquals(PacMan.HIT_POINTS + 20, pacman.getHitPoints());
-		// it is incorrect to use negative heal
 	}
 	
 	public void testAddLife() {

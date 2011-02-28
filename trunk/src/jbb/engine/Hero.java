@@ -6,8 +6,8 @@ public abstract class Hero extends Avatar {
 	
 	private int points;
 	
-	public Hero(ImageIcon image, int hitPoints, int lives, Position position, Board board) {
-		super(image, hitPoints, lives, position, board);
+	public Hero(ImageIcon image, int lives, Position position, Board board) {
+		super(image, lives, position, board);
 		points = 0;
 	}
 	
