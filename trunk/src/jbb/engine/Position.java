@@ -57,4 +57,12 @@ public class Position {
 	{
 		this.col = col;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) return false;
+		if (!(obj instanceof Position)) return false;
+		Position p = (Position) obj;
+		return p.row == this.row && p.col == this.col;
+	}
 }

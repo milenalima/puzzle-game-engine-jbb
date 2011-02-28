@@ -1,3 +1,7 @@
+/**
+ * Hero is the user controlled character in the game. It collects points.
+ */
+
 package jbb.engine;
 
 import javax.swing.ImageIcon;

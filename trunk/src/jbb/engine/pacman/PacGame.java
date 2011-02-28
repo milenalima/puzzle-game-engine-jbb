@@ -15,10 +15,12 @@ public class PacGame {
 	}
 	
 	public void play() {
+		PacMan hero = (PacMan) board.getHero();
 		Position newPos;
 		Scanner s;
 		System.out.println("You must play until the end");
 		while (true) {
+			System.out.println("Lives: " + hero.getLives());
 			System.out.println(board);
 			System.out.print("Type next position in form [row](space)[col]: ");
 			s = new Scanner(System.in);

@@ -2,6 +2,7 @@ package jbb.engine.pacman;
 
 import javax.swing.ImageIcon;
 
+import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.NPC;
 import jbb.engine.Position;
@@ -17,12 +18,19 @@ public class Ghost extends NPC{
 	}
 	
 	@Override
-	protected boolean hasGoodie(Position position) {
+	public boolean hasGoodie(Position position) {
 		return false; // ghost cannot pick up goodies
 	}
 	
 	public String toString() {
 		return "G";
+	}
+
+	@Override
+	public void collidesWith(Avatar avatar) {
+		if (avatar instanceof PacMan) {
+			avatar.removeLife();
+		}
 	}
 
 }

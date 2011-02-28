@@ -50,13 +50,13 @@ public class PacWorld extends Board{
 	}
 
 	@Override
-	protected void resetPlayingField() {
-		movableTiles.add(new PacMan(new Position(4,2), this));
+	public void resetPlayingField() {
+		movableTiles.get(0).setPosition(new Position(4,2));
 		// check to see if ghosts are still alive, if so, refresh their position
-		if(movableTiles.get(1).getLives() == 1);
-			movableTiles.add(new Ghost(new Position(0,4), this));
-		if(movableTiles.get(2).getLives() == 1);
-			movableTiles.add(new Ghost(new Position(4,0), this));
+		if(movableTiles.get(1).getLives() == 1)
+			movableTiles.get(1).setPosition(new Position(0,4));
+		if(movableTiles.get(2).getLives() == 1)
+			movableTiles.get(2).setPosition(new Position(4,0));
 		populatePlayingField(movableTiles);
 	}
 }

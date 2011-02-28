@@ -53,7 +53,7 @@ public abstract class Board {
 	}
 	
 	/**
-	 * Set up tiles on the board that do not move
+	 * Set up tiles on the board that do not move (walls, tiles and items)
 	 */
 	protected abstract void populateItemMap();	
 	
@@ -64,7 +64,7 @@ public abstract class Board {
 	 */
 	public void playTurn(Position position) throws GameOver
 	{
-		boolean itemPickedUp = false;
+		Position nextPos;
 		//Hero is always the first element of the ArrayList
 		Avatar hero = movableTiles.get(0);
 		NPC npc;
@@ -73,32 +73,62 @@ public abstract class Board {
 		 * move the hero first, so the move selection error will be
 		 * thrown before the npc's are moved (if the move is invalid)
 		 */
-		//check if an item was picked up by the Hero
-		itemPickedUp = hero.moveTo(position);
+		nextPos = hero.getNextPosition(position);
+		// check to see if an item is picked up
+		boolean itemPickedUp = hero.hasGoodie(nextPos); 
 		if(itemPickedUp)
 		{
 			//remove item from itemMap
-			Position current = hero.getPosition();
-			itemMap[current.getRow()][current.getCol()] = new Tile(current,this);
+			itemMap[nextPos.getRow()][nextPos.getCol()] = new Tile(nextPos,this);
 		}
+		hero.setPosition(nextPos);
 		// move all other movable tiles
 		for(int i = 1; i < movableTiles.size(); i++)
 		{
 			npc = (NPC) movableTiles.get(i);
+			if (npc.getPosition().equals(hero.getPosition())) {
+				hero.collidesWith(npc);
+				if (hero.getLives() <= 0) {
+					throw new GameOver("No more lives!");
+				}
+				this.resetPlayingField();
+				return; // don't do anything after reset
+			}
+			// check to see if hero landed on npc
+			// check to see if npc will land on hero
+			nextPos = npc.getNextPosition(oldPosition);
+			if (nextPos.equals(hero.getPosition())) {
+				npc.collidesWith(hero);
+				if (hero.getLives() <= 0) {
+					throw new GameOver("No more lives!");
+				}
+				this.resetPlayingField();
+				return; // don't do anything after reset
+			}
 			//check if an item was picked up by an NPC
-			itemPickedUp = npc.moveTo(oldPosition);
-			Position current = npc.getPosition();
 			if(itemPickedUp)
 			{	
 				//replace item with blank tile from itemMap
-				itemMap[current.getRow()][current.getCol()] = new Tile(current,this);
+				itemMap[nextPos.getRow()][nextPos.getCol()] = new Tile(nextPos,this);
 			}
+			npc.setPosition(nextPos);
 		}
 		syncItemMapAndField();
 	}
+	
+	/**
+	 * This is called when the collidesWith method declares a reset is required.
+	 * For example: when a Ghost collides with PacMan or vice versa, all characters
+	 * are reset to there original positions.
+	 * This method simply modifies the moveableTiles list, giving the Avatars their
+	 * original positions.
+	 */
+	public abstract void resetPlayingField();
 
-	protected abstract void resetPlayingField();
-
+	/**
+	 * The items from itemMap are placed on playingField, then the movableTiles are
+	 * placed.
+	 */
 	public void syncItemMapAndField()
 	{
 		for(int i = 0; i < width; i++)
@@ -146,14 +176,25 @@ public abstract class Board {
 			return playingField[position.getRow()][position.getCol()];
 	}
 	
+	/**
+	 * returns the Hero of the current game
+	 * @return Hero
+	 */
 	public Hero getHero() {
 		return (Hero) movableTiles.get(0);
 	}
 	
+	/**
+	 * places an item on the map (used for mousetraps, etc).
+	 * @param item
+	 */
 	public void placeItem(Item item) {
 		itemMap[item.getPosition().getRow()][item.getPosition().getCol()] = item;
 	}
 	
+	/**
+	 * text representation of a board: playingField
+	 */
 	public String toString()
 	{
 		String s = "";

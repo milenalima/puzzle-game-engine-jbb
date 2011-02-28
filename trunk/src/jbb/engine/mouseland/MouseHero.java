@@ -2,6 +2,7 @@ package jbb.engine.mouseland;
 
 import javax.swing.ImageIcon;
 
+import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.Hero;
 import jbb.engine.Position;
@@ -54,15 +55,15 @@ public MouseHero(Position position, Board board) {
 		timer = INVULN_LEN;
 	}
 	
-	public boolean moveTo(Position position) {
-		boolean returnVal = super.moveTo(position);
+	public Position getNextPosition(Position position) {
+		Position returnVal = super.getNextPosition(position);
 		if (--timer == 0) {
 			setInvulnerable(false);
 		}
 		return returnVal;
 	}
 
-	protected boolean hasGoodie(Position position) {
+	public boolean hasGoodie(Position position) {
 		Tile tile = board.getTile(position);
 		if (tile instanceof Mouse) {
 			return true;
@@ -75,6 +76,13 @@ public MouseHero(Position position, Board board) {
 			return "M";
 		}
 		return "m";
+	}
+	
+	@Override
+	public void collidesWith(Avatar avatar) {
+		if (avatar instanceof Mouse) {
+			this.removeLife();
+		}
 	}
 
 }

@@ -29,9 +29,9 @@ public abstract class NPC extends Avatar{
 	 * The current method defines stupid AI that may move repeatedly to the same position.
 	 * This will be redefined later.
 	 */
-	public boolean moveTo(Position position) throws IllegalArgumentException {
+	public Position getNextPosition(Position position) throws IllegalArgumentException {
 		try {
-			return super.moveTo(position);
+			return super.getNextPosition(position);
 		} catch (IllegalArgumentException ex1) {
 			int gotoRow = position.getRow();
 			int gotoCol = position.getCol();
@@ -40,34 +40,34 @@ public abstract class NPC extends Avatar{
 			// see where the NPC can move
 			if (gotoRow >= myRow) {// try to move down
 				try {
-					return moveTo(BOTTOM);
+					return getNextPosition(BOTTOM);
 				} catch (IllegalArgumentException ex2) {
 					if (gotoCol >= myCol) { // try to move right
 						try {
-							return moveTo(RIGHT);
+							return getNextPosition(RIGHT);
 						} catch (IllegalArgumentException ex3) {
 							try {
-								return moveTo(TOP);
+								return getNextPosition(TOP);
 							} catch (IllegalArgumentException ex4) {
 								// do nothing
 							}
 							try {
-								return moveTo(LEFT);
+								return getNextPosition(LEFT);
 							} catch (IllegalArgumentException ex4) {
 								// do nothing
 							}
 						}
 					} else { // try to move left
 						try {
-							return moveTo(LEFT);
+							return getNextPosition(LEFT);
 						} catch (IllegalArgumentException ex3) {
 							try {
-								return moveTo(TOP);
+								return getNextPosition(TOP);
 							} catch (IllegalArgumentException ex4) {
 								// do nothing
 							}
 							try {
-								return moveTo(RIGHT);
+								return getNextPosition(RIGHT);
 							} catch (IllegalArgumentException ex4) {
 								// do nothing
 							}
@@ -76,34 +76,34 @@ public abstract class NPC extends Avatar{
 				}
 			} else { // try to move up
 				try {
-					return moveTo(TOP);
+					return getNextPosition(TOP);
 				} catch (IllegalArgumentException ex2) {
 					if (gotoCol > myCol) { // try to move right
 						try {
-							return moveTo(RIGHT);
+							return getNextPosition(RIGHT);
 						} catch (IllegalArgumentException ex3) {
 							try {
-								return moveTo(BOTTOM);
+								return getNextPosition(BOTTOM);
 							} catch (IllegalArgumentException ex4) {
 								// do nothing
 							}
 							try {
-								return moveTo(LEFT);
+								return getNextPosition(LEFT);
 							} catch (IllegalArgumentException ex4) {
 								// do nothing
 							}
 						}
 					} else { // try to move left
 						try {
-							return moveTo(LEFT);
+							return getNextPosition(LEFT);
 						} catch (IllegalArgumentException ex3) {
 							try {
-								return moveTo(BOTTOM);
+								return getNextPosition(BOTTOM);
 							} catch (IllegalArgumentException ex4) {
 								// do nothing
 							}
 							try {
-								return moveTo(RIGHT);
+								return getNextPosition(RIGHT);
 							} catch (IllegalArgumentException ex4) {
 								// do nothing
 							}
@@ -111,6 +111,6 @@ public abstract class NPC extends Avatar{
 					}
 				}
 			}
-		} return false; // dont move at all
+		} return this.position; // Don't move at all
 	}
 }
