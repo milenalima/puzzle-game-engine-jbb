@@ -3,6 +3,7 @@ package jbb.engine.pacman;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import jbb.engine.GameOver;
 import jbb.engine.Position;
 
 public class PacGame {
@@ -30,6 +31,10 @@ public class PacGame {
 				System.out.println(ioobe.getMessage());
 			} catch (InputMismatchException ime) {
 				System.out.println("Invalid Input)");
+			} catch (GameOver e) {
+				System.out.println(e.getMessage());
+				// quit
+				break;
 			}
 		}
 	}

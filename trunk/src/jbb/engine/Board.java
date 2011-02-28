@@ -60,12 +60,14 @@ public abstract class Board {
 	/**
 	 * This method will handle a turn in the game.
 	 * @param The argument position is the Position of the Tile the player selected.
+	 * @throws GameOver if the Hero loses all his lives
 	 */
-	public void playTurn(Position position)
+	public void playTurn(Position position) throws GameOver
 	{
 		boolean itemPickedUp = false;
 		//Hero is always the first element of the ArrayList
 		Avatar hero = movableTiles.get(0);
+		NPC npc;
 		Position oldPosition = hero.getPosition();
 		/* 
 		 * move the hero first, so the move selection error will be
@@ -79,20 +81,35 @@ public abstract class Board {
 			Position current = hero.getPosition();
 			itemMap[current.getRow()][current.getCol()] = new Tile(current,this);
 		}
+		// move all other movable tiles
 		for(int i = 1; i < movableTiles.size(); i++)
 		{
+			npc = (NPC) movableTiles.get(i);
 			//check if an item was picked up by an NPC
-			itemPickedUp = movableTiles.get(i).moveTo(oldPosition);
+			itemPickedUp = npc.moveTo(oldPosition);
+			Position current = npc.getPosition();
 			if(itemPickedUp)
 			{	
-				//remove item from itemMap
-				Position current = movableTiles.get(i).getPosition();
+				//replace item with blank tile from itemMap
 				itemMap[current.getRow()][current.getCol()] = new Tile(current,this);
+			}
+			if (playingField[current.getRow()][current.getCol()] instanceof Hero){
+				// check to see if hero died
+				boolean heroDied = hero.damageHitPoints(npc.getDamage());
+				if (heroDied) {
+					// check to see if Game Over reached
+					boolean heroOutOfLives = hero.removeLife();
+					if (heroOutOfLives) {
+						throw new GameOver("You have no more lives");
+					} else resetPlayableField();
+				}
 			}
 		}
 		syncItemMapAndField();
 	}
-	
+
+	protected abstract void resetPlayableField();
+
 	public void syncItemMapAndField()
 	{
 		for(int i = 0; i < width; i++)
