@@ -11,6 +11,8 @@ import javax.swing.ImageIcon;
 
 public abstract class NPC extends Avatar{
 
+	private int damage;
+
 	/**
 	 * Constructor for NPC using specified Position.
 	 * 
@@ -20,8 +22,9 @@ public abstract class NPC extends Avatar{
 	 * @param board represents the board that is associated to this NPC
 	 * @param position represents the position of the NPC on the Board
 	 */
-	public NPC(ImageIcon image, int hitPoints, int lives, Position position, Board board) {
+	public NPC(ImageIcon image, int hitPoints, int lives, int damage, Position position, Board board) {
 		super(image, hitPoints, lives, position, board);
+		this.damage = damage;
 	}
 	
 	/**
@@ -112,5 +115,9 @@ public abstract class NPC extends Avatar{
 				}
 			}
 		} return false; // dont move at all
+	}
+
+	public int getDamage() {
+		return damage;
 	}
 }

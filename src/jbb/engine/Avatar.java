@@ -27,7 +27,6 @@ public abstract class Avatar extends Tile {
 		setImage(image);
 		this.hitPoints = hitPoints;
 		this.lives = lives;
-		setAccessible(false);
 	}
 	
 	/**

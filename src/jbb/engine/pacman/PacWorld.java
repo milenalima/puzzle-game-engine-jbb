@@ -48,4 +48,15 @@ public class PacWorld extends Board{
 		itemMap[4][3] = new PacDot(new Position(4,3),this, false);
 		itemMap[4][4] = new PacDot(new Position(4,4),this, false);
 	}
+
+	@Override
+	protected void resetPlayableField() {
+		movableTiles.add(new PacMan(new Position(4,2), this));
+		// check to see if ghosts are still alive, if so, refresh their position
+		if(movableTiles.get(1).getLives() == 1);
+			movableTiles.add(new Ghost(new Position(0,4), this));
+		if(movableTiles.get(2).getLives() == 1);
+			movableTiles.add(new Ghost(new Position(4,0), this));
+		populatePlayingField(movableTiles);
+	}
 }
