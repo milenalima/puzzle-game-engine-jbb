@@ -1,6 +1,7 @@
 /**
  * The Abstract Avatar class defines the controllable tile on the board: it is the only one that will be moved.
  * Avatar may pick up items, but not go through walls (generally). The behaviour is further developed in the subclasses Hero and NPC.
+ * If an avatar is to die, it is to die upon collision, thus there is no need for hitPoints
  */
 
 package jbb.engine;
@@ -10,22 +11,19 @@ import javax.swing.ImageIcon;
 
 public abstract class Avatar extends Tile {
 	
-	private int hitPoints;
 	private int lives;
 	
 	/**
 	 * Constructor for Avatar using specified Position.
 	 * 
 	 * @param image pictorial representation of the Avatar to be used on a Tile
-	 * @param hitPoints represents the starting health of the Avatar
 	 * @param lives represents the starting number of lives of the Avatar
 	 * @param board represents the board that is associated to this Avatar
 	 * @param position represents the position of the Avatar on the Board
 	 */
-	public Avatar(ImageIcon image, int hitPoints, int lives, Position position, Board board) {
+	public Avatar(ImageIcon image, int lives, Position position, Board board) {
 		super(position, board);
 		setImage(image);
-		this.hitPoints = hitPoints;
 		this.lives = lives;
 	}
 	
@@ -163,36 +161,6 @@ public abstract class Avatar extends Tile {
 		else if ((Math.abs(position.getRow() - this.position.getRow()) == 0 && Math.abs(position.getCol() - this.position.getCol()) == 1))
 			return true; // moved one space horizontally
 		else return false;
-	}
-	
-	/**
-	 * Get number of hitPoints remaining
-	 * 
-	 * @return hitPoints value
-	 */
-	public int getHitPoints() {
-		return hitPoints;
-	}
-	
-	/**
-	 * Subtracts current hitPoints by amount specified
-	 * 
-	 * @param amount how much damage is taken
-	 * @return true if the number of HitPoints has reached 0 or less
-	 */
-	public boolean damageHitPoints(int amount) {
-		if (hitPoints-amount <= 0) {
-			return true;
-		}
-		hitPoints -= amount;
-		return false;
-	}
-	
-	/**
-	 * Increase current hitPoints by amount specified
-	 */
-	public void healHitPoints(int amount) {
-		hitPoints += amount;
 	}
 	
 	/**

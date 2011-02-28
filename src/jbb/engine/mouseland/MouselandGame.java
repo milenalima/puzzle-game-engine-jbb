@@ -1,10 +1,8 @@
 package jbb.engine.mouseland;
-import java.util.Random;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import jbb.engine.Hero;
+import jbb.engine.GameOver;
 import jbb.engine.Position;
 
 public class MouselandGame{
@@ -41,7 +39,13 @@ public class MouselandGame{
 			try {
 				
 				newPos = new Position(s2.nextInt(),s2.nextInt());
-				board.playTurn(newPos);
+				try {
+					board.playTurn(newPos);
+				} catch (GameOver go) {
+					System.out.println(go.getMessage());
+					// quit
+					break;
+				}
 			} catch (IllegalArgumentException iae) {
 				System.out.println(iae.getMessage());
 			} catch (IndexOutOfBoundsException ioobe) {
@@ -53,12 +57,7 @@ public class MouselandGame{
 	
 	}
 	  
-	  private static void log(String aMessage){
-	    System.out.println(aMessage);
-	  }
-	
-	
-	public static void main(String[] args) {
+	  public static void main(String[] args) {
 		MouselandGame game = new MouselandGame();
 	
 		game.play();

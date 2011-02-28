@@ -93,22 +93,11 @@ public abstract class Board {
 				//replace item with blank tile from itemMap
 				itemMap[current.getRow()][current.getCol()] = new Tile(current,this);
 			}
-			if (playingField[current.getRow()][current.getCol()] instanceof Hero){
-				// check to see if hero died
-				boolean heroDied = hero.damageHitPoints(npc.getDamage());
-				if (heroDied) {
-					// check to see if Game Over reached
-					boolean heroOutOfLives = hero.removeLife();
-					if (heroOutOfLives) {
-						throw new GameOver("You have no more lives");
-					} else resetPlayableField();
-				}
-			}
 		}
 		syncItemMapAndField();
 	}
 
-	protected abstract void resetPlayableField();
+	protected abstract void resetPlayingField();
 
 	public void syncItemMapAndField()
 	{
