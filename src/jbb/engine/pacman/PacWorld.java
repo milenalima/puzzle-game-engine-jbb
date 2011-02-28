@@ -12,7 +12,7 @@ public class PacWorld extends Board{
 		movableTiles.add(new PacMan(new Position(4,2), this));
 		movableTiles.add(new Ghost(new Position(0,4), this));
 		movableTiles.add(new Ghost(new Position(4,0), this));
-		populatePlayingField(movableTiles);
+		syncItemMapAndField(movableTiles);
 	}
 	
 	@Override
@@ -57,6 +57,6 @@ public class PacWorld extends Board{
 			movableTiles.get(1).setPosition(new Position(0,4));
 		if(movableTiles.get(2).getLives() == 1)
 			movableTiles.get(2).setPosition(new Position(4,0));
-		populatePlayingField(movableTiles);
+		syncItemMapAndField(movableTiles);
 	}
 }

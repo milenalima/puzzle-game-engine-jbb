@@ -36,23 +36,6 @@ public abstract class Board {
 	}
 	
 	/**
-	 * Place items on the game board, as well as the movable tiles. The
-	 * movableTiles should contain the Hero at index 0.
-	 */
-	protected void populatePlayingField(ArrayList<Avatar> movableTiles)
-	{
-		// Hero is always at the beginning of the list
-		for (int i = 0; i < itemMap.length; i++) {
-			for (int j = 0; j < itemMap[i].length; j++) {
-				playingField[i][j] = itemMap[i][j];
-			}
-		}
-		for (Tile t: movableTiles) {
-			playingField[t.getPosition().getRow()][t.getPosition().getCol()] = t;
-		}
-	}
-	
-	/**
 	 * Set up tiles on the board that do not move (walls, tiles and items)
 	 */
 	protected abstract void populateItemMap();	
@@ -86,6 +69,7 @@ public abstract class Board {
 		for(int i = 1; i < movableTiles.size(); i++)
 		{
 			npc = (NPC) movableTiles.get(i);
+			if (npc.getLives() == 0) continue; // don't move dead avatar
 			if (npc.getPosition().equals(hero.getPosition())) {
 				hero.collidesWith(npc);
 				if (hero.getLives() <= 0) {
@@ -113,7 +97,7 @@ public abstract class Board {
 			}
 			npc.setPosition(nextPos);
 		}
-		syncItemMapAndField();
+		syncItemMapAndField(movableTiles);
 	}
 	
 	/**
@@ -129,7 +113,7 @@ public abstract class Board {
 	 * The items from itemMap are placed on playingField, then the movableTiles are
 	 * placed.
 	 */
-	public void syncItemMapAndField()
+	public void syncItemMapAndField(ArrayList<Avatar> movableTiles)
 	{
 		for(int i = 0; i < width; i++)
 		{
@@ -141,7 +125,10 @@ public abstract class Board {
 		
 		for(Avatar mT: movableTiles)
 		{
-			playingField[mT.getPosition().getRow()][mT.getPosition().getCol()] = mT;
+			// only place if alive
+			if (mT.getLives() != 0) {
+				playingField[mT.getPosition().getRow()][mT.getPosition().getCol()] = mT;
+			}
 		}
 	}
 	/**

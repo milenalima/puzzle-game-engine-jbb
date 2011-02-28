@@ -14,7 +14,7 @@ public class MouseLand extends Board{
 		super(WIDTH, HEIGHT);
 		movableTiles.add(new MouseHero(new Position(4,2), this));
 		movableTiles.add(new Mouse(new Position(2,2), this));
-		populatePlayingField(movableTiles);
+		syncItemMapAndField(movableTiles);
 	}
 	
 	@Override
