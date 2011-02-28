@@ -28,31 +28,27 @@ public abstract class Avatar extends Tile {
 	}
 	
 	/**
-	 * this function checks to see if the tile has an item that can be picked up by
-	 * the Avatar. If so, the item will do what it is supposed to.
+	 * This function checks to see if there is an item that can be picked up by
+	 * the Avatar at the position. If so, the item will do what it is supposed to.
 	 * 
-	 * @param position of tile
+	 * @param position
 	 * @return true if the object can be picked up by Avatar
 	 */
-	protected abstract boolean hasGoodie(Position position);
+	public abstract boolean hasGoodie(Position position);
 	
 	/**
-	 * Determines if the position given is possible (accessible, within the 
-	 * boundaries, within one tile of movement), if so, move to this position,
-	 * otherwise, calculate what is assumed to be the desired direction
+	 * Gets the next position to move to given a position. The position returned
+	 * will be either up, down, left or right of the avatar.
 	 * 
 	 * @param position position to move to or towards
 	 * @throws IllegalArgumentException if move is out of bounds, or if the Avatar
 	 * will move into a wall.
-	 * @return true if the Avatar picks up an object where it moved.
+	 * @return Position calculated
 	 */
-	public boolean moveTo(Position position) throws IllegalArgumentException{
+	public Position getNextPosition(Position position) throws IllegalArgumentException{
 		try {
 			if (canMoveTo(position)) {
-				boolean pickup = hasGoodie(position);
-				
-				this.setPosition(position);
-				return pickup;
+				return position;
 			}
 		} catch (ArrayIndexOutOfBoundsException exc) {
 			throw new IllegalArgumentException("Not a possible move");
@@ -84,19 +80,19 @@ public abstract class Avatar extends Tile {
 		try {
 			if (gotoRow <= myRow) { // we are moving upwards
 				if (gotoCol <= myCol) { // we are moving left or up
-					if (myCol-gotoCol >= myRow-gotoRow) return moveTo(LEFT);
-					else return moveTo(TOP);
+					if (myCol-gotoCol >= myRow-gotoRow) return getNextPosition(LEFT);
+					else return getNextPosition(TOP);
 				} else { // we are moving right or up
-					if (gotoCol-myCol > myRow-gotoRow) return moveTo(RIGHT);
-					else return moveTo(TOP);
+					if (gotoCol-myCol > myRow-gotoRow) return getNextPosition(RIGHT);
+					else return getNextPosition(TOP);
 				}
 			} else { // we are moving downwards
 				if (gotoCol <= myCol) { // we are moving left or down
-					if (myCol-gotoCol > gotoRow-myRow) return moveTo(LEFT);
-					else return moveTo(BOTTOM);
+					if (myCol-gotoCol > gotoRow-myRow) return getNextPosition(LEFT);
+					else return getNextPosition(BOTTOM);
 				} else { // we are moving right or down
-					if (gotoCol-myCol > gotoRow-myRow) return moveTo(RIGHT);
-					else return moveTo(BOTTOM);
+					if (gotoCol-myCol > gotoRow-myRow) return getNextPosition(RIGHT);
+					else return getNextPosition(BOTTOM);
 				}
 			}
 		} catch (IllegalArgumentException exc) {
@@ -105,41 +101,33 @@ public abstract class Avatar extends Tile {
 	}
 	
 	/**
-	 * Tells the Avatar to move in a certain direction if the move is allowed.
+	 * Gets the next position to move to given a direction. The position returned
+	 * will be either up, down, left or right of the avatar.
 	 * 
-	 * @param direction will be either TOP, BOTTOM, RIGHT or LEFT (constants defined in Tile class)
-	 * @return true if avatar picks up something that it may use
-	 * @throws IllegalArgumentException when an "Invalid direction" is received (such as TOP_RIGHT)
-	 * or if the "Move is not permitted" due to a Wall for example.
+	 * @param position position to move to or towards
+	 * @throws IllegalArgumentException if move is out of bounds, or if the Avatar
+	 * will move into a wall.
+	 * @return Position calculated
 	 */
-	protected boolean moveTo(int direction) throws IllegalArgumentException {
-		boolean pickup;
+	protected Position getNextPosition(int direction) throws IllegalArgumentException {
 		Position newPos;
 		switch (direction) {
 			case TOP:
 				newPos = new Position(position.getRow()-1, position.getCol());
-				pickup = hasGoodie(newPos);
 				if (!this.canMoveTo(newPos)) throw(new IllegalArgumentException("Move is not permitted"));
-				setPosition(newPos);
-				return pickup;
+				return newPos;
 			case BOTTOM:
 				newPos = new Position(position.getRow()+1, position.getCol());
-				pickup = hasGoodie(newPos);
 				if (!this.canMoveTo(newPos)) throw(new IllegalArgumentException("Move is not permitted"));
-				setPosition(newPos);
-				return pickup;
+				return newPos;
 			case LEFT:
 				newPos = new Position(position.getRow(), position.getCol()-1);
-				pickup = hasGoodie(newPos);
 				if (!this.canMoveTo(newPos)) throw(new IllegalArgumentException("Move is not permitted"));
-				setPosition(newPos);
-				return pickup;
+				return newPos;
 			case RIGHT:
 				newPos = new Position(position.getRow(), position.getCol()+1);
-				pickup = hasGoodie(newPos);
 				if (!this.canMoveTo(newPos)) throw(new IllegalArgumentException("Move is not permitted"));
-				setPosition(newPos);
-				return pickup;
+				return newPos;
 			default:
 				throw(new IllegalArgumentException("Invalid direction"));
 		}
@@ -191,4 +179,11 @@ public abstract class Avatar extends Tile {
 		}
 		return false;
 	}
+
+	/**
+	 * determine what happens when the avatar collides with another
+	 * 
+	 * @param avatar
+	 */
+	public abstract void collidesWith(Avatar avatar);
 }

@@ -2,6 +2,7 @@ package jbb.engine.pacman;
 
 import javax.swing.ImageIcon;
 
+import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.Hero;
 import jbb.engine.Position;
@@ -39,15 +40,15 @@ public class PacMan extends Hero {
 		timer = INVULN_LEN;
 	}
 	
-	public boolean moveTo(Position position) {
-		boolean returnVal = super.moveTo(position);
+	public Position moveTo(Position position) {
+		Position returnVal = super.getNextPosition(position);
 		if (timer > 0 && --timer == 0) {
 			setInvulnerable(false);
 		}
 		return returnVal;
 	}
 
-	protected boolean hasGoodie(Position position) {
+	public boolean hasGoodie(Position position) {
 		Tile tile = board.getTile(position);
 		if (tile instanceof PacDot) {
 			PacDot pd = (PacDot) tile;
@@ -62,6 +63,13 @@ public class PacMan extends Hero {
 			return "C";
 		}
 		return "c";
+	}
+
+	@Override
+	public void collidesWith(Avatar avatar) {
+		if (avatar instanceof Ghost) {
+			this.removeLife();
+		}
 	}
 
 }

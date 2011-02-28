@@ -1,3 +1,7 @@
+/**
+ * Game over is thrown whenever the Game is required to end
+ */
+
 package jbb.engine;
 
 @SuppressWarnings("serial")

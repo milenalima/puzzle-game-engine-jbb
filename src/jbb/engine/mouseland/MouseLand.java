@@ -51,8 +51,7 @@ public class MouseLand extends Board{
 	}
 
 	@Override
-	protected void resetPlayingField() {
+	public void resetPlayingField() {
 		// TODO Auto-generated method stub
-		
 	}
 }

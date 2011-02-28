@@ -5,11 +5,11 @@ import java.util.Scanner;
 import jbb.engine.GameOver;
 import jbb.engine.Position;
 
-public class MouselandGame{
+public class MouseGame{
 	
 	private MouseLand board;
 	
-	public MouselandGame() {
+	public MouseGame() {
 		board = new MouseLand();
 	}
 	
@@ -58,7 +58,7 @@ public class MouselandGame{
 	}
 	  
 	  public static void main(String[] args) {
-		MouselandGame game = new MouselandGame();
+		MouseGame game = new MouseGame();
 	
 		game.play();
 	}
