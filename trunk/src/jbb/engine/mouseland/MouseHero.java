@@ -10,14 +10,12 @@ import jbb.engine.Tile;
 
 public class MouseHero extends Hero{
 
-	public static final int INVULN_LEN = 10; // invulnerability timer lasts 10 turns
 	public static final int LIVES = 3;
 	
-	private int timer;
-	private boolean invulnerable;
 	private int numMouseTraps = 1;
-	
-
+	private MouseTrap mouseTrap = null;
+		
+		
 /**
  * Constructor for Hero using specified Position.
  * 
@@ -29,13 +27,12 @@ public class MouseHero extends Hero{
  */
 public MouseHero(Position position, Board board) {
 	super(new ImageIcon(), LIVES, position, board);
-	invulnerable = false;
-	timer = 0;
 }
 	
 	public int getNumMouseTraps(){
 		return numMouseTraps;
 	}
+
 	
 	public void setTrap(){
 		numMouseTraps-=1;
@@ -43,46 +40,41 @@ public MouseHero(Position position, Board board) {
 			System.out.print("you do not have any mouse traps left \n");
 		}
 		else 
-			this.board.placeItem(new MouseTrap(this.position,this.board));
-	}
-
-	public boolean getInvulnerable() {
-		return invulnerable;
-	}
-	
-	public void setInvulnerable(boolean invulnerable) {
-		this.invulnerable = invulnerable;
-		timer = INVULN_LEN;
+			mouseTrap = new MouseTrap(this.position,this.board);
+			this.board.placeItem(mouseTrap);
 	}
 	
 	public Position getNextPosition(Position position) {
 		Position returnVal = super.getNextPosition(position);
-		if (--timer == 0) {
-			setInvulnerable(false);
-		}
 		return returnVal;
 	}
 
 	public boolean hasGoodie(Position position) {
 		Tile tile = board.getTile(position);
 		if (tile instanceof Mouse) {
+			Mouse m = new Mouse(position, board);
+			m.collidesWith(this);
 			return true;
 		}
 		return false;
 	}
 	
 	public String toString() {
-		if (invulnerable) {
-			return "M";
+		if(numMouseTraps==0){
+			if((this.position.getCol() == mouseTrap.getPosition().getCol()) && (this.position.getRow() == mouseTrap.getPosition().getRow())){
+				return "M";
+			}
 		}
 		return "m";
 	}
 	
 	@Override
-	public void collidesWith(Avatar avatar) {
+	public boolean collidesWith(Avatar avatar) {
 		if (avatar instanceof Mouse) {
 			this.removeLife();
+			return true;
 		}
+		return false;
 	}
 
 }
