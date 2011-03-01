@@ -27,10 +27,11 @@ public class Ghost extends NPC{
 	}
 
 	@Override
-	public void collidesWith(Avatar avatar) {
+	public boolean collidesWith(Avatar avatar) {
 		if (avatar instanceof PacMan) {
-			avatar.removeLife();
+			return avatar.collidesWith(this);
 		}
+		return false;
 	}
 
 }

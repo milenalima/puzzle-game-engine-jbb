@@ -34,6 +34,8 @@ public class PacGame {
 			} catch (InputMismatchException ime) {
 				System.out.println("Invalid Input)");
 			} catch (GameOver e) {
+				System.out.println("Lives: " + hero.getLives());
+				System.out.println(board);
 				System.out.println(e.getMessage());
 				// quit
 				break;

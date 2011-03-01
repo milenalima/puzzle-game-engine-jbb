@@ -102,10 +102,10 @@ public abstract class Board {
 			}
 			npc.setPosition(nextPos);
 		}
+		syncItemMapAndField(movableTiles);
 		if (checkWin()) {
 			throw new GameOver("YOU WIN!");
 		}
-		syncItemMapAndField(movableTiles);
 	}
 	
 	/**
