@@ -1,3 +1,7 @@
+/**
+ * I'm a Mouse. MouseTraps kill me. I kill MouseHero
+ */
+
 package jbb.engine.mouseland;
 
 import javax.swing.ImageIcon;
