@@ -32,6 +32,20 @@ public class MouseLand extends Board{
  * the populateItemMap method fills all the times with a blank tile or a wall,
  * if the tile is blank then a Mouse or MouseHero can be made and if able to move 
  * on those tiles.	
+ * 
+ * Initial Playing Field
+ * 
+ * X X X X X X X X X X
+ * X e			   e	
+ * X   X X	   X X   X	
+ * X   X X     X X   X
+ * X                 X  
+ * X   X X     X X   X
+ * X   X X     X X   X 
+ * X   X       X X   X
+ * X			   e X 
+ * X m X X X X X X X X
+ * 
  */
 	@Override
 	protected void populateItemMap() {
