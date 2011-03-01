@@ -38,7 +38,6 @@ public Mouse(Position position, Board board) {
 	public boolean hasGoodie(Position position) {
 		Tile tile = board.getItem(position);
 		if (tile instanceof MouseTrap) {
-			System.out.print("\n\n\n WOOOOO!!\n\n\n\n");
 			return true;
 		}
 		return false;

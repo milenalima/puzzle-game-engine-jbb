@@ -12,7 +12,7 @@ public class MouseLand extends Board{
 	
 	public MouseLand() {
 		super(WIDTH, HEIGHT);
-		movableTiles.add(new MouseHero(new Position(8,1), this));
+		movableTiles.add(new MouseHero(new Position(9,1), this));
 		movableTiles.add(new Mouse(new Position(1,1), this));
 		movableTiles.add(new Mouse(new Position(8,8), this));
 		movableTiles.add(new Mouse(new Position(1,8), this));
@@ -101,7 +101,7 @@ public class MouseLand extends Board{
 		itemMap[7][0] = new Wall(new Position(7,0),this);
 		itemMap[7][1] = new Tile(new Position(7,1),this);
 		itemMap[7][2] = new Wall(new Position(7,2),this);
-		itemMap[7][3] = new Wall(new Position(7,3),this);
+		itemMap[7][3] = new Tile(new Position(7,3),this);
 		itemMap[7][4] = new Tile(new Position(7,4),this);
 		itemMap[7][5] = new Tile(new Position(7,5),this);
 		itemMap[7][6] = new Wall(new Position(7,6),this);
@@ -121,7 +121,7 @@ public class MouseLand extends Board{
 		itemMap[8][9] = new Wall(new Position(8,9),this);
 	
 		itemMap[9][0] = new Wall(new Position(9,0),this);
-		itemMap[9][1] = new Wall(new Position(9,1),this);
+		itemMap[9][1] = new Tile(new Position(9,1),this);
 		itemMap[9][2] = new Wall(new Position(9,2),this);
 		itemMap[9][3] = new Wall(new Position(9,3),this);
 		itemMap[9][4] = new Wall(new Position(9,4),this);
@@ -135,7 +135,7 @@ public class MouseLand extends Board{
 
 	@Override
 	public void resetPlayingField() {
-		movableTiles.get(0).setPosition(new Position(8,1));
+		movableTiles.get(0).setPosition(new Position(9,1));
 		// check to see if ghosts are still alive, if so, refresh their position
 		if(movableTiles.get(1).getLives() == 1)
 			movableTiles.get(1).setPosition(new Position(1,1));
