@@ -75,7 +75,7 @@ public abstract class Board {
 			if (npc.getPosition().equals(hero.getPosition())) {
 				if(hero.collidesWith(npc)){ // if hero dies
 					if (hero.getLives() <= 0) {
-						throw new GameOver("No more lives!");
+						throw new GameOver("\n\nNo more lives! YOU LOSE!");
 					}
 					this.resetPlayingField();
 					break; // don't do anything after reset
@@ -86,7 +86,7 @@ public abstract class Board {
 			if (nextPos.equals(hero.getPosition())) {
 				if (hero.collidesWith(npc)){ // if hero dies
 					if (hero.getLives() <= 0) {
-						throw new GameOver("No more lives!");
+						throw new GameOver("\n\nNo more lives! YOU LOSE!");
 					}
 					this.resetPlayingField();
 					break; // don't do anything after reset
@@ -104,7 +104,7 @@ public abstract class Board {
 		}
 		syncItemMapAndField(movableTiles);
 		if (checkWin()) {
-			throw new GameOver("YOU WIN!");
+			throw new GameOver("\n\nYOU WIN!");
 		}
 	}
 	

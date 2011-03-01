@@ -24,7 +24,7 @@ public class MouseGame{
 			System.out.println(board);
 			System.out.println("Lives: " + mh.getLives());
 			System.out.println("Traps: " + mh.getNumMouseTraps());
-			System.out.print("Press 'y' to drop mousetrap or anything else not to: "); 
+			System.out.print("Do you want to drop a mouse trap y/n: "); 
 			s1 = new Scanner(System.in);
 			if(s1.hasNext("y")){
 				mh.setTrap();
