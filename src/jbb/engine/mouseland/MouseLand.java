@@ -1,5 +1,10 @@
-package jbb.engine.mouseland;
+/**
+ * The MouseLand Class creates the playing field for the user to play on.
+ * 
+ * @author Bruno Colantonio
+ */
 
+package jbb.engine.mouseland;
 
 import jbb.engine.Board;
 import jbb.engine.Position;
@@ -9,7 +14,11 @@ import jbb.engine.Wall;
 public class MouseLand extends Board{
 	public static final int WIDTH = 10;
 	public static final int HEIGHT = 10;
-	
+/**
+ * the MouseLand constructor initialises a MouseHero and three Mouse instances on
+ * the playing field 	
+ */
+
 	public MouseLand() {
 		super(WIDTH, HEIGHT);
 		movableTiles.add(new MouseHero(new Position(9,1), this));
@@ -18,7 +27,12 @@ public class MouseLand extends Board{
 		movableTiles.add(new Mouse(new Position(1,8), this));
 		syncItemMapAndField(movableTiles);
 	}
-	
+
+/**
+ * the populateItemMap method fills all the times with a blank tile or a wall,
+ * if the tile is blank then a Mouse or MouseHero can be made and if able to move 
+ * on those tiles.	
+ */
 	@Override
 	protected void populateItemMap() {
 		itemMap[0][0] = new Wall(new Position(0,0),this);
@@ -133,6 +147,10 @@ public class MouseLand extends Board{
 		
 	}
 
+/**
+ * The resetPlayingField method is called when a MouseHero and a Mouse collide.
+ * The method repositions all the Avatars are there original positions.
+ */
 	@Override
 	public void resetPlayingField() {
 		movableTiles.get(0).setPosition(new Position(9,1));
@@ -143,9 +161,15 @@ public class MouseLand extends Board{
 			movableTiles.get(2).setPosition(new Position(8,8));
 		if(movableTiles.get(3).getLives() == 1)
 			movableTiles.get(3).setPosition(new Position(1,8));
-		System.out.print("The mouse caught you! \n");
+		System.out.print("\nThe mouse caught you! \n\nRESTART!\n\n");
 	}
 
+/**
+ * The checkWin method returns true if the game is finished, the game is finished when the
+ * MouseHero gets to the finish line, which is located at tile position [1][9].
+ * 
+ * @return true if the use has won the game, otherwise false.
+ */
 	@Override
 	protected boolean checkWin() {
 		Position endPos = new Position(1,9);
