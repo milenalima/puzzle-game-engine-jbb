@@ -1,10 +1,11 @@
 /**
  * This abstract class contains a two-dimensional array of Tiles, that
- * comprises the playing field of a game. It handles an individual turn of the game. 
- * The class will be extended by game-specific board classes, 
- * which will implement the populatePlayingField()method to populate 
- * the board as required by the game.
- * @author Boris Ionine
+ * comprises the playing field of a game, as well as a two-dimensional
+ * array that contains the map of set items. It handles an individual
+ * turn of the game. The class will be extended by game-specific board
+ * classes, which will implement the populatePlayingField()method to
+ * populate the board as required by the game.
+ * @authors Boris Ionine, Jonathan Gravel
  */
 package jbb.engine;
 
@@ -43,7 +44,7 @@ public abstract class Board {
 	/**
 	 * This method will handle a turn in the game.
 	 * @param The argument position is the Position of the Tile the player selected.
-	 * @throws GameOver if the Hero loses all his lives
+	 * @throws GameOver if the Hero loses all his lives or wins
 	 */
 	public void playTurn(Position position) throws GameOver
 	{
@@ -109,7 +110,8 @@ public abstract class Board {
 	}
 	
 	/**
-	 * how do you win?
+	 * checks win conditions
+	 * 
 	 * @return true if win
 	 */
 	protected abstract boolean checkWin();
@@ -124,8 +126,8 @@ public abstract class Board {
 	public abstract void resetPlayingField();
 
 	/**
-	 * The items from itemMap are placed on playingField, then the movableTiles are
-	 * placed.
+	 * The Items, Tiles and Walls from itemMap are placed on the field, then the
+	 * movableTiles are placed on the field.
 	 */
 	public void syncItemMapAndField(ArrayList<Avatar> movableTiles)
 	{
@@ -166,7 +168,7 @@ public abstract class Board {
 	/**
 	 * Returns the item at said position or throws an exception if the position is invalid.
 	 * @param position The position of interest
-	 * @return item at position, null if no item
+	 * @return Item at position, null if no item
 	 */
 	public Item getItem(Position position) throws IndexOutOfBoundsException{
 		if(position.getRow() < 0 || position.getRow() >= width)
@@ -179,6 +181,11 @@ public abstract class Board {
 		} return null;
 	}
 	
+	/**
+	 * Returns the tile at said position or throws an exception if the position is invalid.
+	 * @param position The position of interest
+	 * @return Tile at position, null if no item
+	 */
 	public Tile getTile(Position position) throws IndexOutOfBoundsException{
 		if(position.getRow() < 0 || position.getRow() >= width)
 			throw new IndexOutOfBoundsException("Row out of bounds.");
@@ -205,7 +212,7 @@ public abstract class Board {
 	}
 	
 	/**
-	 * text representation of a board: playingField
+	 * text representation of the playing field
 	 */
 	public String toString()
 	{

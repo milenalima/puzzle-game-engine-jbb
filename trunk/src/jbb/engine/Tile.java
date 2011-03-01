@@ -2,7 +2,7 @@
  * The Tile class has a position and an image. 
  * All squares on the board will be instances of Tile or one of its subclasses.
  * The tile will either be blank or hold an image.
- * @author Bruno Colantonio...and Boris
+ * @authors Bruno Colantonio, Boris Ionine
  */
 package jbb.engine;
 import javax.swing.ImageIcon;
@@ -78,9 +78,7 @@ public class Tile{
 	}
 	
 	/**
-	 * The method will return true if the tile is able to play
-	 * and false if cannot play
-	 * @return true if the tile is accessible, false otherwise
+	 * @return true if Tile is generally accessible 
 	 */
 	public boolean getAccessible(){
 		return accessible;
@@ -96,13 +94,10 @@ public class Tile{
 	}
 	
 	/**
-	 * The method will return an array to show what tiles
-	 * are surrounding the tile in parameter.
-	 * The indexes of the the array returned will correspond
-	 * with the positions of the elements (i.e. will be accessible
-	 * using the constants defined at the top of class).
-	 * Adjacent squares that are out of the bounds of the board 
-	 * will be set to null.
+	 * The method will return an array to show the tiles surrounding the
+	 * current tile. The indexes of the the array correspond to the constants
+	 * defined at the top of class. Adjacent squares that are out of the bounds
+	 * of the board will be set to null.
 	 */
 	public Tile[] getAdjacentTiles(){
 		Tile[] adj = new Tile[8];

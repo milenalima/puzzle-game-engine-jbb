@@ -10,7 +10,6 @@ public class Wall extends Tile{
 	/**
 	 * The constructor will create a wall, or in other words a tile that is not accessible
 	 */
-
 	public Wall(Position position, Board board) {
 		super(position, board);
 		setAccessible(false);
