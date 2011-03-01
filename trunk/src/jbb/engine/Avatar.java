@@ -29,7 +29,7 @@ public abstract class Avatar extends Tile {
 	
 	/**
 	 * This function checks to see if there is an item that can be picked up by
-	 * the Avatar at the position. If so, the item will do what it is supposed to.
+	 * the Avatar at the position.
 	 * 
 	 * @param position
 	 * @return true if the object can be picked up by Avatar

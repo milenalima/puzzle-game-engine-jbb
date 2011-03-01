@@ -52,8 +52,6 @@ public class PacMan extends Hero {
 		Item item = board.getItem(position);
 		if (item == null) return false;
 		if (item instanceof PacDot) {
-			PacDot pd = (PacDot) item;
-			pd.pickedUp(this);
 			return true;
 		}
 		return false;

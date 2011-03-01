@@ -13,6 +13,7 @@ public abstract class Item extends Tile {
 	 */
 	public Item(Position position, Board board) {
 		super(position, board);
+		pointValue = 0;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -22,15 +23,14 @@ public abstract class Item extends Tile {
 	 */
 	public int getPointValue(){
 		return pointValue;
-		
 	}
 
 	/**
 	 * sets the amount of points the item is worth
 	 * @return
 	 */
-	public void setPointValue(){
-		
+	public void setPointValue(int pointValue){
+		this.pointValue = pointValue;
 	}
 	
 	/**
