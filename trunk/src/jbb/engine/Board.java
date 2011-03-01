@@ -61,6 +61,7 @@ public abstract class Board {
 		boolean itemPickedUp = hero.hasGoodie(nextPos); 
 		if(itemPickedUp)
 		{
+			((Item) itemMap[nextPos.getRow()][nextPos.getCol()]).pickedUp(hero);
 			//remove item from itemMap
 			itemMap[nextPos.getRow()][nextPos.getCol()] = new Tile(nextPos,this);
 		}
@@ -70,36 +71,49 @@ public abstract class Board {
 		{
 			npc = (NPC) movableTiles.get(i);
 			if (npc.getLives() == 0) continue; // don't move dead avatar
-			if (npc.getPosition().equals(hero.getPosition())) {
-				hero.collidesWith(npc);
-				if (hero.getLives() <= 0) {
-					throw new GameOver("No more lives!");
-				}
-				this.resetPlayingField();
-				return; // don't do anything after reset
-			}
 			// check to see if hero landed on npc
+			if (npc.getPosition().equals(hero.getPosition())) {
+				if(hero.collidesWith(npc)){ // if hero dies
+					if (hero.getLives() <= 0) {
+						throw new GameOver("No more lives!");
+					}
+					this.resetPlayingField();
+					break; // don't do anything after reset
+				}
+			}
 			// check to see if npc will land on hero
 			nextPos = npc.getNextPosition(oldPosition);
 			if (nextPos.equals(hero.getPosition())) {
-				npc.collidesWith(hero);
-				if (hero.getLives() <= 0) {
-					throw new GameOver("No more lives!");
+				if (hero.collidesWith(npc)){ // if hero dies
+					if (hero.getLives() <= 0) {
+						throw new GameOver("No more lives!");
+					}
+					this.resetPlayingField();
+					break; // don't do anything after reset
 				}
-				this.resetPlayingField();
-				return; // don't do anything after reset
 			}
 			//check if an item was picked up by an NPC
+			itemPickedUp = npc.hasGoodie(nextPos);
 			if(itemPickedUp)
 			{	
+				((Item) itemMap[nextPos.getRow()][nextPos.getCol()]).pickedUp(npc);
 				//replace item with blank tile from itemMap
 				itemMap[nextPos.getRow()][nextPos.getCol()] = new Tile(nextPos,this);
 			}
 			npc.setPosition(nextPos);
 		}
+		if (checkWin()) {
+			throw new GameOver("YOU WIN!");
+		}
 		syncItemMapAndField(movableTiles);
 	}
 	
+	/**
+	 * how do you win?
+	 * @return true if win
+	 */
+	protected abstract boolean checkWin();
+
 	/**
 	 * This is called when the collidesWith method declares a reset is required.
 	 * For example: when a Ghost collides with PacMan or vice versa, all characters
@@ -150,10 +164,21 @@ public abstract class Board {
 	}
 	
 	/**
-	 * Returns the tile at said position or throws an exception if the position is invalid.
+	 * Returns the item at said position or throws an exception if the position is invalid.
 	 * @param position The position of interest
-	 * @return tile at position
+	 * @return item at position, null if no item
 	 */
+	public Item getItem(Position position) throws IndexOutOfBoundsException{
+		if(position.getRow() < 0 || position.getRow() >= width)
+			throw new IndexOutOfBoundsException("Row out of bounds.");
+		else if(position.getCol() < 0 || position.getCol() >= height)
+			throw new IndexOutOfBoundsException("Col out of bounds");
+		else {
+			if (itemMap[position.getRow()][position.getCol()] instanceof Item)
+				return (Item) itemMap[position.getRow()][position.getCol()];
+		} return null;
+	}
+	
 	public Tile getTile(Position position) throws IndexOutOfBoundsException{
 		if(position.getRow() < 0 || position.getRow() >= width)
 			throw new IndexOutOfBoundsException("Row out of bounds.");

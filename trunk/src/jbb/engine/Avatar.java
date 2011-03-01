@@ -184,6 +184,7 @@ public abstract class Avatar extends Tile {
 	 * determine what happens when the avatar collides with another
 	 * 
 	 * @param avatar
+	 * @return true if the character dies
 	 */
-	public abstract void collidesWith(Avatar avatar);
+	public abstract boolean collidesWith(Avatar avatar);
 }
