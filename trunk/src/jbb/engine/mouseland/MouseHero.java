@@ -1,3 +1,10 @@
+/**
+ * The MouseHero Class is a subclass of Hero and of course if the Hero in the Mouseland Game
+ * The user will be controlling the MouseHero when the game is running.
+ * 
+ * @author Bruno Colantonio
+ */
+
 package jbb.engine.mouseland;
 
 import javax.swing.ImageIcon;
@@ -17,23 +24,27 @@ public class MouseHero extends Hero{
 		
 		
 /**
- * Constructor for Hero using specified Position.
+ * Constructor for MouseHero using Position and Board as parameter.
  * 
- * @param image pictorial representation of the Hero to be used on a Tile
- * @param hitPoints represents the starting health of the Hero
- * @param lives represents the starting number of lives of the Hero
- * @param board represents the board that is associated to this Hero
- * @param position represents the position of the Hero on the Board
+ * @param board represents the board that is associated to this MouseHero
+ * @param position represents the position of the MouseHero on the Board
  */
-public MouseHero(Position position, Board board) {
-	super(new ImageIcon(), LIVES, position, board);
-}
+	public MouseHero(Position position, Board board) {
+		super(new ImageIcon(), LIVES, position, board);
+	}
 	
+/**
+ * the getNumMouseTraps method returns the amount of Mouse Traps from the Mouse 
+ * 
+ * @return an integer of the number of Mouse Traps
+ */
 	public int getNumMouseTraps(){
 		return numMouseTraps;
 	}
-
 	
+/**
+ * When called, the method setTrap will place a Mouse Trap at the position of the Mouse
+ */	
 	public void setTrap(){
 		numMouseTraps-=1;
 		if(numMouseTraps<0){
@@ -43,22 +54,37 @@ public MouseHero(Position position, Board board) {
 			mouseTrap = new MouseTrap(this.position,this.board);
 			this.board.placeItem(mouseTrap);
 	}
-	
+
+/**
+ * the getNextPosition method uses a position as the parameter and returns the next position
+ * 
+ * @param position represents the position of the MouseHero on the Board
+ * 
+ * @return the Position of the next position 
+ */	
 	public Position getNextPosition(Position position) {
 		Position returnVal = super.getNextPosition(position);
 		return returnVal;
 	}
 
+/**
+ * the hasGoodie method always returns false because there are no items for the 
+ * MouseHero to pick up.
+ * 
+ * @param position represents the position of the MouseHero on the Board
+ * 
+ * @return false because there are no items
+ */
 	public boolean hasGoodie(Position position) {
-		Tile tile = board.getTile(position);
-		if (tile instanceof Mouse) {
-			Mouse m = new Mouse(position, board);
-			m.collidesWith(this);
-			return true;
-		}
 		return false;
 	}
 	
+/**
+ * the toString method return the character "m" to show were the MouseHero is on the board and if the MouseHero is
+ * on the same Tile as a MouseTrap, it will then display a "M" instead.
+ * 
+ * @return a string "m" if normal case, but returns "M" if the MouseHero is on the same Tile as a MouseTrap
+ */	
 	public String toString() {
 		if(numMouseTraps==0){
 			if((this.position.getCol() == mouseTrap.getPosition().getCol()) && (this.position.getRow() == mouseTrap.getPosition().getRow())){
@@ -67,7 +93,15 @@ public MouseHero(Position position, Board board) {
 		}
 		return "m";
 	}
-	
+
+/**
+ * the collidesWith method uses the parameter avatar and checks to see if MouseHero an instance 
+ * of Mouse and if it is, it will remove a life of the Mouse Hero
+ * 
+ * @param avatar is who the MouseHero has collided with
+ * 
+ * @return true if the MouseHero collided with a Mouse, otherwise it returns false.
+ */
 	@Override
 	public boolean collidesWith(Avatar avatar) {
 		if (avatar instanceof Mouse) {

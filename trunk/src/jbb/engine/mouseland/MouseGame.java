@@ -1,3 +1,9 @@
+/**
+ * The MouseGame Class is the class that runs the game
+ * 
+ * @author Bruno Colantonio
+ */
+
 package jbb.engine.mouseland;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,10 +16,19 @@ public class MouseGame{
 	
 	private MouseLand board;
 	
+/**
+ * Constructor for MouseGame initialises a new board
+ * 
+ */
 	public MouseGame() {
 		board = new MouseLand();
 	}
-	
+/**
+ * the play method runs the game, it asked for users input and with that input
+ * the what happens to the next move in the game and if an error occurs and exception
+ * will occur.
+ * 
+ */	
 	public void play() {
 		MouseHero mh = (MouseHero) board.getHero();
 		Position newPos;
@@ -50,7 +65,11 @@ public class MouseGame{
 		}
 	
 	}
-	  
+	
+/**
+ * The main method initialised a new MouseGame and calls the play function.
+ * 
+ */
 	  public static void main(String[] args) {
 		MouseGame game = new MouseGame();
 	
