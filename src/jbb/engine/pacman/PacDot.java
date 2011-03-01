@@ -12,6 +12,7 @@ public class PacDot extends Item {
 	public PacDot(Position position, Board board, boolean powerPellet) {
 		super(position, board);
 		this.powerPellet = powerPellet;
+		setPointValue(10);
 	}
 
 	public boolean isPowerPellet() {
