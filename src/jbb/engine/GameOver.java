@@ -1,5 +1,6 @@
 /**
- * Game over is thrown whenever the Game is required to end
+ * Game over is thrown whenever the Game is required to end.
+ * @author Jonathan Gravel
  */
 
 package jbb.engine;

@@ -1,5 +1,6 @@
 /**
  * The Item class consist of an Item that the Avatar can pick up to get points.
+ * @author Jonathan Gravel
  */
 
 package jbb.engine;
@@ -9,17 +10,29 @@ public abstract class Item extends Tile {
 	protected int pointValue;
 		
 	/**
-	 * The constructor create an item
+	 * @param position 
+	 * @param board
 	 */
 	public Item(Position position, Board board) {
+		this(position, board, 0); // not all Items give points
+		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * The constructor create an item with given point value
+	 * @param position
+	 * @param board
+	 * @param pointValue
+	 */
+	public Item(Position position, Board board, int pointValue) {
 		super(position, board);
-		pointValue = 0;
+		this.pointValue = pointValue;
 		// TODO Auto-generated constructor stub
 	}
 	
 	/**
 	 * returns the amount of points the item is worth
-	 * @return
+	 * @return pointValue
 	 */
 	public int getPointValue(){
 		return pointValue;
@@ -27,7 +40,6 @@ public abstract class Item extends Tile {
 
 	/**
 	 * sets the amount of points the item is worth
-	 * @return
 	 */
 	public void setPointValue(int pointValue){
 		this.pointValue = pointValue;

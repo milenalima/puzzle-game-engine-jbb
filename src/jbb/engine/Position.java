@@ -2,7 +2,6 @@
  * A Position is a representation of a pair of coordinates on the board.
  * Every Tile will have a position.
  * @author Boris Ionine
- *
  */
 
 package jbb.engine;
@@ -58,6 +57,9 @@ public class Position {
 		this.col = col;
 	}
 
+	/**
+	 * Determines if two positions have the same coordinates
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) return false;

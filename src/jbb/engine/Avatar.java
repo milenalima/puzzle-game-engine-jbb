@@ -1,7 +1,8 @@
 /**
  * The Abstract Avatar class defines the controllable tile on the board: it is the only one that will be moved.
  * Avatar may pick up items, but not go through walls (generally). The behaviour is further developed in the subclasses Hero and NPC.
- * If an avatar is to die, it is to die upon collision, thus there is no need for hitPoints
+ * If an avatar is to die, it is to die upon collision, thus there is no need for hitPoints.
+ * @author Jonathan Gravel
  */
 
 package jbb.engine;
@@ -14,12 +15,10 @@ public abstract class Avatar extends Tile {
 	private int lives;
 	
 	/**
-	 * Constructor for Avatar using specified Position.
-	 * 
 	 * @param image pictorial representation of the Avatar to be used on a Tile
 	 * @param lives represents the starting number of lives of the Avatar
-	 * @param board represents the board that is associated to this Avatar
 	 * @param position represents the position of the Avatar on the Board
+	 * @param board represents the board that is associated to this Avatar
 	 */
 	public Avatar(ImageIcon image, int lives, Position position, Board board) {
 		super(position, board);
@@ -40,10 +39,10 @@ public abstract class Avatar extends Tile {
 	 * Gets the next position to move to given a position. The position returned
 	 * will be either up, down, left or right of the avatar.
 	 * 
-	 * @param position position to move to or towards
+	 * @param position to move to or towards
+	 * @return Position calculated
 	 * @throws IllegalArgumentException if move is out of bounds, or if the Avatar
 	 * will move into a wall.
-	 * @return Position calculated
 	 */
 	public Position getNextPosition(Position position) throws IllegalArgumentException{
 		try {
@@ -105,9 +104,9 @@ public abstract class Avatar extends Tile {
 	 * will be either up, down, left or right of the avatar.
 	 * 
 	 * @param position position to move to or towards
+	 * @return Position calculated
 	 * @throws IllegalArgumentException if move is out of bounds, or if the Avatar
 	 * will move into a wall.
-	 * @return Position calculated
 	 */
 	protected Position getNextPosition(int direction) throws IllegalArgumentException {
 		Position newPos;
