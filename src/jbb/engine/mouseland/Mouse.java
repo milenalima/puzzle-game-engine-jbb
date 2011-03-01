@@ -4,19 +4,14 @@ import javax.swing.ImageIcon;
 
 import jbb.engine.Avatar;
 import jbb.engine.Board;
+import jbb.engine.GameOver;
 import jbb.engine.NPC;
 import jbb.engine.Position;
 import jbb.engine.Tile;
 
 public class Mouse extends NPC{
-
-	public static final int INVULN_LEN = 10; // invulnerability timer lasts 10 turns
-	public static final int LIVES = 3;
+	public static final int LIVES = 1;
 	
-	private int timer;
-	private boolean invulnerable;
-	
-
 /**
  * Constructor for Hero using specified Position.
  * 
@@ -28,49 +23,34 @@ public class Mouse extends NPC{
  */
 public Mouse(Position position, Board board) {
 	super(new ImageIcon(), LIVES, position, board);
-	invulnerable = false;
-	timer = 0;
 }
 	
 	
-	public boolean getInvulnerable() {
-		return invulnerable;
-	}
-	
-	public void setInvulnerable(boolean invulnerable) {
-		this.invulnerable = invulnerable;
-		timer = INVULN_LEN;
-	}
-	
 	public Position getNextPosition(Position position) {
 		Position returnVal = super.getNextPosition(position);
-		if (--timer == 0) {
-			setInvulnerable(false);
-		}
 		return returnVal;
 	}
 
 	public boolean hasGoodie(Position position) {
-		Tile tile = board.getTile(position);
+		Tile tile = board.getItem(position);
 		if (tile instanceof MouseTrap) {
+			System.out.print("\n\n\n WOOOOO!!\n\n\n\n");
 			return true;
 		}
 		return false;
 	}
 	
 	public String toString() {
-		if (invulnerable) {
-			return "E";
-		}
 		return "e";
 	}
 
-
 	@Override
-	public void collidesWith(Avatar avatar) {
+	public boolean collidesWith(Avatar avatar) {
 		if (avatar instanceof MouseHero) {
 			avatar.removeLife();
+			return true;
 		}
+		return false;
 	}
 
 }

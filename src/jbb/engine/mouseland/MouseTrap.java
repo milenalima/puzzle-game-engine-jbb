@@ -12,17 +12,20 @@ public class MouseTrap extends Item {
 		super(position, board);
 	}
 
-
-	@Override
-	public void pickedUp(Avatar picker) {
-		MouseHero p = (MouseHero) picker;
-		p.addPoints(pointValue);
-//		if (powerPellet) {
-			p.setInvulnerable(true);
-		}
-//	}
+	public Position getTrapPosition(){
+		return this.position;
+	}
 
 	public String toString() {
 			return "T";
 	}
+
+	@Override
+	public void pickedUp(Avatar avatar) {
+		if (avatar instanceof Mouse) {
+			avatar.removeLife();
+		}
+	}
+
+
 }
