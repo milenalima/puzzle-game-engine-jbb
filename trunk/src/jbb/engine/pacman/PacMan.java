@@ -5,8 +5,8 @@ import javax.swing.ImageIcon;
 import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.Hero;
+import jbb.engine.Item;
 import jbb.engine.Position;
-import jbb.engine.Tile;
 
 public class PacMan extends Hero {
 	
@@ -40,7 +40,7 @@ public class PacMan extends Hero {
 		timer = INVULN_LEN;
 	}
 	
-	public Position moveTo(Position position) {
+	public Position getNextPosition(Position position) {
 		Position returnVal = super.getNextPosition(position);
 		if (timer > 0 && --timer == 0) {
 			setInvulnerable(false);
@@ -49,9 +49,10 @@ public class PacMan extends Hero {
 	}
 
 	public boolean hasGoodie(Position position) {
-		Tile tile = board.getTile(position);
-		if (tile instanceof PacDot) {
-			PacDot pd = (PacDot) tile;
+		Item item = board.getItem(position);
+		if (item == null) return false;
+		if (item instanceof PacDot) {
+			PacDot pd = (PacDot) item;
 			pd.pickedUp(this);
 			return true;
 		}
@@ -66,10 +67,16 @@ public class PacMan extends Hero {
 	}
 
 	@Override
-	public void collidesWith(Avatar avatar) {
+	public boolean collidesWith(Avatar avatar) {
 		if (avatar instanceof Ghost) {
-			this.removeLife();
+			if (!invulnerable) {
+				this.removeLife();
+				return true;
+			} else {
+				avatar.removeLife();
+			}
 		}
+		return false;
 	}
 
 }
