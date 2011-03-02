@@ -51,8 +51,10 @@ public class Mouse extends NPC{
  */
 	public boolean hasGoodie(Position position) {
 		Tile tile = board.getItem(position);
+		//create a tile at the position at the moment and compare it with a 
+		//mouseTrap, if it is an instance of MouseTrap do the following..
 		if (tile instanceof MouseTrap) {
-			System.out.print("\nThe Mouse walk over you Mouse Trap!!\n\n");
+			System.out.print("\nThe Mouse walk over Cheesy's Mouse Trap!!\n\n");
 			return true;
 		}
 		return false;
@@ -78,7 +80,9 @@ public class Mouse extends NPC{
  */
 	@Override
 	public boolean collidesWith(Avatar avatar) {
+		//If avatar is an instance of MouseHero ..
 		if (avatar instanceof MouseHero) {
+			//go to the removeLife method
 			avatar.removeLife();
 			return true;
 		}

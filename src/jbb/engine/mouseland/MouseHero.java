@@ -46,6 +46,7 @@ public class MouseHero extends Hero{
  * When called, the method setTrap will place a Mouse Trap at the position of the Mouse
  */	
 	public void setTrap(){
+		//when MouseHero runs out of MouseTrap it will print out the following
 		numMouseTraps-=1;
 		if(numMouseTraps<0){
 			System.out.print("you do not have any mouse traps left \n");
@@ -76,6 +77,7 @@ public class MouseHero extends Hero{
  * @return false because there are no items
  */
 	public boolean hasGoodie(Position position) {
+		//Will always return false because he MouseHero never picks up and item.
 		return false;
 	}
 	
@@ -87,6 +89,7 @@ public class MouseHero extends Hero{
  */	
 	public String toString() {
 		if(numMouseTraps==0){
+			//if the position of the MouseHero is the same as MouseTrap return "M"
 			if((this.position.getCol() == mouseTrap.getPosition().getCol()) && (this.position.getRow() == mouseTrap.getPosition().getRow())){
 				return "M";
 			}
@@ -104,7 +107,9 @@ public class MouseHero extends Hero{
  */
 	@Override
 	public boolean collidesWith(Avatar avatar) {
+		//If avatar is an instance of Mouse ..
 		if (avatar instanceof Mouse) {
+			//go to the removeLife method
 			this.removeLife();
 			return true;
 		}
