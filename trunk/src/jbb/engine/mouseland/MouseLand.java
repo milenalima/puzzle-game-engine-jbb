@@ -168,7 +168,8 @@ public class MouseLand extends Board{
 	@Override
 	public void resetPlayingField() {
 		movableTiles.get(0).setPosition(new Position(9,1));
-		// check to see if ghosts are still alive, if so, refresh their position
+		//Check to see if the mouse are still alive, if yes they are created again,
+		//if they are dead they will remain dead.
 		if(movableTiles.get(1).getLives() == 1)
 			movableTiles.get(1).setPosition(new Position(1,1));
 		if(movableTiles.get(2).getLives() == 1)
@@ -186,6 +187,8 @@ public class MouseLand extends Board{
  */
 	@Override
 	protected boolean checkWin() {
+		//Create the End Tile and if the MouseHero has the same row and column 
+		//then her wins.
 		Position endPos = new Position(1,9);
 		Position heroPos = this.getHero().getPosition();
 		int heroCol = heroPos.getCol();

@@ -52,7 +52,6 @@ public class MouseGame{
 					board.playTurn(newPos);
 				} catch (GameOver go) {
 					System.out.println(go.getMessage());
-					// quit
 					break;
 				}
 			} catch (IllegalArgumentException iae) {
