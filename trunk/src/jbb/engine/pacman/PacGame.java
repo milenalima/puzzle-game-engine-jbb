@@ -6,6 +6,11 @@ import java.util.Scanner;
 import jbb.engine.GameOver;
 import jbb.engine.Position;
 
+/**
+ * The PacGame instantiates a PacWorld, receives a position from the user,
+ * and procedes to call playTurn with the obtained position.
+ * @author Jonathan Gravel
+ */
 public class PacGame {
 	
 	private PacWorld board;
@@ -14,6 +19,9 @@ public class PacGame {
 		board = new PacWorld();
 	}
 	
+	/**
+	 * Start game. this game only ends when a GameOver exception is thrown
+	 */
 	public void play() {
 		PacMan hero = (PacMan) board.getHero();
 		Position newPos;

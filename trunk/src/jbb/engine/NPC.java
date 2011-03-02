@@ -1,15 +1,13 @@
+package jbb.engine;
+
+import javax.swing.ImageIcon;
+
 /**
  * The NPC is an Avatar that generally has the primary goal of ruining the life of
  * the hero by attempting to kill it. The NPC operates using A.I. to dodge walls and
  * reach the hero.
  * @author Jonathan Gravel
  */
-
-package jbb.engine;
-
-import javax.swing.ImageIcon;
-
-
 public abstract class NPC extends Avatar{
 
 	/**

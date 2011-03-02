@@ -1,15 +1,13 @@
+package jbb.engine;
+
+import javax.swing.ImageIcon;
+
 /**
  * The Abstract Avatar class defines the controllable tile on the board: it is the only one that will be moved.
  * Avatar may pick up items, but not go through walls (generally). The behaviour is further developed in the subclasses Hero and NPC.
  * If an avatar is to die, it is to die upon collision, thus there is no need for hitPoints.
  * @author Jonathan Gravel
  */
-
-package jbb.engine;
-
-import javax.swing.ImageIcon;
-
-
 public abstract class Avatar extends Tile {
 	
 	private int lives;
@@ -153,7 +151,7 @@ public abstract class Avatar extends Tile {
 	/**
 	 * Get number of lives remaining
 	 * 
-	 * @return
+	 * @return lives
 	 */
 	public int getLives() {
 		return lives;

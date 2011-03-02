@@ -1,12 +1,11 @@
-/**
- * Hero is the user controlled character in the game. It collects points.
- * @author Jonathan Gravel
- */
-
 package jbb.engine;
 
 import javax.swing.ImageIcon;
 
+/**
+ * Hero is the user controlled character in the game. It collects points.
+ * @author Jonathan Gravel
+ */
 public abstract class Hero extends Avatar {
 	
 	private int points;

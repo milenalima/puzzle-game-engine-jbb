@@ -8,6 +8,10 @@ import jbb.engine.Hero;
 import jbb.engine.Item;
 import jbb.engine.Position;
 
+/**
+ * PacMan is the Hero of PacGame. He collects PacDots to gain points and win.
+ * @author Jonathan Gravel
+ */
 public class PacMan extends Hero {
 	
 	public static final int INVULN_LEN = 10; // invulnerability timer lasts 10 turns
@@ -19,9 +23,6 @@ public class PacMan extends Hero {
 	/**
 	 * Constructor for Hero using specified Position.
 	 * 
-	 * @param image pictorial representation of the Hero to be used on a Tile
-	 * @param hitPoints represents the starting health of the Hero
-	 * @param lives represents the starting number of lives of the Hero
 	 * @param board represents the board that is associated to this Hero
 	 * @param position represents the position of the Hero on the Board
 	 */
@@ -31,16 +32,28 @@ public class PacMan extends Hero {
 		timer = 0;
 	}
 	
+	/**
+	 * @return true if invulnerable
+	 */
 	public boolean getInvulnerable() {
 		return invulnerable;
 	}
 	
+	/**
+	 * set invulnerability
+	 * @param invulnerable
+	 */
 	public void setInvulnerable(boolean invulnerable) {
 		this.invulnerable = invulnerable;
 		timer = INVULN_LEN;
 	}
 	
-	public Position getNextPosition(Position position) {
+	/**
+	 * Get the next position to move to, and decrement the invulnerability timer
+	 * if PacMan is invulnerable.
+	 * @throws IllegalArgumentException if no possible move is found
+	 */
+	public Position getNextPosition(Position position) throws IllegalArgumentException {
 		Position returnVal = super.getNextPosition(position);
 		if (timer > 0 && --timer == 0) {
 			setInvulnerable(false);
@@ -48,6 +61,9 @@ public class PacMan extends Hero {
 		return returnVal;
 	}
 
+	/**
+	 * @return true if the position contains an PacDot
+	 */
 	public boolean hasGoodie(Position position) {
 		Item item = board.getItem(position);
 		if (item == null) return false;
@@ -57,6 +73,9 @@ public class PacMan extends Hero {
 		return false;
 	}
 	
+	/**
+	 * @return "C" when invulnerable, "c" otherwise.
+	 */
 	public String toString() {
 		if (invulnerable) {
 			return "C";
@@ -64,6 +83,11 @@ public class PacMan extends Hero {
 		return "c";
 	}
 
+	/**
+	 * The playing field is reset when a Ghost kills Pacman
+	 * 
+	 * @return true if PacMan collides with Ghost and is not invulnerable
+	 */
 	@Override
 	public boolean collidesWith(Avatar avatar) {
 		if (avatar instanceof Ghost) {
@@ -71,6 +95,7 @@ public class PacMan extends Hero {
 				this.removeLife();
 				return true;
 			} else {
+				// kill ghost
 				avatar.removeLife();
 			}
 		}

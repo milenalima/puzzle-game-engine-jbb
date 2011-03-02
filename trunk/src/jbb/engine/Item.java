@@ -1,10 +1,9 @@
+package jbb.engine;
+
 /**
  * The Item class consist of an Item that the Avatar can pick up to get points.
  * @author Jonathan Gravel
  */
-
-package jbb.engine;
-
 public abstract class Item extends Tile {
 
 	protected int pointValue;
