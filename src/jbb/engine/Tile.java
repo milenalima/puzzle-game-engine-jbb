@@ -1,13 +1,12 @@
+package jbb.engine;
+import javax.swing.ImageIcon;
+
 /**
  * The Tile class has a position and an image. 
  * All squares on the board will be instances of Tile or one of its subclasses.
  * The tile will either be blank or hold an image.
- * @authors Bruno Colantonio, Boris Ionine
+ * @author Bruno Colantonio, Boris Ionine
  */
-package jbb.engine;
-import javax.swing.ImageIcon;
-
-
 public class Tile{
 	
 	public static final int TOP_LEFT=0; 

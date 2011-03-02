@@ -1,3 +1,7 @@
+package jbb.engine;
+
+import java.util.ArrayList; 
+
 /**
  * This abstract class contains a two-dimensional array of Tiles, that
  * comprises the playing field of a game, as well as a two-dimensional
@@ -5,12 +9,8 @@
  * turn of the game. The class will be extended by game-specific board
  * classes, which will implement the populatePlayingField()method to
  * populate the board as required by the game.
- * @authors Boris Ionine, Jonathan Gravel
+ * @author Boris Ionine, Jonathan Gravel
  */
-package jbb.engine;
-
-import java.util.ArrayList; 
-
 public abstract class Board {
 	protected Tile[][] playingField;
 	protected Tile[][] itemMap;
@@ -43,7 +43,7 @@ public abstract class Board {
 	
 	/**
 	 * This method will handle a turn in the game.
-	 * @param The argument position is the Position of the Tile the player selected.
+	 * @param position is the Position of the Tile the player selected.
 	 * @throws GameOver if the Hero loses all his lives or wins
 	 */
 	public void playTurn(Position position) throws GameOver

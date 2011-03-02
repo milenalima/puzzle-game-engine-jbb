@@ -1,11 +1,10 @@
+package jbb.engine;
+
 /**
  * A Position is a representation of a pair of coordinates on the board.
  * Every Tile will have a position.
  * @author Boris Ionine
  */
-
-package jbb.engine;
-
 public class Position {
 	private int row;
 	private int col;

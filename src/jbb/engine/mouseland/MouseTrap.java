@@ -1,9 +1,3 @@
-/**
- * The Mouse Class is a subclass of Item and a Mouse Trap can be dropped by the MouseHero
- * 
- * @author Bruno Colantonio
- */
-
 package jbb.engine.mouseland;
 
 import jbb.engine.Avatar;
@@ -11,6 +5,11 @@ import jbb.engine.Board;
 import jbb.engine.Item;
 import jbb.engine.Position;
 
+/**
+ * The Mouse Class is a subclass of Item and a Mouse Trap can be dropped by the MouseHero
+ * 
+ * @author Bruno Colantonio
+ */
 public class MouseTrap extends Item {
 
 /**
@@ -46,8 +45,6 @@ public class MouseTrap extends Item {
  * of Mouse and if it is, it will remove a life of the Mouse
  * 
  * @param avatar is who the MouseTrap has collided with
- * 
- * @return true if the MouseTrap collided with a Mouse, otherwise it returns false.
  */	
 	@Override
 	public void pickedUp(Avatar avatar) {

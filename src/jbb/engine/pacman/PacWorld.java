@@ -11,6 +11,9 @@ public class PacWorld extends Board{
 	public static final Position DEFAULT_GHOST2_POS = new Position(5,7);
 	public static final Position DEFAULT_GHOST3_POS = new Position(9,3);
 	
+	/**
+	 * Generate a PacWorld with 1 PacMan and 3 Ghosts
+	 */
 	public PacWorld() {
 		super(WIDTH, HEIGHT);
 		// Hero is always at the start of the list;
@@ -22,25 +25,28 @@ public class PacWorld extends Board{
 		syncItemMapAndField(movableTiles);
 	}
 	
+	/**
+	 * Sets up the Item map as such:
+	 * 
+	 * X X X X X X X X X X X X X
+	 * X . . . . . . . . . . . X
+	 * X . X X X X . X X X X . X
+	 * X . X . . . G . . . X . X
+	 * X . X . X X X X X . X . X
+	 * X . X . X . . G X . X . X
+	 * X c . . . . X . . . . . X
+	 * X . X . X . . . X . X . X
+	 * X . X . X X X X X . X . X
+	 * X . X G . . . . . . X . X	  
+	 * X . X X X X . X X X X . X
+	 * X . . . . . . . . . . . X
+	 * X X X X X X X X X X X X X
+	 * 
+	 * and the ghosts are standing on PacDots
+	 */
 	@Override
 	protected void populateItemMap()
 	{
-		/*
-		 * X X X X X X X X X X X X X
-		 * X                       X
-		 * X   X X X X   X X X X   X
-		 * X   X       G       X   X
-		 * X   X   X X X X X   X   X
-		 * X   X   X     G X   X   X
-		 * X c         X           X
-		 * X   X   X       X   X   X
-		 * X   X   X X X X X   X   X
-		 * X   X G             X   X
-		 * X   X X X X   X X X X   X
-		 * X                       X
-		 * X X X X X X X X X X X X X
-		 */
-		
 		// place PacDots everywhere in the middle
 		for (int row = 1; row < 12; row++) {
 			for (int col = 1; col < 12; col++) {
@@ -134,6 +140,9 @@ public class PacWorld extends Board{
 		}
 	}
 
+	/**
+	 * Resets the position PacMan and the Ghosts
+	 */
 	@Override
 	public void resetPlayingField() {
 		movableTiles.get(0).setPosition(DEFAULT_PACMAN_POS);
@@ -146,6 +155,11 @@ public class PacWorld extends Board{
 			movableTiles.get(3).setPosition(DEFAULT_GHOST3_POS);
 	}
 	
+	/**
+	 * PacGame is won when no PacDots are left on the itemMap
+	 * 
+	 * @return true when no PacDots are left
+	 */
 	protected boolean checkWin()  {
 		for (int i = 0; i < itemMap.length; i++) {
 			for (int j = 0; j < itemMap[i].length; j++) {
