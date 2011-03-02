@@ -44,23 +44,30 @@ Deliverables and task distribution:
 
 Changes since Milestone #1:
 
-	- All the classes are working properly in a text based representation. In
+	- The classes are functioning properly in a text based representation. In
 	order for this to become a reality, many changes were brought to the Class
 	Diagram, including added/removed methods/variables.
 	- A controller was created for each game, allowing user input for interaction
 	with the game.
 	- An extensive USER MANUAL explaining all the games and the engine was
-	developped.
+	developed.
 	
 Known issues and roadmaps:
 
+	- The Pipes game is difficult to represent in a Text based game: Since the tiles
+	are represented as letters, it is not possible to display a rotated pipe. Thus
+	ensuring that the rotated pipes work means drawing on paper the expected layout.
+	- The current PipeGame is not without flaws, since the game relies heavily on
+	graphical interface. The general concept works appropriately, that is the water
+	follows the pipe direction. It is just a matter of implementing the view and
+	then the game can be properly run. This will be accomplished before the
+	submission of the next Milestone.
 	- The PacMan game will eventually implement three different personalities for
 	Ghosts, which will prevent the ghosts from clustering to the same tile and
 	consequently becoming boring opponents. Ideally, ghosts should flee PacMan while
 	he is invulnerable as well...
-	- The Pipes game is difficult to represent in a Text based game: Since the tiles
-	are represented as letters, it is not possible to display a rotated pipe. Thus
-	ensuring that the rotated pipes work means drawing on paper the expected layout.
+	- As for MouseGame, there is discussion of a different movement method for the
+	mice...
 	- The next step involves designing a GUI based game for our classes, which means
 	images will be drawn. As for the controller, it should not differ much from our
 	text based controller.
