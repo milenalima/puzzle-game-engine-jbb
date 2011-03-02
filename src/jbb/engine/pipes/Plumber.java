@@ -1,16 +1,23 @@
 package jbb.engine.pipes;
 
 import javax.swing.ImageIcon;
-
+//import java.util.Random;
 import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.Hero;
 import jbb.engine.Position;
 import jbb.engine.Tile;
 
+/**
+ * The Hero of PipeGame.
+ * Places and rotates Pipes with 
+ * the aim of getting the Water
+ * onto the winning position with no leaks.
+ * @author Boris Ionine
+ */
 public class Plumber extends Hero{
 	private char nextPipeType;
-	public static final int LIVES = 3;
+	public static final int LIVES = 1;
 	public Plumber(Position position, Board board) {
 		super(new ImageIcon(), LIVES, position, board);
 		
@@ -19,7 +26,27 @@ public class Plumber extends Hero{
 	
 	//acquires the next pipe 
 	public void acquireNextPipeType(){
-		//TODO should randomly generate the type of the next Pipe
+		//EVENTUALLY, the pipes the plumber drops will be generated randomly
+	    /*Random generator = new Random();
+	    int rand = generator.nextInt(5);
+	    switch (rand){
+	    case 0:
+	    	nextPipeType = 'I';
+	    	break;
+	    case 1:
+			nextPipeType = 'Q';
+	    	break;
+	    case 2:
+	    	nextPipeType = '+';
+	    	break;
+	    case 3:
+	    	nextPipeType = 'T';
+	    	break;
+	    case 4:
+	    	nextPipeType = 'L';
+	    	break;
+	    }*/
+		//FOR NOW ONLY 'I' PIPES ARE AVAILABLE
 		nextPipeType = 'I';
 	}
 	

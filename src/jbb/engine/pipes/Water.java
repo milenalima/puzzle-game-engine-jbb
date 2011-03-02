@@ -8,20 +8,45 @@ import jbb.engine.NPC;
 import jbb.engine.Position;
 import jbb.engine.Tile;
 
+/**
+ * The "enemy" NPC of PipeGame.
+ * Water flows out of a starting pipe, 
+ * trying to flow to an open Tile. Water 
+ * hitting an open Tile is a leak, which 
+ * ends the game.
+ * @author Boris Ionine
+ */
 public class Water extends NPC{
 
 	public static final int LIVES = 1;
 	
+	/**
+	 * Constructor for Water.
+	 * @param position
+	 * @param board
+	 */
 	public Water(Position position, Board board) {
 		super(new ImageIcon(), LIVES, position, board);
-		// TODO Auto-generated constructor stub
 	}
 	
-	@Override
+	/**
+	 * METHOD SHOULD NOT BE USED BY WATER.
+	 * STUB.
+	 * @param position
+	 * @return position
+	 * @Override
+	 */
 	public Position getNextPosition(Position position) throws IllegalArgumentException{
 		return position;
 	}
 
+	/**
+	 * Calculates the possible next Positions
+	 * the Water will spread to and returns them in an array.
+	 * @param position
+	 * @return Position[] nextPosition
+	 * @throws IllegalArgumentException
+	 */
 	public Position[] getNextPositions(Position position) throws IllegalArgumentException {
 		//figure out the kind of Pipe/Tile the water's on right now:
 		Tile tile = board.getItem(position);
@@ -68,12 +93,19 @@ public class Water extends NPC{
 		return nextPositions;
 	}
 	
-	@Override
+	/**
+	 * Method also not used by Water yet...may find a use for it later
+	 * @return false
+	 * @Override
+	 */
 	public boolean collidesWith(Avatar avatar) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
+	/**
+	 * @return String 
+	 */
 	public String toString() {
 		Pipe p = (Pipe) board.getItem(position);
 		if(this.hasGoodie(position)){
@@ -82,7 +114,13 @@ public class Water extends NPC{
 		}
 		return "W";
 	}
-	@Override
+	
+	/**
+	 * Checks to see if the water is in a Pipe.
+	 * @param position
+	 * @return boolean
+	 * @Override
+	 */
 	public boolean hasGoodie(Position position) {
 		Tile tile = board.getItem(position);
 		if (tile instanceof Pipe) {

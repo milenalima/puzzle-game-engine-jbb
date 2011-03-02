@@ -6,7 +6,10 @@ import java.util.Scanner;
 import jbb.engine.GameOver;
 import jbb.engine.Position;
 
-
+/**
+ * 
+ * @author Boris Ionine
+ */
 public class PipeGame {
 	
 	private PipeMap board;
