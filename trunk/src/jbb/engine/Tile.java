@@ -103,9 +103,9 @@ public class Tile{
 		int adjIndex = 0;
 		int thisRow = position.getRow();
 		int thisCol = position.getCol();
-		for(int i = -1; i < 1; i++)
+		for(int i = -1; i <= 1; i++)
 		{			
-			for(int j = -1; j < 1; j++)
+			for(int j = -1; j <= 1; j++)
 			{
 				if(i==0 && j==0)//if the loop is at the centre Tile, skip it
 				{
@@ -124,7 +124,7 @@ public class Tile{
 				adjIndex++;
 			}
 		}
-		return new Tile[0];
+		return adj;
 	}
 	
 	public String toString() {
