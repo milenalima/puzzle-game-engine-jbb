@@ -1,0 +1,62 @@
+SYSC 2101 Project – puzzle-game-engine-jbb - Milestone 1
+
+Project group members:
+
+	Bruno Colantonio, Boris Ionine, Jonathan Gravel
+
+Deliverables and task distribution:
+
+[!]	Unit Tests:
+[!]		- Tile ()
+[!]		- PacMan (Jonathan)
+[!]		- MouseLand (Bruno)
+[!]		- Pipes (Boris)
+		
+	Refined Design:
+		- Engine
+			- Avatar (Jonathan)
+			- Board (Boris, Jonathan)
+			- GameOver (Jonathan)
+			- Hero (Jonathan)
+			- Item (Jonathan)
+			- NPC (Jonathan)
+			- Position (Boris)
+			- Tile (Boris, Bruno)
+			- Wall (Bruno)
+		- PacMan classes and Text Game (Jonathan)
+		- MouseLand classes and Text Game (Bruno)
+[!]		- Pipes classes and Text Game (Boris)
+
+[!]	UML diagrams:
+[!]		- Sequence Diagrams ():
+[!]			these diagram illustrates various cases that may occur
+[!]		- Class Diagram (Boris, Jonathan, Bruno):
+[!]			this diagram illustrates all classes used and the relatonships
+
+	Documentation:
+		- USER GUIDE
+			- PacGame (Jonathan)
+			- MouseGame (Bruno)
+[!]			- Pipes ()
+			- Engine (Jonathan)
+
+Changes since Milestone #1:
+
+[!]	- [all] the classes are working properly in a text based representation. In
+	order for this to become a reality, many changes were brought to the Class
+	Diagram, including added/removed methods/variables.
+	- A controller was created for each game, allowing user input for interaction
+	with the game.
+	
+Known issues and roadmaps:
+
+	- The PacMan game will eventually implement three different personalities for
+	Ghosts, which will prevent the ghosts from clustering to the same tile and
+	consequently becoming boring opponents. Ideally, ghosts should flee PacMan while
+	he is invulnerable as well...
+	- The Pipes game is difficult to represent in a Text based game: Since the tiles
+	are represented as letters, it is not possible to display a rotated pipe. Thus
+	ensuring that the rotated pipes work means drawing on paper the expected layout.
+	- The next step involves designing a GUI based game for our classes, which means
+	images will be drawn. As for the controller, it should not differ much from our
+	text based controller.
