@@ -1,84 +1,105 @@
 package jbb.engine.pacman.testcases;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import jbb.engine.GameOver;
+import jbb.engine.Hero;
+import jbb.engine.Item;
+import jbb.engine.Position;
+import jbb.engine.Tile;
+import jbb.engine.Wall;
+import jbb.engine.pacman.PacDot;
+import jbb.engine.pacman.PacMan;
+import jbb.engine.pacman.PacWorld;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class PacWorldTest {
+	
+	PacWorld pw = null;
 
 	@Before
 	public void setUp() throws Exception {
-	}
-
-	@Test
-	public void testPopulateItemMap() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCheckWin() {
-		fail("Not yet implemented");
+		pw = new PacWorld();
 	}
 
 	@Test
 	public void testResetPlayingField() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testPacWorld() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testBoard() {
-		fail("Not yet implemented");
+		Hero hero = pw.getHero();
+		Position pos = new Position(hero.getPosition().getRow(),hero.getPosition().getCol());
+		hero.setPosition(new Position(6,5));
+		pw.resetPlayingField();
+		assertEquals(pos,hero.getPosition());
 	}
 
 	@Test
 	public void testPlayTurn() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSyncItemMapAndField() {
-		fail("Not yet implemented");
+		try {
+			pw.playTurn(new Position(6,6));
+		} catch (GameOver e) {
+			fail("No exception should be raised here");
+		}
 	}
 
 	@Test
 	public void testGetWidth() {
-		fail("Not yet implemented");
+		assertEquals(PacWorld.WIDTH, pw.getWidth());
 	}
 
 	@Test
 	public void testGetHeight() {
-		fail("Not yet implemented");
+		assertEquals(PacWorld.HEIGHT, pw.getHeight());
 	}
 
 	@Test
 	public void testGetItem() {
-		fail("Not yet implemented");
+		// no item at this position
+		Item item = pw.getItem(new Position(6,1));
+		assertEquals(null, item);
+		
+		// item in front of PacMan has PacDot
+		item = pw.getItem(new Position(6,2));
+		if (!(item instanceof PacDot)) fail("Not returning right item");
+		
+		// this position is a Wall
+		item = pw.getItem(new Position(5,2));
+		assertEquals(null, item);
 	}
 
 	@Test
 	public void testGetTile() {
-		fail("Not yet implemented");
+		// should return hero at this position
+		Tile tile = pw.getTile(new Position(6,1));
+		assertEquals(pw.getHero(), tile);
+		
+		// item in front of PacMan has PacDot
+		tile = pw.getTile(new Position(6,2));
+		if (!(tile instanceof PacDot)) fail("Not returning pacdot");
+		
+		// this position is a Wall
+		tile = pw.getTile(new Position(5,2));
+		if (!(tile instanceof Wall)) fail("Not returning Wall");
 	}
 
 	@Test
 	public void testGetHero() {
-		fail("Not yet implemented");
+		PacMan tile = (PacMan) pw.getTile(PacWorld.DEFAULT_PACMAN_POS);
+		assertEquals(tile,pw.getHero());
 	}
 
 	@Test
 	public void testPlaceItem() {
-		fail("Not yet implemented");
+		// no item at this position
+		Position pos = new Position(6,1);
+		PacDot pd = new PacDot(pos,pw,false);
+		pw.placeItem(pd);
+		assertEquals(pd, pw.getItem(pos));
+		
+		// a wall at this position
+		pos = new Position(5,2);
+		pd = new PacDot(pos,pw,false);
+		pw.placeItem(pd);
+		assertEquals(pd, pw.getItem(pos));
 	}
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
-
 }
