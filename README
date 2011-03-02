@@ -7,6 +7,8 @@ Project group members:
 Deliverables and task distribution:
 
 [!]	Unit Tests:
+		These are difficult to implement due to the number of private
+		methods present in the classes.
 [!]		- Tile ()
 [!]		- PacMan (Jonathan)
 [!]		- MouseLand (Bruno)
@@ -25,28 +27,30 @@ Deliverables and task distribution:
 			- Wall (Bruno)
 		- PacMan classes and Text Game (Jonathan)
 		- MouseLand classes and Text Game (Bruno)
-[!]		- Pipes classes and Text Game (Boris)
+		- Pipes classes and Text Game (Boris)
 
-[!]	UML diagrams:
-[!]		- Sequence Diagrams ():
-[!]			these diagram illustrates various cases that may occur
-[!]		- Class Diagram (Boris, Jonathan, Bruno):
-[!]			this diagram illustrates all classes used and the relatonships
+	UML diagrams:
+		- Sequence Diagrams (Jonathan):
+			these diagram illustrates various cases that may occur
+		- Class Diagram (Boris):
+			this diagram illustrates all classes used and the relationships
 
 	Documentation:
 		- USER GUIDE
 			- PacGame (Jonathan)
 			- MouseGame (Bruno)
-[!]			- Pipes ()
+			- Pipes (Bruno)
 			- Engine (Jonathan)
 
 Changes since Milestone #1:
 
-[!]	- [all] the classes are working properly in a text based representation. In
+	- All the classes are working properly in a text based representation. In
 	order for this to become a reality, many changes were brought to the Class
 	Diagram, including added/removed methods/variables.
 	- A controller was created for each game, allowing user input for interaction
 	with the game.
+	- An extensive USER MANUAL explaining all the games and the engine was
+	developped.
 	
 Known issues and roadmaps:
 
