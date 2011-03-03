@@ -13,6 +13,7 @@ import jbb.engine.Position;
  * types, described in the USER GUIDE.
  * @author Jonathan Gravel
  */
+@SuppressWarnings("serial")
 public class Ghost extends NPC{
 
 	public static final int LIVES = 1; // only one life
@@ -22,7 +23,7 @@ public class Ghost extends NPC{
 	 * @param board
 	 */
 	public Ghost(Position position, Board board) {
-		super(new ImageIcon(), LIVES, position, board);
+		super(new ImageIcon("img/cheesy-left.png"), LIVES, position, board);
 		// TODO Auto-generated constructor stub
 	}
 	

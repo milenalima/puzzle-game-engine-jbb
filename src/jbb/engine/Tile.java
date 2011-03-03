@@ -1,5 +1,6 @@
 package jbb.engine;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 /**
  * The Tile class has a position and an image. 
@@ -7,7 +8,8 @@ import javax.swing.ImageIcon;
  * The tile will either be blank or hold an image.
  * @author Bruno Colantonio, Boris Ionine
  */
-public class Tile{
+@SuppressWarnings("serial")
+public class Tile extends JButton {
 	
 	public static final int TOP_LEFT=0; 
 	public static final int TOP=1;
@@ -32,8 +34,10 @@ public class Tile{
 	 * @param board will set the Tile to the specified board
 	 */
 	public Tile(Position position, Board board){
+		setBorderPainted(false);
 		accessible = true;
 		image = new ImageIcon();
+		setIcon(image);
 		this.board = board;
 		setPosition(position);
 	}
@@ -74,6 +78,7 @@ public class Tile{
 	 */
 	public void setImage(ImageIcon image){
 		this.image = image;
+		setIcon(image);
 	}
 	
 	/**

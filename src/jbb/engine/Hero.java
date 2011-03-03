@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
  * Hero is the user controlled character in the game. It collects points.
  * @author Jonathan Gravel
  */
+@SuppressWarnings("serial")
 public abstract class Hero extends Avatar {
 	
 	private int points;

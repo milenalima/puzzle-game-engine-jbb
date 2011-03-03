@@ -1,9 +1,12 @@
 package jbb.engine;
 
+import javax.swing.ImageIcon;
+
 /**
  * The Item class consist of an Item that the Avatar can pick up to get points.
  * @author Jonathan Gravel
  */
+@SuppressWarnings("serial")
 public abstract class Item extends Tile {
 
 	protected int pointValue;
@@ -12,7 +15,7 @@ public abstract class Item extends Tile {
 	 * @param position 
 	 * @param board
 	 */
-	public Item(Position position, Board board) {
+	public Item(ImageIcon image, Position position, Board board) {
 		this(position, board, 0); // not all Items give points
 		// TODO Auto-generated constructor stub
 	}

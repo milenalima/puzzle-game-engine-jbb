@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
  * reach the hero.
  * @author Jonathan Gravel
  */
+@SuppressWarnings("serial")
 public abstract class NPC extends Avatar{
 
 	/**

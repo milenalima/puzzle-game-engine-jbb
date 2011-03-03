@@ -1,5 +1,7 @@
 package jbb.engine.pacman;
 
+import javax.swing.ImageIcon;
+
 import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.Item;
@@ -10,6 +12,7 @@ import jbb.engine.Position;
  * PowerPellet, it grants PacMan invulnerability for 10 turns.
  * @author Jonathan Gravel
  */
+@SuppressWarnings("serial")
 public class PacDot extends Item {
 	
 	private boolean powerPellet;
@@ -20,7 +23,7 @@ public class PacDot extends Item {
 	 * @param powerPellet true if it is additionally a PowerPellet
 	 */
 	public PacDot(Position position, Board board, boolean powerPellet) {
-		super(position, board);
+		super(new ImageIcon("img/pipe-+-1.png"), position, board);
 		this.powerPellet = powerPellet;
 		setPointValue(10);
 	}
