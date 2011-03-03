@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
  * If an avatar is to die, it is to die upon collision, thus there is no need for hitPoints.
  * @author Jonathan Gravel
  */
+@SuppressWarnings("serial")
 public abstract class Avatar extends Tile {
 	
 	private int lives;

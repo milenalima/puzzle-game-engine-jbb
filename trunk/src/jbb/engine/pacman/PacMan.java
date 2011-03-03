@@ -12,6 +12,7 @@ import jbb.engine.Position;
  * PacMan is the Hero of PacGame. He collects PacDots to gain points and win.
  * @author Jonathan Gravel
  */
+@SuppressWarnings("serial")
 public class PacMan extends Hero {
 	
 	public static final int INVULN_LEN = 10; // invulnerability timer lasts 10 turns
@@ -27,7 +28,7 @@ public class PacMan extends Hero {
 	 * @param position represents the position of the Hero on the Board
 	 */
 	public PacMan(Position position, Board board) {
-		super(new ImageIcon(), LIVES, position, board);
+		super(new ImageIcon("img/pacman-right.png"), LIVES, position, board);
 		invulnerable = false;
 		timer = 0;
 	}

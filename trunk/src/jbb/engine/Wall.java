@@ -1,10 +1,13 @@
 package jbb.engine;
 
+import javax.swing.ImageIcon;
+
 /**
  * The wall is a tile which blocks the path of an Avatar. It is pictorially represented
  * by a Wall, and it simply a Tile that is not accessible (generally).
  * @author Bruno Colantonio
  */
+@SuppressWarnings("serial")
 public class Wall extends Tile{
 
 	/**
@@ -13,6 +16,7 @@ public class Wall extends Tile{
 	public Wall(Position position, Board board) {
 		super(position, board);
 		setAccessible(false);
+		setImage(new ImageIcon("img/wall-m-1.png"));
 	}
 	
 	public String toString() {
