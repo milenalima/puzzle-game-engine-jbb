@@ -30,7 +30,7 @@ public class MouseHero extends Hero{
  * @param position represents the position of the MouseHero on the Board
  */
 	public MouseHero(Position position, Board board) {
-		super(new ImageIcon(), LIVES, position, board);
+		super(new ImageIcon("img/cheesy-right.png"), LIVES, position, board);
 	}
 	
 /**
