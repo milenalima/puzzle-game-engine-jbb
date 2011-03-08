@@ -26,7 +26,7 @@ public class Mouse extends NPC{
  * @param position represents the position of the Mouse on the Board
  */
 	public Mouse(Position position, Board board) {
-		super(new ImageIcon(), LIVES, position, board);
+		super(new ImageIcon("img/redEyes-left.png"), LIVES, position, board);
 	}
 
 /**

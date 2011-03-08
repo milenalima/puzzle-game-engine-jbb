@@ -22,7 +22,7 @@ public class MouseTrap extends Item {
  */
 	public MouseTrap(Position position, Board board) {
 		super(position, board);
-		setImage(new ImageIcon("img/mouse-trap.png"));
+		setImage(new ImageIcon("img/mouseTrap.png"));
 	}
 
 /**

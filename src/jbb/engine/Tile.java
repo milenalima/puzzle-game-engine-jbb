@@ -20,8 +20,13 @@ public class Tile extends JButton {
 	public static final int BOTTOM=6;
 	public static final int BOTTOM_RIGHT=7;
 	
+	public static final int WHITE=0;
+	public static final int BLACK=1;
+	
 	private ImageIcon image; 
 	private boolean accessible;
+	
+	private static int blankTileColor;
 	
 	protected Position position;
 	
@@ -30,16 +35,28 @@ public class Tile extends JButton {
 	/**
 	 * The constructor will create a Tile at the positions of
 	 * the row and column. The image of a standard Tile is blank.
+	 * default color for blank tile is white
 	 * @param position will set the position of the Tile
 	 * @param board will set the Tile to the specified board
 	 */
 	public Tile(Position position, Board board){
 		setBorderPainted(false);
 		accessible = true;
-		image = new ImageIcon();
+		image = new ImageIcon("img/white-tile.png");
 		setIcon(image);
 		this.board = board;
 		setPosition(position);
+	}
+	
+	/**
+	 * Sets the color of blank tiles to the given color
+	 * 
+	 * @param color
+	 * @throws NoSuchColorException 
+	 */
+	public void setBlankColor(int color) throws NoSuchColorException {
+		if (color != WHITE || color != BLACK) throw new NoSuchColorException();
+		blankTileColor = color;
 	}
 	
 	/**
