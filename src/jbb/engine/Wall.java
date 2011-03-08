@@ -16,7 +16,7 @@ public class Wall extends Tile{
 	public Wall(Position position, Board board) {
 		super(position, board);
 		setAccessible(false);
-		setImage(new ImageIcon("img/wall-m-1.png"));
+		setImage(new ImageIcon("img/wall-brick.png"));
 	}
 	
 	public String toString() {

@@ -1,6 +1,7 @@
 package jbb.engine.pacman;
 
 import jbb.engine.BoardView;
+import jbb.engine.Tile;
 
 public class PacGameView extends BoardView {
 

@@ -26,7 +26,7 @@ public class PacDot extends Item {
 		super(position, board);
 		this.powerPellet = powerPellet;
 		if(powerPellet) {
-			this.setImage(new ImageIcon("img/pacdot-p.png"));
+			this.setImage(new ImageIcon("img/pacdot-powerpellet.png"));
 		} else this.setImage(new ImageIcon("img/pacdot.png"));
 		setPointValue(10);
 	}

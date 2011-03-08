@@ -21,6 +21,7 @@ public class MouseLand extends Board{
 
 	public MouseLand() {
 		super(WIDTH, HEIGHT);
+		Tile.setBlankColor(Tile.BLACK);
 		movableTiles.add(new MouseHero(new Position(9,1), this));
 		movableTiles.add(new Mouse(new Position(1,1), this));
 		movableTiles.add(new Mouse(new Position(8,8), this));

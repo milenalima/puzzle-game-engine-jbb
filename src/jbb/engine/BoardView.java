@@ -11,7 +11,12 @@ import javax.swing.JOptionPane;
 
 public abstract class BoardView {
 	
-	public static final int SIZE_OF_IMG = 20;
+	// trial and error offset to fix the gaps near the edge of the frame
+	private static final int FRAME_OFFSET = 7;
+	// trial and error size of image because the size of img (20) did not
+	// display the image fully.
+	private static final int HEIGHT_OF_IMG = 23;
+	private static final int WIDTH_OF_IMG = 21;
 	
 	JFrame frame = null;
 	Board board = null;
@@ -21,7 +26,7 @@ public abstract class BoardView {
 		this.board = board;
 		frame = new JFrame(board.getClass().toString());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(SIZE_OF_IMG*board.getWidth(), SIZE_OF_IMG*board.getHeight());
+		frame.setSize(WIDTH_OF_IMG*board.getWidth()-FRAME_OFFSET, HEIGHT_OF_IMG*board.getHeight()-FRAME_OFFSET);
 		frame.setResizable(false);
 		Container content = frame.getContentPane();
 		content.setLayout(new GridLayout(board.getWidth(), board.getHeight()));
