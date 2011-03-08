@@ -16,6 +16,7 @@ public class PacWorld extends Board{
 	 */
 	public PacWorld() {
 		super(WIDTH, HEIGHT);
+		Tile.setBlankColor(Tile.BLACK);
 		// Hero is always at the start of the list;
 		movableTiles.add(new PacMan(DEFAULT_PACMAN_POS,this));
 		movableTiles.add(new Ghost(DEFAULT_GHOST1_POS,this));

@@ -42,7 +42,11 @@ public class Tile extends JButton {
 	public Tile(Position position, Board board){
 		setBorderPainted(false);
 		accessible = true;
-		image = new ImageIcon("img/white-tile.png");
+		if (blankTileColor == WHITE) {
+			image = new ImageIcon("img/white-tile.png");
+		} else {
+			image = new ImageIcon("img/black-tile.png");
+		}
 		setIcon(image);
 		this.board = board;
 		setPosition(position);
@@ -54,8 +58,8 @@ public class Tile extends JButton {
 	 * @param color
 	 * @throws NoSuchColorException 
 	 */
-	public void setBlankColor(int color) throws NoSuchColorException {
-		if (color != WHITE || color != BLACK) throw new NoSuchColorException();
+	public static void setBlankColor(int color) { //throws NoSuchColorException {
+		//if (color != WHITE || color != BLACK) throw new NoSuchColorException();
 		blankTileColor = color;
 	}
 	

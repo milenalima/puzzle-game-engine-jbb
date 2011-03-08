@@ -23,7 +23,7 @@ public class Ghost extends NPC{
 	 * @param board
 	 */
 	public Ghost(Position position, Board board) {
-		super(new ImageIcon("img/cheesy-left.png"), LIVES, position, board);
+		super(new ImageIcon("img/mouseTrap.png"), LIVES, position, board);
 		// TODO Auto-generated constructor stub
 	}
 	
