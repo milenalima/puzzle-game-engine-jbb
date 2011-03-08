@@ -23,8 +23,11 @@ public class PacDot extends Item {
 	 * @param powerPellet true if it is additionally a PowerPellet
 	 */
 	public PacDot(Position position, Board board, boolean powerPellet) {
-		super(new ImageIcon("img/pipe-+-1.png"), position, board);
+		super(position, board);
 		this.powerPellet = powerPellet;
+		if(powerPellet) {
+			this.setImage(new ImageIcon("img/pacdot-p.png"));
+		} else this.setImage(new ImageIcon("img/pacdot.png"));
 		setPointValue(10);
 	}
 

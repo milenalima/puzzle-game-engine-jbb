@@ -15,8 +15,8 @@ public class PacGame {
 	
 	private PacWorld board;
 	
-	public PacGame() {
-		board = new PacWorld();
+	public PacGame(PacWorld board) {
+		this.board = board;
 	}
 	
 	/**
@@ -53,7 +53,8 @@ public class PacGame {
 	}
 	
 	public static void main(String[] args) {
-		PacGame game = new PacGame();
+		PacWorld board = new PacWorld();
+		PacGame game = new PacGame(board);
 		game.play();
 	}
 }
