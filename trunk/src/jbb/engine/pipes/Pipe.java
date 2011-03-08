@@ -1,7 +1,8 @@
 package jbb.engine.pipes;
 
-import jbb.engine.Avatar;
+import javax.swing.ImageIcon;
 
+import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.Item;
 import jbb.engine.Position;
@@ -31,7 +32,7 @@ public class Pipe extends Item{
 		super(position, board);
 		//this.numOpenings = numOpenings;
 		this.pipeType = pipeType;
-		
+		this.setImage(new ImageIcon("pipe-"+pipeType+"-1.png"));
 		//switch statement to determine number of openings and which 
 		//sides are open, based on the pipeType
 		switch (pipeType){

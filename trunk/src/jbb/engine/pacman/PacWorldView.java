@@ -11,25 +11,26 @@ import javax.swing.JOptionPane;
 import jbb.engine.GameOver;
 import jbb.engine.Tile;
 
-public class PacWorldView extends PacWorld{
+public class PacWorldView {
 	
 	public static final int SIZE_OF_IMG = 20;
 	
 	JFrame frame = null;
 	
-	public PacWorldView() {
+	public PacWorldView(PacWorld board) {
 		super();
 		frame = new JFrame("PacWorld");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(SIZE_OF_IMG*WIDTH, SIZE_OF_IMG*HEIGHT);
+		frame.setSize(SIZE_OF_IMG*board.WIDTH, SIZE_OF_IMG*board.HEIGHT);
+		frame.setResizable(false);
 		Container content = frame.getContentPane();
-		content.setLayout(new GridLayout(WIDTH, HEIGHT));
+		content.setLayout(new GridLayout(board.WIDTH, board.HEIGHT));
 		Tile tile;
-		for (int row = 0; row < HEIGHT; row++) {
-			for (int col = 0; col < WIDTH; col++) {
-				tile = playingField[row][col];
+		for (int row = 0; row < board.HEIGHT; row++) {
+			for (int col = 0; col < board.WIDTH; col++) {
+				tile = board.playingField[row][col];
 				tile.addActionListener(new ButtonPressHandler(this));
-				content.add(playingField[row][col]);
+				content.add(board.playingField[row][col]);
 			}
 		}
 		frame.setVisible(true);

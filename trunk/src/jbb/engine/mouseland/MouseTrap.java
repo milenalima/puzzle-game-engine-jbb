@@ -1,5 +1,7 @@
 package jbb.engine.mouseland;
 
+import javax.swing.ImageIcon;
+
 import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.Item;
@@ -20,6 +22,7 @@ public class MouseTrap extends Item {
  */
 	public MouseTrap(Position position, Board board) {
 		super(position, board);
+		setImage(new ImageIcon("img/mouse-trap.png"));
 	}
 
 /**

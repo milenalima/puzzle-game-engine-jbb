@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 import jbb.engine.GameOver;
 import jbb.engine.Position;
-import jbb.engine.pacman.PacMan;
 
 public class MouseGame{
 	

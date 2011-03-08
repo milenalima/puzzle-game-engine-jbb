@@ -15,7 +15,7 @@ public abstract class Item extends Tile {
 	 * @param position 
 	 * @param board
 	 */
-	public Item(ImageIcon image, Position position, Board board) {
+	public Item(Position position, Board board) {
 		this(position, board, 0); // not all Items give points
 		// TODO Auto-generated constructor stub
 	}
