@@ -1,5 +1,7 @@
 package jbb.engine;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -19,32 +21,58 @@ public abstract class BoardView {
 	private static final int HEIGHT_OF_IMG = 23;
 	private static final int WIDTH_OF_IMG = 21;
 	
-	JFrame frame = null;
-	Board board = null;
+	private JFrame frame = null;
+	private Board board = null;
+	private Component[] components = null;
+	// max number of components stacked on each other
+	private static final int STACK_AMOUNT = 1;
+	// height to allocate for components
+	private static final int COMPONENTS_HEIGHT = 510;
 	
 	public BoardView(Board board) {
 		super();
 		this.board = board;
-		frame = new JFrame(board.getClass().toString());
+		frame = new JFrame(board.getClass().getSimpleName());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(WIDTH_OF_IMG*board.getWidth()-FRAME_OFFSET, HEIGHT_OF_IMG*board.getHeight()-FRAME_OFFSET);
 		frame.setResizable(false);
-		Container content = frame.getContentPane();
-		content.setLayout(new GridLayout(board.getWidth(), board.getHeight()));
-		Tile tile;
-		for (int row = 0; row < board.getHeight(); row++) {
-			for (int col = 0; col < board.getWidth(); col++) {
-				tile = board.getTile(new Position(row, col));
-				tile.addActionListener(new ButtonPressHandler(board));
-				content.add(tile);
-			}
-		}
-		frame.setVisible(true);
+		updateView();
+	}
+	
+	/**
+	 * Allows specific game to have additional components on the board,
+	 * other than the graphical representation of the playing field.
+	 * @param components a list of components to add to the top of the playing
+	 * field
+	 */
+	public void addMoreComponents(Component[] components) {
+		this.components = components;
+		updateView();
 	}
 
 	private void updateView() {
-		Container content = new Container();
-		content.setLayout(new GridLayout(board.getWidth(),board.getHeight()));
+		// wraps the additional components and the board
+		Container wrapper = new Container();
+		wrapper.setLayout(new BorderLayout());
+		// if there are components, add them to the frame
+		/* THIS DOESNTWORKYET...
+		if (components != null) {
+			// additionalComponent stored on top of gameField
+			Container additionalComponent = new Container();
+			additionalComponent.setLayout(new GridLayout(components.length,STACK_AMOUNT));
+			// make room for the new components.
+			frame.setSize(frame.getWidth(),HEIGHT_OF_IMG*board.getHeight()-FRAME_OFFSET+COMPONENTS_HEIGHT);
+			for (int i = 0; i < components.length; i++) {
+				additionalComponent.add(components[i]);
+			}
+			wrapper.add(additionalComponent,BorderLayout.NORTH);
+		}
+		*/
+		// gameField contains the tiles
+		Container gameField = new Container();
+		gameField.setLayout(new GridLayout(board.getWidth(),board.getHeight()));
+		wrapper.add(gameField,BorderLayout.CENTER);
+		// Place playingField tiles on the board.
 		Tile tile;
 		ButtonPressHandler handler = new ButtonPressHandler(board);
 		for (int row = 0; row < board.getHeight(); row++) {
@@ -54,10 +82,10 @@ public abstract class BoardView {
 				if (tile.getActionListeners().length == 0) {
 					tile.addActionListener(handler);
 				}
-				content.add(tile);
+				gameField.add(tile);
 			}
 		}
-		frame.setContentPane(content);
+		frame.setContentPane(gameField);
 		frame.setVisible(true);
 	}
 	
@@ -83,8 +111,8 @@ public abstract class BoardView {
 			} catch (GameOver e1) {
 				updateView();
 				String[] options = {"Play again","Quit"};
-				int result = JOptionPane.showOptionDialog(null, "YOU WIN!", "Congratulations",
-						JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, new ImageIcon("img/pacman-up"),
+				int result = JOptionPane.showOptionDialog(null, e1.getMessage(), "End of Game",
+						JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,
 						options, options[0]);
 				if (result == JOptionPane.CLOSED_OPTION) {
 					// if the user closes the YOU WIN window, just linger
