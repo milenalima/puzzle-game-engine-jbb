@@ -1,5 +1,8 @@
 package jbb.engine.pipes;
 
+import java.util.ArrayList;
+
+import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.GameOver;
 import jbb.engine.Item;
@@ -186,6 +189,19 @@ public class PipeMap extends Board{
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public void restartGame() {
+		this.width = WIDTH;
+		this.height = HEIGHT;
+		playingField = new Tile[width][height];	
+		itemMap = new Tile[width][height];
+		movableTiles = new ArrayList<Avatar>();
+		populateItemMap();
+		movableTiles.add(new Plumber(new Position(1,1), this));
+		movableTiles.add(new Water(new Position(2,1), this));
+		syncItemMapAndField(movableTiles);
 	}
 }
 

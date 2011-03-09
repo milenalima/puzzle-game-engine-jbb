@@ -56,7 +56,6 @@ public class Tile extends JButton {
 	 * Sets the color of blank tiles to the given color
 	 * 
 	 * @param color
-	 * @throws NoSuchColorException 
 	 */
 	public static void setBlankColor(int color) { //throws NoSuchColorException {
 		//if (color != WHITE || color != BLACK) throw new NoSuchColorException();

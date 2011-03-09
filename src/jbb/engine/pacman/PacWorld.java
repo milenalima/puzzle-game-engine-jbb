@@ -1,5 +1,7 @@
 package jbb.engine.pacman;
 
+import java.util.ArrayList;
+
 import jbb.engine.*;
 
 public class PacWorld extends Board{
@@ -16,7 +18,6 @@ public class PacWorld extends Board{
 	 */
 	public PacWorld() {
 		super(WIDTH, HEIGHT);
-		Tile.setBlankColor(Tile.BLACK);
 		// Hero is always at the start of the list;
 		movableTiles.add(new PacMan(DEFAULT_PACMAN_POS,this));
 		movableTiles.add(new Ghost(DEFAULT_GHOST1_POS,this));
@@ -48,6 +49,7 @@ public class PacWorld extends Board{
 	@Override
 	protected void populateItemMap()
 	{
+		Tile.setBlankColor(Tile.BLACK);
 		// place PacDots everywhere in the middle
 		for (int row = 1; row < 12; row++) {
 			for (int col = 1; col < 12; col++) {
@@ -168,5 +170,21 @@ public class PacWorld extends Board{
 			}
 		}
 		return true;
+	}
+	
+	public void restartGame() {
+		this.width = WIDTH;
+		this.height = HEIGHT;
+		playingField = new Tile[width][height];	
+		itemMap = new Tile[width][height];
+		movableTiles = new ArrayList<Avatar>();
+		populateItemMap();
+		// Hero is always at the start of the list;
+		movableTiles.add(new PacMan(DEFAULT_PACMAN_POS,this));
+		movableTiles.add(new Ghost(DEFAULT_GHOST1_POS,this));
+		movableTiles.add(new Ghost(DEFAULT_GHOST2_POS,this));
+		movableTiles.add(new Ghost(DEFAULT_GHOST3_POS,this));
+		// you have to call the following to initialise playing field
+		syncItemMapAndField(movableTiles);
 	}
 }

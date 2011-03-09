@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public abstract class Board {
 	protected Tile[][] playingField;
 	protected Tile[][] itemMap;
-	private int width;
-	private int height;
+	protected int width;
+	protected int height;
 	
 	protected ArrayList<Avatar> movableTiles;
 	
@@ -229,4 +229,6 @@ public abstract class Board {
 		
 		return s;
 	}
+
+	public abstract void restartGame();
 }

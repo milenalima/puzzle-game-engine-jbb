@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -45,15 +46,18 @@ public abstract class BoardView {
 		Container content = new Container();
 		content.setLayout(new GridLayout(board.getWidth(),board.getHeight()));
 		Tile tile;
+		ButtonPressHandler handler = new ButtonPressHandler(board);
 		for (int row = 0; row < board.getHeight(); row++) {
 			for (int col = 0; col < board.getWidth(); col++) {
 				tile = board.getTile(new Position(row,col));
-				tile.addActionListener(new ButtonPressHandler(board));
+				// if this tile has no listeners, add one
+				if (tile.getActionListeners().length == 0) {
+					tile.addActionListener(handler);
+				}
 				content.add(tile);
 			}
 		}
 		frame.setContentPane(content);
-		frame.setVisible(false);
 		frame.setVisible(true);
 	}
 	
@@ -72,10 +76,26 @@ public abstract class BoardView {
 				board.playTurn(tile.getPosition());
 				updateView();
 			} catch (IllegalArgumentException ex) {
-				JOptionPane warning = new JOptionPane("Invalid Move");
-				warning.setVisible(true);
+				// JOptionPane.showMessageDialog(null, "Invalid Input");
+				// This is really annoying, so for now, invalid input
+				// will just be ignored.
+				//warning.setVisible(true);
 			} catch (GameOver e1) {
-				System.out.println(e1.getMessage());
+				updateView();
+				String[] options = {"Play again","Quit"};
+				int result = JOptionPane.showOptionDialog(null, "YOU WIN!", "Congratulations",
+						JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, new ImageIcon("img/pacman-up"),
+						options, options[0]);
+				if (result == JOptionPane.CLOSED_OPTION) {
+					// if the user closes the YOU WIN window, just linger
+				} else if (result == 0) {
+					// if option 0 is chosen, start a new game
+					board.restartGame();
+					updateView();
+				} else {
+					// if any other option is chosen, quit the game
+					frame.dispose();
+				}
 			}
 		}
 	}
