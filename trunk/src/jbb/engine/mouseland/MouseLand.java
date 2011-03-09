@@ -6,6 +6,9 @@
 
 package jbb.engine.mouseland;
 
+import java.util.ArrayList;
+
+import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.Position;
 import jbb.engine.Tile;
@@ -50,6 +53,7 @@ public class MouseLand extends Board{
  */
 	@Override
 	protected void populateItemMap() {
+		Tile.setBlankColor(Tile.WHITE);
 		itemMap[0][0] = new Wall(new Position(0,0),this);
 		itemMap[0][1] = new Wall(new Position(0,1),this);
 		itemMap[0][2] = new Wall(new Position(0,2),this);
@@ -201,5 +205,20 @@ public class MouseLand extends Board{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void restartGame() {
+		this.width = WIDTH;
+		this.height = HEIGHT;
+		playingField = new Tile[width][height];	
+		itemMap = new Tile[width][height];
+		movableTiles = new ArrayList<Avatar>();
+		populateItemMap();
+		movableTiles.add(new MouseHero(new Position(9,1), this));
+		movableTiles.add(new Mouse(new Position(1,1), this));
+		movableTiles.add(new Mouse(new Position(8,8), this));
+		movableTiles.add(new Mouse(new Position(1,8), this));
+		syncItemMapAndField(movableTiles);
 	}
 }
