@@ -8,6 +8,8 @@ package jbb.engine.mouseland;
 
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.Position;
@@ -24,7 +26,6 @@ public class MouseLand extends Board{
 
 	public MouseLand() {
 		super(WIDTH, HEIGHT);
-		Tile.setBlankColor(Tile.WHITE);
 		movableTiles.add(new MouseHero(new Position(9,1), this));
 		movableTiles.add(new Mouse(new Position(1,1), this));
 		movableTiles.add(new Mouse(new Position(8,8), this));
@@ -53,7 +54,7 @@ public class MouseLand extends Board{
  */
 	@Override
 	protected void populateItemMap() {
-		Tile.setBlankColor(Tile.WHITE);
+		Tile.setBlankImage(new ImageIcon("img/white-tile.png"));
 		itemMap[0][0] = new Wall(new Position(0,0),this);
 		itemMap[0][1] = new Wall(new Position(0,1),this);
 		itemMap[0][2] = new Wall(new Position(0,2),this);
