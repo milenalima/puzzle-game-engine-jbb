@@ -11,11 +11,11 @@ import javax.swing.ImageIcon;
 
 import jbb.engine.Avatar;
 import jbb.engine.Board;
-import jbb.engine.GameOver;
 import jbb.engine.NPC;
 import jbb.engine.Position;
 import jbb.engine.Tile;
 
+@SuppressWarnings("serial")
 public class Mouse extends NPC{
 	public static final int LIVES = 1;
 	

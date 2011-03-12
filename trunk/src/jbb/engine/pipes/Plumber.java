@@ -15,11 +15,12 @@ import jbb.engine.Tile;
  * onto the winning position with no leaks.
  * @author Boris Ionine
  */
+@SuppressWarnings("serial")
 public class Plumber extends Hero{
 	private char nextPipeType;
 	public static final int LIVES = 1;
 	public Plumber(Position position, Board board) {
-		super(new ImageIcon(), LIVES, position, board);
+		super(new ImageIcon("img/wrench.PNG"), LIVES, position, board);
 		
 		acquireNextPipeType();
 	}

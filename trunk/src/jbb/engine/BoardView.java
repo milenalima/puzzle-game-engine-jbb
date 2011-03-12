@@ -14,11 +14,10 @@ import javax.swing.JOptionPane;
 public abstract class BoardView {
 	
 	// trial and error offset to fix the gaps near the edge of the frame
-	private static final int FRAME_OFFSET = 7;
-	// trial and error size of image because the size of img (20) did not
-	// display the image fully.
-	private static final int HEIGHT_OF_IMG = 23;
-	private static final int WIDTH_OF_IMG = 21;
+	private static final int HORIZONTAL_OFFSET = 6;
+	private static final int VERTICAL_OFFSET = 32;
+	private static final int HEIGHT_OF_IMG = 20;
+	private static final int WIDTH_OF_IMG = 20;
 	
 	private JFrame frame = null;
 	protected Board board = null;
@@ -33,7 +32,8 @@ public abstract class BoardView {
 		this.board = board;
 		frame = new JFrame(board.getClass().getSimpleName());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(WIDTH_OF_IMG*board.getWidth()-FRAME_OFFSET, HEIGHT_OF_IMG*board.getHeight()-FRAME_OFFSET);
+		frame.pack();
+		frame.setSize(WIDTH_OF_IMG*board.getWidth()+HORIZONTAL_OFFSET, HEIGHT_OF_IMG*board.getHeight()+VERTICAL_OFFSET);
 		frame.setResizable(false);
 		updateView();
 	}
@@ -59,7 +59,7 @@ public abstract class BoardView {
 			Container additionalComponent = new Container();
 			additionalComponent.setLayout(new GridLayout(STACK_ADD_COMPONENTS,components.length));
 			// make room for the new components.
-			frame.setSize(frame.getWidth(),HEIGHT_OF_IMG*board.getHeight()-FRAME_OFFSET+COMPONENTS_HEIGHT);
+			frame.setSize(frame.getWidth(),HEIGHT_OF_IMG*board.getHeight()+VERTICAL_OFFSET+COMPONENTS_HEIGHT);
 			for (int i = 0; i < components.length; i++) {
 				additionalComponent.add(components[i]);
 			}
