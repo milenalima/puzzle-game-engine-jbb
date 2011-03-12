@@ -16,7 +16,7 @@ import jbb.engine.Wall;
  *
  */
 public class PipeMap extends Board{
-	public static final int WATER_START_TURN = 5;
+	public static final int WATER_START_TURN = 10;
 	public static final int WIDTH = 7;
 	public static final int HEIGHT = 7;
 	public Position winningPosition = new Position(6,1);
@@ -31,6 +31,7 @@ public class PipeMap extends Board{
 	
 	@Override
 	protected void populateItemMap() {
+		Tile.setBlankColor(Tile.WHITE);
 		itemMap[0][0] = new Wall(new Position(0,0),this);
 		itemMap[0][1] = new Wall(new Position(0,1),this);
 		itemMap[0][2] = new Wall(new Position(0,2),this);
@@ -89,8 +90,19 @@ public class PipeMap extends Board{
 	}
 	
 	@Override
+	public void syncItemMapAndField(ArrayList<Avatar> movableTiles) {
+		super.syncItemMapAndField(movableTiles);
+		// the items should be seen rather than the water
+		Position pos;
+		for (int i = 1; i < movableTiles.size(); i++) {
+			pos = movableTiles.get(i).getPosition();
+			playingField[pos.getRow()][pos.getCol()] = itemMap[pos.getRow()][pos.getCol()];
+		}
+	}
+	
+	@Override
 	public void playTurn(Position position) throws GameOver{
-		numTurns ++;
+		numTurns++;
 		//Hero is always the first element of the ArrayList
 		Plumber plumber = (Plumber) movableTiles.get(0);
 		
@@ -186,14 +198,14 @@ public class PipeMap extends Board{
 	@Override
 	protected boolean checkWin() {
 		Tile winningTile = playingField[winningPosition.getRow()][winningPosition.getCol()];
-		if(winningTile instanceof Water){
-			return true;
-		}
-		return false;
+		if(winningTile instanceof Pipe) {
+			return ((Pipe) winningTile).isFilled();
+		} return false;
 	}
 	
 	@Override
 	public void restartGame() {
+		numTurns = 0;
 		this.width = WIDTH;
 		this.height = HEIGHT;
 		playingField = new Tile[width][height];	

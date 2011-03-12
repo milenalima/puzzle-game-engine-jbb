@@ -11,9 +11,17 @@ import jbb.engine.Position;
  * An Item that the Plumber drops and Water flows through.
  * @author Boris Ionine
  */
+@SuppressWarnings("serial")
 public class Pipe extends Item{
+	
+	private static final int degrees0 = 1;
+	//private static final int degrees90 = 2;
+	//private static final int degrees180 = 3;
+	private static final int degrees270 = 4;
+	
 	private int numOpenings;
 	private char pipeType; //one of the Q(stopper and starting faucet), I, L, T, X pipe types
+	private int rotation = degrees0;
 	private boolean openLeft = false;
 	private boolean openBottom = false;
 	private boolean openRight = false;
@@ -32,7 +40,7 @@ public class Pipe extends Item{
 		super(position, board);
 		//this.numOpenings = numOpenings;
 		this.pipeType = pipeType;
-		this.setImage(new ImageIcon("pipe-"+pipeType+"-1.png"));
+		this.setImage(new ImageIcon("img/pipe-"+pipeType+"-1.png"));
 		//switch statement to determine number of openings and which 
 		//sides are open, based on the pipeType
 		switch (pipeType){
@@ -70,14 +78,19 @@ public class Pipe extends Item{
 	/**
 	 * Override of pickedUp in Item.
 	 * Checks to see if Water or a Plumber picked up the Pipe and reacts
-	 * accordingly (calls correspoding method).
+	 * accordingly (calls corresponding method).
 	 * @param picker
 	 * @Override
 	 */
 	public void pickedUp(Avatar picker) {
-		// TODO Auto-generated method stub
-		Avatar p;
 		//determine if the Plumber or the Water has picked up the pipe
+		if (picker instanceof Plumber) {
+			this.rotate();
+		} else if (picker instanceof Water) {
+			this.fillUp();
+		}
+		/*
+		Avatar p;
 		try{
 			p = (Plumber) picker;
 		}
@@ -91,15 +104,17 @@ public class Pipe extends Item{
 		}
 		else{
 			this.rotate();
-		}				
+		}		
+		*/		
 	}
 	
 	/**
 	 * Sets boolean filled to true.
 	 */
 	private void fillUp() {
-		// TODO further use?
 		filled = true;
+		//this.setImage(new ImageIcon("img/pacman-up.png"));
+		this.setImage(new ImageIcon("img/pipe-"+pipeType+"-water-"+rotation+".png"));
 	}
 
 	/**
@@ -113,7 +128,17 @@ public class Pipe extends Item{
 		openRight = bTemp;
 		boolean tTemp = openTop;
 		openTop = rTemp;
-		openLeft = tTemp;		
+		openLeft = tTemp;
+		if(++rotation > degrees270)
+			rotation = degrees0;
+		this.setImage(new ImageIcon("img/pipe-"+pipeType+"-"+rotation+".png"));
+		/* :::would this work?:::
+		 * boolean temp = openLeft;
+		 * openLeft = openTop;
+		 * openTop = openRight;
+		 * openRight = openBottom;
+		 * openBottom = temp;
+		 */
 	}
 	
 	/**
@@ -166,6 +191,10 @@ public class Pipe extends Item{
 	 */
 	public boolean isOpenTop() {
 		return openTop;
+	}
+	
+	public boolean isFilled() {
+		return filled;
 	}
 	
 	/**
