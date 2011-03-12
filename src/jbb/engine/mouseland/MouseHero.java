@@ -47,13 +47,13 @@ public class MouseHero extends Hero{
  */	
 	public void setTrap(){
 		//when MouseHero runs out of MouseTrap it will print out the following
-		numMouseTraps-=1;
-		if(numMouseTraps<0){
-			System.out.print("you do not have any mouse traps left \n");
+		if(--numMouseTraps<0){
+			//System.out.print("you do not have any mouse traps left \n");
 		}
-		else 
+		else {
 			mouseTrap = new MouseTrap(this.position,this.board);
-			this.board.placeItem(mouseTrap);
+			board.placeItem(mouseTrap);
+		}
 	}
 
 /**

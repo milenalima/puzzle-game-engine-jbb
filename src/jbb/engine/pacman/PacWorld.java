@@ -139,7 +139,7 @@ public class PacWorld extends Board{
 		// 13th row is just wall
 		currentRow = itemMap[12];
 		for (int i = 0; i < 13; i++) {
-			currentRow[i] = new Wall(new Position(0,i), this);
+			currentRow[i] = new Wall(new Position(12,i), this);
 		}
 	}
 
