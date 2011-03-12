@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -22,12 +21,12 @@ public abstract class BoardView {
 	private static final int WIDTH_OF_IMG = 21;
 	
 	private JFrame frame = null;
-	private Board board = null;
+	protected Board board = null;
 	private Component[] components = null;
 	// max number of components stacked on each other
-	private static final int STACK_AMOUNT = 1;
-	// height to allocate for components
-	private static final int COMPONENTS_HEIGHT = 510;
+	private static final int STACK_ADD_COMPONENTS = 1;
+	// trial and error height to allocate for components
+	private static final int COMPONENTS_HEIGHT = 16;
 	
 	public BoardView(Board board) {
 		super();
@@ -54,12 +53,11 @@ public abstract class BoardView {
 		// wraps the additional components and the board
 		Container wrapper = new Container();
 		wrapper.setLayout(new BorderLayout());
-		// if there are components, add them to the frame
-		/* THIS DOESNTWORKYET...
 		if (components != null) {
+			updateComponents();
 			// additionalComponent stored on top of gameField
 			Container additionalComponent = new Container();
-			additionalComponent.setLayout(new GridLayout(components.length,STACK_AMOUNT));
+			additionalComponent.setLayout(new GridLayout(STACK_ADD_COMPONENTS,components.length));
 			// make room for the new components.
 			frame.setSize(frame.getWidth(),HEIGHT_OF_IMG*board.getHeight()-FRAME_OFFSET+COMPONENTS_HEIGHT);
 			for (int i = 0; i < components.length; i++) {
@@ -67,7 +65,6 @@ public abstract class BoardView {
 			}
 			wrapper.add(additionalComponent,BorderLayout.NORTH);
 		}
-		*/
 		// gameField contains the tiles
 		Container gameField = new Container();
 		gameField.setLayout(new GridLayout(board.getWidth(),board.getHeight()));
@@ -85,10 +82,16 @@ public abstract class BoardView {
 				gameField.add(tile);
 			}
 		}
-		frame.setContentPane(gameField);
+		frame.setContentPane(wrapper);
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * This function will change the value of any additional components that have
+	 * been added to the board, e.g. updating lives remaining on JTextArea.
+	 */
+	protected abstract void updateComponents();
+
 	private class ButtonPressHandler implements ActionListener{
 
 		private Board board;

@@ -16,6 +16,7 @@ import jbb.engine.Wall;
  *
  */
 public class PipeMap extends Board{
+	public static final int WATER_START_TURN = 5;
 	public static final int WIDTH = 7;
 	public static final int HEIGHT = 7;
 	public Position winningPosition = new Position(6,1);
@@ -109,7 +110,7 @@ public class PipeMap extends Board{
 			syncItemMapAndField(movableTiles);
 		}		
 		
-		if(numTurns >= 6){
+		if(numTurns > WATER_START_TURN){
 			Water water;
 			Position[] nextWaterPositions;
 			//need the current number of movable Tiles to loop over

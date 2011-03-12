@@ -24,7 +24,7 @@ public class MouseLand extends Board{
 
 	public MouseLand() {
 		super(WIDTH, HEIGHT);
-		Tile.setBlankColor(Tile.BLACK);
+		Tile.setBlankColor(Tile.WHITE);
 		movableTiles.add(new MouseHero(new Position(9,1), this));
 		movableTiles.add(new Mouse(new Position(1,1), this));
 		movableTiles.add(new Mouse(new Position(8,8), this));
@@ -181,7 +181,7 @@ public class MouseLand extends Board{
 			movableTiles.get(2).setPosition(new Position(8,8));
 		if(movableTiles.get(3).getLives() == 1)
 			movableTiles.get(3).setPosition(new Position(1,8));
-		System.out.print("\nThe mouse caught you! \n\nRESTART!\n\n");
+		//System.out.print("\nThe mouse caught you! \n\nRESTART!\n\n");
 	}
 
 /**

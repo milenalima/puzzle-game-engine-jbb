@@ -54,7 +54,7 @@ public class Mouse extends NPC{
 		//create a tile at the position at the moment and compare it with a 
 		//mouseTrap, if it is an instance of MouseTrap do the following..
 		if (tile instanceof MouseTrap) {
-			System.out.print("\nThe Mouse walk over Cheesy's Mouse Trap!!\n\n");
+			//System.out.print("\nThe Mouse walk over Cheesy's Mouse Trap!!\n\n");
 			return true;
 		}
 		return false;
