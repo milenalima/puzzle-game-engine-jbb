@@ -2,6 +2,8 @@ package jbb.engine.pacman;
 
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import jbb.engine.*;
 
 public class PacWorld extends Board{
@@ -49,7 +51,7 @@ public class PacWorld extends Board{
 	@Override
 	protected void populateItemMap()
 	{
-		Tile.setBlankColor(Tile.BLACK);
+		Tile.setBlankImage(new ImageIcon("img/black-tile.png"));
 		// place PacDots everywhere in the middle
 		for (int row = 1; row < 12; row++) {
 			for (int col = 1; col < 12; col++) {

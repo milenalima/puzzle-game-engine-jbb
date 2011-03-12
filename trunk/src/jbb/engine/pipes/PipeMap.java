@@ -2,6 +2,8 @@ package jbb.engine.pipes;
 
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.GameOver;
@@ -31,7 +33,7 @@ public class PipeMap extends Board{
 	
 	@Override
 	protected void populateItemMap() {
-		Tile.setBlankColor(Tile.WHITE);
+		Tile.setBlankImage(new ImageIcon("img/black-tile.png"));
 		itemMap[0][0] = new Wall(new Position(0,0),this);
 		itemMap[0][1] = new Wall(new Position(0,1),this);
 		itemMap[0][2] = new Wall(new Position(0,2),this);
