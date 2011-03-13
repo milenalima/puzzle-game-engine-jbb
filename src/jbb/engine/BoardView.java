@@ -67,7 +67,7 @@ public abstract class BoardView {
 		}
 		// gameField contains the tiles
 		Container gameField = new Container();
-		gameField.setLayout(new GridLayout(board.getWidth(),board.getHeight()));
+		gameField.setLayout(new GridLayout(board.getHeight(),board.getWidth()));
 		wrapper.add(gameField,BorderLayout.CENTER);
 		// Place playingField tiles on the board.
 		Tile tile;

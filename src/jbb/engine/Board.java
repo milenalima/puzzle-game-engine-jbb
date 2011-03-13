@@ -30,8 +30,8 @@ public abstract class Board {
 	{
 		this.width = width;
 		this.height = height;
-		playingField = new Tile[width][height];	
-		itemMap = new Tile[width][height];
+		playingField = new Tile[height][width];	
+		itemMap = new Tile[height][width];
 		movableTiles = new ArrayList<Avatar>();
 		populateItemMap();
 	}
@@ -131,11 +131,11 @@ public abstract class Board {
 	 */
 	public void syncItemMapAndField(ArrayList<Avatar> movableTiles)
 	{
-		for(int i = 0; i < width; i++)
+		for(int row = 0; row < height; row++)
 		{
-			for(int j = 0; j < height; j++)
+			for(int col = 0; col < width; col++)
 			{
-				playingField[i][j] = itemMap[i][j];
+				playingField[row][col] = itemMap[row][col];
 			}
 		}
 		
@@ -187,9 +187,9 @@ public abstract class Board {
 	 * @return Tile at position, null if no item
 	 */
 	public Tile getTile(Position position) throws IndexOutOfBoundsException{
-		if(position.getRow() < 0 || position.getRow() >= width)
+		if(position.getRow() < 0 || position.getRow() >= height)
 			throw new IndexOutOfBoundsException("Row out of bounds.");
-		else if(position.getCol() < 0 || position.getCol() >= height)
+		else if(position.getCol() < 0 || position.getCol() >= width)
 			throw new IndexOutOfBoundsException("Col out of bounds");
 		else
 			return playingField[position.getRow()][position.getCol()];

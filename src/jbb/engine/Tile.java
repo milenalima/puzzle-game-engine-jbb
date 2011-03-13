@@ -26,7 +26,7 @@ public class Tile extends JButton {
 	private ImageIcon image; 
 	private boolean accessible;
 	
-	private static ImageIcon blankTileImage = null;
+	protected static ImageIcon blankTileImage = null;
 	
 	protected Position position;
 	
@@ -71,9 +71,9 @@ public class Tile extends JButton {
 	 * @param position to set piece
 	 */
 	public void setPosition(Position position) throws IndexOutOfBoundsException{
-		if(position.getRow() < 0 || position.getRow() >= board.getWidth())
+		if(position.getRow() < 0 || position.getRow() >= board.getHeight())
 			throw new IndexOutOfBoundsException("Row out of bounds.");
-		else if(position.getCol() < 0 || position.getCol() >= board.getHeight())
+		else if(position.getCol() < 0 || position.getCol() >= board.getWidth())
 			throw new IndexOutOfBoundsException("Col out of bounds");
 		else
 			this.position = position;
