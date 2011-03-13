@@ -16,6 +16,7 @@ import jbb.engine.Position;
 public class PacDot extends Item {
 	
 	private boolean powerPellet;
+	protected int pointValue;
 
 	/**
 	 * @param position
@@ -67,5 +68,20 @@ public class PacDot extends Item {
 			return "o";
 		}
 		return ".";
+	}
+
+	/**
+	 * returns the amount of points the item is worth
+	 * @return pointValue
+	 */
+	public int getPointValue() {
+		return pointValue;
+	}
+
+	/**
+	 * sets the amount of points the item is worth
+	 */
+	public void setPointValue(int pointValue) {
+		this.pointValue = pointValue;
 	}
 }
