@@ -38,7 +38,7 @@ public class PacMan extends Hero {
 	/**
 	 * @return true if invulnerable
 	 */
-	public boolean getInvulnerable() {
+	public boolean isInvulnerable() {
 		return invulnerable;
 	}
 	

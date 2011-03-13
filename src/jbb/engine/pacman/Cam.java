@@ -13,6 +13,9 @@ public class Cam extends Ghost {
 	}
 	
 	@Override
+	/**
+	 * basic NPC movement
+	 */
 	public Position getNextPosition(Position position) {
 		return super.getNextPosition(position);
 	}
