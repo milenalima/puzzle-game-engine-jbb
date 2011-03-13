@@ -26,7 +26,7 @@ public abstract class NPC extends Avatar{
 	 * The current method defines stupid AI that may move repeatedly to the same position.
 	 * This will be redefined later.
 	 */
-	public Position getNextPosition(Position position) throws IllegalArgumentException {
+	public Position getNextPosition(Position position){
 		try {
 			return super.getNextPosition(position);
 		} catch (IllegalArgumentException ex1) {

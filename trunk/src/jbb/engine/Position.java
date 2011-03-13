@@ -55,6 +55,22 @@ public class Position {
 	{
 		this.col = col;
 	}
+	
+	public boolean isNorthOf(Position pos) {
+		return row < pos.row;
+	}
+	
+	public boolean isSouthOf(Position pos) {
+		return row > pos.row;
+	}
+	
+	public boolean isEastOf(Position pos) {
+		return col > pos.col;
+	}
+	
+	public boolean isWestOf(Position pos) {
+		return col < pos.col;
+	}
 
 	/**
 	 * Determines if two positions have the same coordinates

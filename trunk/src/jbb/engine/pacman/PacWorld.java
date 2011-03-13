@@ -22,9 +22,9 @@ public class PacWorld extends Board{
 		super(WIDTH, HEIGHT);
 		// Hero is always at the start of the list;
 		movableTiles.add(new PacMan(DEFAULT_PACMAN_POS,this));
-		movableTiles.add(new Ghost(DEFAULT_GHOST1_POS,this));
-		movableTiles.add(new Ghost(DEFAULT_GHOST2_POS,this));
-		movableTiles.add(new Ghost(DEFAULT_GHOST3_POS,this));
+		movableTiles.add(new Danny(DEFAULT_GHOST1_POS,this));
+		movableTiles.add(new Sam(DEFAULT_GHOST2_POS,this));
+		movableTiles.add(new Cam(DEFAULT_GHOST3_POS,this));
 		// you have to call the following to initialise playing field
 		syncItemMapAndField(movableTiles);
 	}
@@ -151,6 +151,7 @@ public class PacWorld extends Board{
 	@Override
 	public void resetPlayingField() {
 		movableTiles.get(0).setPosition(DEFAULT_PACMAN_POS);
+		((PacMan)movableTiles.get(0)).reset();
 		// check to see if ghosts are still alive, if so, refresh their position
 		if(movableTiles.get(1).getLives() == 1)
 			movableTiles.get(1).setPosition(DEFAULT_GHOST1_POS);
@@ -183,9 +184,9 @@ public class PacWorld extends Board{
 		populateItemMap();
 		// Hero is always at the start of the list;
 		movableTiles.add(new PacMan(DEFAULT_PACMAN_POS,this));
-		movableTiles.add(new Ghost(DEFAULT_GHOST1_POS,this));
-		movableTiles.add(new Ghost(DEFAULT_GHOST2_POS,this));
-		movableTiles.add(new Ghost(DEFAULT_GHOST3_POS,this));
+		movableTiles.add(new Danny(DEFAULT_GHOST1_POS,this));
+		movableTiles.add(new Sam(DEFAULT_GHOST2_POS,this));
+		movableTiles.add(new Cam(DEFAULT_GHOST3_POS,this));
 		// you have to call the following to initialise playing field
 		syncItemMapAndField(movableTiles);
 	}

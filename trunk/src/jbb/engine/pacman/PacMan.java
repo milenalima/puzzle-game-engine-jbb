@@ -18,6 +18,7 @@ public class PacMan extends Hero {
 	public static final int INVULN_LEN = 10; // invulnerability timer lasts 10 turns
 	public static final int LIVES = 3;
 	
+	private String direction;
 	private int timer;
 	private boolean invulnerable;
 
@@ -29,6 +30,7 @@ public class PacMan extends Hero {
 	 */
 	public PacMan(Position position, Board board) {
 		super(new ImageIcon("img/pacman-right.png"), LIVES, position, board);
+		direction = "right";
 		invulnerable = false;
 		timer = 0;
 	}
@@ -47,6 +49,15 @@ public class PacMan extends Hero {
 	public void setInvulnerable(boolean invulnerable) {
 		this.invulnerable = invulnerable;
 		timer = INVULN_LEN;
+		updateImage();
+	}
+	
+	private void updateImage() {
+		if (!invulnerable) {
+			setImage(new ImageIcon("img/pacman-"+direction+".png"));
+		} else {
+			setImage(new ImageIcon("img/pacman-invuln-"+direction+".png"));
+		}
 	}
 	
 	/**
@@ -55,11 +66,24 @@ public class PacMan extends Hero {
 	 * @throws IllegalArgumentException if no possible move is found
 	 */
 	public Position getNextPosition(Position position) throws IllegalArgumentException {
-		Position returnVal = super.getNextPosition(position);
+		Position nextPos = super.getNextPosition(position);
 		if (timer > 0 && --timer == 0) {
 			setInvulnerable(false);
 		}
-		return returnVal;
+		if (nextPos.isSouthOf(this.position)) {
+			direction = "down";
+		}
+		if (nextPos.isNorthOf(this.position)) {
+			direction = "up";
+		}
+		if (nextPos.isEastOf(this.position)) {
+			direction = "right";
+		}
+		if (nextPos.isWestOf(this.position)) {
+			direction = "left";
+		}
+		updateImage();
+ 		return nextPos;
 	}
 
 	/**
@@ -101,6 +125,11 @@ public class PacMan extends Hero {
 			}
 		}
 		return false;
+	}
+	
+	public void reset() {
+		direction = "right";
+		invulnerable = false;
 	}
 
 }
