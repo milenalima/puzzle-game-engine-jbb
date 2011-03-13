@@ -118,7 +118,9 @@ public abstract class BoardView {
 						JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,
 						options, options[0]);
 				if (result == JOptionPane.CLOSED_OPTION) {
-					// if the user closes the YOU WIN window, just linger
+					// if the user closes the YOU WIN window, show game select menu
+					frame.dispose();
+					GameLauncher.main(null);
 				} else if (result == 0) {
 					// if option 0 is chosen, start a new game
 					board.restartGame();
@@ -126,6 +128,7 @@ public abstract class BoardView {
 				} else {
 					// if any other option is chosen, quit the game
 					frame.dispose();
+					GameLauncher.main(null);
 				}
 			}
 		}

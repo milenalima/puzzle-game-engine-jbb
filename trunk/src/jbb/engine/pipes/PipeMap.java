@@ -11,6 +11,8 @@ import jbb.engine.Item;
 import jbb.engine.Position;
 import jbb.engine.Tile;
 import jbb.engine.Wall;
+import jbb.engine.funnels.Funnel;
+import jbb.engine.funnels.FunnelSpace;
 
 /**
  * 
@@ -41,46 +43,41 @@ public class PipeMap extends Board{
 		itemMap[0][4] = new Wall(new Position(0,4),this);
 		itemMap[0][5] = new Wall(new Position(0,5),this);
 		itemMap[0][6] = new Wall(new Position(0,6),this);
+		itemMap[0][7] = new Wall(new Position(0,7),this);
+		itemMap[0][8] = new Wall(new Position(0,8),this);
+		itemMap[0][9] = new Wall(new Position(0,9),this);
+		itemMap[0][10] = new Wall(new Position(0,10),this);
+		itemMap[0][11] = new Wall(new Position(0,11),this);
+		itemMap[0][12] = new Wall(new Position(0,12),this);
+		itemMap[0][13] = new Wall(new Position(0,13),this);
+		itemMap[0][14] = new Wall(new Position(0,14),this);
+		itemMap[0][15] = new Wall(new Position(0,15),this);
+		itemMap[0][16] = new Wall(new Position(0,16),this);
+		itemMap[0][17] = new Wall(new Position(0,17),this);
+		itemMap[0][18] = new Wall(new Position(0,18),this);
+		itemMap[0][19] = new Wall(new Position(0,19),this);
+		
+		for (int row = 1; row < HEIGHT-1; row++) {
+			for (int col = 1; col < WIDTH-1; col++) {
+				itemMap[row][col] = new FunnelSpace(new Position(row,col),this);
+			}
+		}
 		
 		itemMap[1][0] = new Wall(new Position(1,0),this);
-		itemMap[1][1] = new Tile(new Position(1,1),this);
-		itemMap[1][2] = new Tile(new Position(1,2),this);
-		itemMap[1][3] = new Tile(new Position(1,3),this);
-		itemMap[1][4] = new Tile(new Position(1,4),this);
-		itemMap[1][5] = new Tile(new Position(1,5),this);
-		itemMap[1][6] = new Wall(new Position(1,6),this);
+		itemMap[1][19] = new Wall(new Position(1,19),this);
 		
 		itemMap[2][0] = new Wall(new Position(2,0),this);
-		itemMap[2][1] = new Pipe(new Position(2,1),this, 'Q');
-		itemMap[2][2] = new Tile(new Position(2,2),this);
-		itemMap[2][3] = new Tile(new Position(2,3),this);
-		itemMap[2][4] = new Tile(new Position(2,4),this);
-		itemMap[2][5] = new Tile(new Position(2,5),this);
-		itemMap[2][6] = new Wall(new Position(2,6),this);
+		itemMap[2][1] = new Funnel(new Position(2,1),this, 'Q');
+		itemMap[2][19] = new Wall(new Position(2,19),this);
 
 		itemMap[3][0] = new Wall(new Position(3,0),this);
-		itemMap[3][1] = new Tile(new Position(3,1),this);
-		itemMap[3][2] = new Tile(new Position(3,2),this);
-		itemMap[3][3] = new Tile(new Position(3,3),this);
-		itemMap[3][4] = new Tile(new Position(3,4),this);
-		itemMap[3][5] = new Tile(new Position(3,5),this);
-		itemMap[3][6] = new Wall(new Position(3,6),this);
+		itemMap[3][19] = new Wall(new Position(3,19),this);
 		
 		itemMap[4][0] = new Wall(new Position(4,0),this);
-		itemMap[4][1] = new Tile(new Position(4,1),this);
-		itemMap[4][2] = new Tile(new Position(4,2),this);
-		itemMap[4][3] = new Tile(new Position(4,3),this);
-		itemMap[4][4] = new Tile(new Position(4,4),this);
-		itemMap[4][5] = new Tile(new Position(4,5),this);
-		itemMap[4][6] = new Wall(new Position(4,6),this);
+		itemMap[4][19] = new Wall(new Position(4,19),this);
 		
 		itemMap[5][0] = new Wall(new Position(5,0),this);
-		itemMap[5][1] = new Tile(new Position(5,1),this);
-		itemMap[5][2] = new Tile(new Position(5,2),this);
-		itemMap[5][3] = new Tile(new Position(5,3),this);
-		itemMap[5][4] = new Tile(new Position(5,4),this);
-		itemMap[5][5] = new Tile(new Position(5,5),this);
-		itemMap[5][6] = new Wall(new Position(5,6),this);
+		itemMap[5][19] = new Wall(new Position(5,19),this);
 		
 		itemMap[6][0] = new Wall(new Position(6,0),this);
 		itemMap[6][1] = new Tile(new Position(6,1),this);
@@ -89,6 +86,19 @@ public class PipeMap extends Board{
 		itemMap[6][4] = new Wall(new Position(6,4),this);
 		itemMap[6][5] = new Wall(new Position(6,5),this);
 		itemMap[6][6] = new Wall(new Position(6,6),this);
+		itemMap[6][7] = new Wall(new Position(6,7),this);
+		itemMap[6][8] = new Wall(new Position(6,8),this);
+		itemMap[6][9] = new Wall(new Position(6,9),this);
+		itemMap[6][10] = new Wall(new Position(6,10),this);
+		itemMap[6][11] = new Wall(new Position(6,11),this);
+		itemMap[6][12] = new Wall(new Position(6,12),this);
+		itemMap[6][13] = new Wall(new Position(6,13),this);
+		itemMap[6][14] = new Wall(new Position(6,14),this);
+		itemMap[6][15] = new Wall(new Position(6,15),this);
+		itemMap[6][16] = new Wall(new Position(6,16),this);
+		itemMap[6][17] = new Wall(new Position(6,17),this);
+		itemMap[6][18] = new Wall(new Position(6,18),this);
+		itemMap[6][19] = new Wall(new Position(6,19),this);
 	}
 	
 	@Override
