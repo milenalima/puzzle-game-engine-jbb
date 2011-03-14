@@ -20,7 +20,7 @@ import jbb.engine.Wall;
  *
  */
 public class PipeMap extends Board{
-	public static final int WATER_START_TURN = 10;
+	public static final int WATER_START_TURN = 30;
 	public static final int WIDTH = 20;
 	public static final int HEIGHT = 7;
 	public Position winningPosition = new Position(6,1);
@@ -106,7 +106,7 @@ public class PipeMap extends Board{
 		super.syncItemMapAndField(movableTiles);
 		// the items should be seen rather than the water
 		Position pos;
-		for (int i = 1; i < movableTiles.size(); i++) {
+		for (int i = 0; i < movableTiles.size(); i++) {
 			pos = movableTiles.get(i).getPosition();
 			playingField[pos.getRow()][pos.getCol()] = itemMap[pos.getRow()][pos.getCol()];
 		}
