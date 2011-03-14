@@ -56,7 +56,12 @@ public class PacMan extends Hero {
 		if (!invulnerable) {
 			setImage(new ImageIcon("img/pacman-"+direction+".png"));
 		} else {
-			setImage(new ImageIcon("img/pacman-invuln-"+direction+".png"));
+			// PacMan should look invulnerable only when he is invulnerable the
+			// following turn
+			if (timer >1)
+				setImage(new ImageIcon("img/pacman-invuln-"+direction+".png"));
+			else
+				setImage(new ImageIcon("img/pacman-"+direction+".png"));
 		}
 	}
 	

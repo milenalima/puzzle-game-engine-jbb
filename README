@@ -29,12 +29,6 @@ Deliverables and task distribution:
 		- MouseLand classes and Text Game (Bruno)
 		- Pipes classes and Text Game (Boris)
 
-	UML diagrams:
-		- Sequence Diagrams (Jonathan):
-			these diagram illustrates various cases that may occur
-		- Class Diagram (Boris):
-			this diagram illustrates all classes used and the relationships
-
 	Documentation:
 		- USER GUIDE
 			- PacGame (Jonathan)
@@ -42,32 +36,23 @@ Deliverables and task distribution:
 			- Pipes (Bruno)
 			- Engine (Jonathan)
 
-Changes since Milestone #1:
+Changes since Milestone #2:
 
-	- The classes are functioning properly in a text based representation. In
-	order for this to become a reality, many changes were brought to the Class
-	Diagram, including added/removed methods/variables.
-	- A controller was created for each game, allowing user input for interaction
-	with the game.
-	- An extensive USER MANUAL explaining all the games and the engine was
-	developed.
+[!]	- USER MANUAL has been updated for the GUI games explaining all the games and
+	the engine.
+[!] - A .jar file is created, which runs a game selector allowing the User to easily
+	select a game to play at the beginning, and when exiting another game.
+	- A general graphical representation of the game was developed. It is functional
+	for all games as it simply displays the content of playingField.
+	- The controller is a ButtonHandler which reacts to any tile on the board being
+	pressed.
+	- The pipes game is now a fully functional game. As images allows rotations to be
+	viewable, further testing and development was made to the game.
+	- The PacMan game now has three different personalities for each Ghost on the board.
+	One of the ghosts has a personality which causes it to flee from PacMan when he
+	becomes invulnerable. This makes the game more interesting.
+	
 	
 Known issues and roadmaps:
 
-	- The Pipes game is difficult to represent in a Text based game: Since the tiles
-	are represented as letters, it is not possible to display a rotated pipe. Thus
-	ensuring that the rotated pipes work means drawing on paper the expected layout.
-	- The current PipeGame is not without flaws, since the game relies heavily on
-	graphical interface. The general concept works appropriately, that is the water
-	follows the pipe direction. It is just a matter of implementing the view and
-	then the game can be properly run. This will be accomplished before the
-	submission of the next Milestone.
-	- The PacMan game will eventually implement three different personalities for
-	Ghosts, which will prevent the ghosts from clustering to the same tile and
-	consequently becoming boring opponents. Ideally, ghosts should flee PacMan while
-	he is invulnerable as well...
-	- As for MouseGame, there is discussion of a different movement method for the
-	mice...
-	- The next step involves designing a GUI based game for our classes, which means
-	images will be drawn. As for the controller, it should not differ much from our
-	text based controller.
+	
