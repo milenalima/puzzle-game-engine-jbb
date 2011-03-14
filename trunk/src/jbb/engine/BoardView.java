@@ -3,38 +3,33 @@ package jbb.engine;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
 public abstract class BoardView {
 	
-	// trial and error offset to fix the gaps near the edge of the frame
-	private static final int HORIZONTAL_OFFSET = 6;
-	private static final int VERTICAL_OFFSET = 32;
-	private static final int HEIGHT_OF_IMG = 20;
-	private static final int WIDTH_OF_IMG = 20;
-	
 	private JFrame frame = null;
 	protected Board board = null;
 	private Component[] components = null;
-	// max number of components stacked on each other
-	private static final int STACK_ADD_COMPONENTS = 1;
-	// trial and error height to allocate for components
-	private static final int COMPONENTS_HEIGHT = 16;
+	boolean val = false;
 	
 	public BoardView(Board board) {
 		super();
 		this.board = board;
 		frame = new JFrame(board.getClass().getSimpleName());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.pack();
-		frame.setSize(WIDTH_OF_IMG*board.getWidth()+HORIZONTAL_OFFSET, HEIGHT_OF_IMG*board.getHeight()+VERTICAL_OFFSET);
-		frame.setResizable(false);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (dim.width-frame.getSize().width)/2;
+	    int y = (dim.height-frame.getSize().height)/2;
+	    frame.setLocation(x, y);
 		updateView();
 	}
 	
@@ -57,9 +52,7 @@ public abstract class BoardView {
 			updateComponents();
 			// additionalComponent stored on top of gameField
 			Container additionalComponent = new Container();
-			additionalComponent.setLayout(new GridLayout(STACK_ADD_COMPONENTS,components.length));
-			// make room for the new components.
-			frame.setSize(frame.getWidth(),HEIGHT_OF_IMG*board.getHeight()+VERTICAL_OFFSET+COMPONENTS_HEIGHT);
+			additionalComponent.setLayout(new GridLayout(1, components.length));
 			for (int i = 0; i < components.length; i++) {
 				additionalComponent.add(components[i]);
 			}
@@ -83,6 +76,7 @@ public abstract class BoardView {
 			}
 		}
 		frame.setContentPane(wrapper);
+		frame.pack();
 		frame.setVisible(true);
 	}
 	

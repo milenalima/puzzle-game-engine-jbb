@@ -1,4 +1,6 @@
 package jbb.engine;
+import java.awt.Dimension;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -20,8 +22,8 @@ public class Tile extends JButton {
 	public static final int BOTTOM=6;
 	public static final int BOTTOM_RIGHT=7;
 	
-	public static final int WHITE=0;
-	public static final int BLACK=1;
+	private static final int HEIGHT_OF_IMG = 20;
+	private static final int WIDTH_OF_IMG = 20;
 	
 	private ImageIcon image; 
 	private boolean accessible;
@@ -44,6 +46,7 @@ public class Tile extends JButton {
 		accessible = true;
 		image = blankTileImage;
 		setIcon(image);
+		setPreferredSize(new Dimension(WIDTH_OF_IMG,HEIGHT_OF_IMG));
 		this.board = board;
 		setPosition(position);
 	}
