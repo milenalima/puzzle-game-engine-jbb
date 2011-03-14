@@ -31,7 +31,7 @@ public abstract class Hero extends Avatar {
 	}
 	
 	/**
-	 * Decrease point count by amound.
+	 * Decrease point count by amount.
 	 * @param amount
 	 */
 	public void subtractPoints(int amount) {

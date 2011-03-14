@@ -101,6 +101,7 @@ public abstract class Board {
 			}
 			npc.setPosition(nextPos);
 		}
+		// reload playingField
 		syncItemMapAndField(movableTiles);
 		if (checkWin()) {
 			throw new GameOver("YOU WIN!");
@@ -228,5 +229,9 @@ public abstract class Board {
 		return s;
 	}
 
+	/**
+	 * This function is invoked when the user selects to restart game.
+	 * It should reset all the game variables.
+	 */
 	public abstract void restartGame();
 }

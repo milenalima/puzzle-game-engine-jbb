@@ -23,8 +23,7 @@ public abstract class NPC extends Avatar{
 	
 	/**
 	 * NPCs will move towards given position and find a way around obstructing walls.
-	 * The current method defines stupid AI that may move repeatedly to the same position.
-	 * This will be redefined later.
+	 * This method defines stupid AI that may move repeatedly to the same position.
 	 */
 	public Position getNextPosition(Position position){
 		try {

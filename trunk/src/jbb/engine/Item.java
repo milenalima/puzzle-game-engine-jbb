@@ -1,9 +1,8 @@
 package jbb.engine;
 
-import javax.swing.ImageIcon;
 
 /**
- * The Item class consist of an Item that the Avatar can pick up to get points.
+ * The Item class consist of an Item that the Avatar can pick up.
  * @author Jonathan Gravel
  */
 @SuppressWarnings("serial")
@@ -18,7 +17,7 @@ public abstract class Item extends Tile {
 	}
 	
 	/**
-	 * The method will alter the Avatar based on if the Item has been picked up
+	 * The method will alter an Avatar based on the type of Avatar that picks it up.
 	 * @return true if the item is to be removed from the field
 	 * @return false if the item is to remain on the field.
 	 */

@@ -56,18 +56,34 @@ public class Position {
 		this.col = col;
 	}
 	
+	/**
+	 * determine if pos given is above the this
+	 * @param pos
+	 */
 	public boolean isNorthOf(Position pos) {
 		return row < pos.row;
 	}
 	
+	/**
+	 * determine if pos given is below the this
+	 * @param pos
+	 */
 	public boolean isSouthOf(Position pos) {
 		return row > pos.row;
 	}
 	
+	/**
+	 * determine if pos given is to the right of this
+	 * @param pos
+	 */
 	public boolean isEastOf(Position pos) {
 		return col > pos.col;
 	}
-	
+
+	/**
+	 * determine if pos given is to the left of this
+	 * @param pos
+	 */
 	public boolean isWestOf(Position pos) {
 		return col < pos.col;
 	}
