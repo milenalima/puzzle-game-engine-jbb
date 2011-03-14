@@ -221,8 +221,8 @@ public class PipeMap extends Board{
 		numTurns = 0;
 		this.width = WIDTH;
 		this.height = HEIGHT;
-		playingField = new Tile[width][height];	
-		itemMap = new Tile[width][height];
+		playingField = new Tile[height][width];	
+		itemMap = new Tile[height][width];
 		movableTiles = new ArrayList<Avatar>();
 		populateItemMap();
 		movableTiles.add(new Plumber(new Position(1,1), this));
