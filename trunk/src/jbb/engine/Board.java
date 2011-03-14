@@ -62,9 +62,8 @@ public abstract class Board {
 		boolean itemPickedUp = hero.hasGoodie(nextPos); 
 		if(itemPickedUp)
 		{
-			((Item) itemMap[nextPos.getRow()][nextPos.getCol()]).pickedUp(hero);
-			//remove item from itemMap
-			itemMap[nextPos.getRow()][nextPos.getCol()] = new Tile(nextPos,this);
+			if (((Item) itemMap[nextPos.getRow()][nextPos.getCol()]).pickedUp(hero))
+				itemMap[nextPos.getRow()][nextPos.getCol()] = new Tile(nextPos,this);
 		}
 		hero.setPosition(nextPos);
 		// move all other movable tiles
@@ -97,9 +96,8 @@ public abstract class Board {
 			itemPickedUp = npc.hasGoodie(nextPos);
 			if(itemPickedUp)
 			{	
-				((Item) itemMap[nextPos.getRow()][nextPos.getCol()]).pickedUp(npc);
-				//replace item with blank tile from itemMap
-				itemMap[nextPos.getRow()][nextPos.getCol()] = new Tile(nextPos,this);
+				if(((Item) itemMap[nextPos.getRow()][nextPos.getCol()]).pickedUp(npc))
+					itemMap[nextPos.getRow()][nextPos.getCol()] = new Tile(nextPos,this);
 			}
 			npc.setPosition(nextPos);
 		}

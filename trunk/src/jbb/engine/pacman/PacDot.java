@@ -50,14 +50,16 @@ public class PacDot extends Item {
 	/**
 	 * If the PacDot is picked up, it provides points to PacMan. If it also
 	 * a PowerPellet, it grants invulnerability.
+	 * @return true
 	 */
 	@Override
-	public void pickedUp(Avatar picker) {
+	public boolean pickedUp(Avatar picker) {
 		PacMan p = (PacMan) picker;
 		p.addPoints(pointValue);
 		if (powerPellet) {
 			p.setInvulnerable(true);
 		}
+		return true;
 	}
 
 	/**
