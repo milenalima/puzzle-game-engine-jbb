@@ -170,10 +170,10 @@ public abstract class Board {
 	 * @return Item at position, null if no item
 	 */
 	public Item getItem(Position position) throws IndexOutOfBoundsException{
-		if(position.getRow() < 0 || position.getRow() >= width)
-			throw new IndexOutOfBoundsException("Row out of bounds.");
-		else if(position.getCol() < 0 || position.getCol() >= height)
-			throw new IndexOutOfBoundsException("Col out of bounds");
+		if(position.getRow() < 0 || position.getRow() >= height)
+			throw new IndexOutOfBoundsException("Row out of bounds."+position.getRow());
+		else if(position.getCol() < 0 || position.getCol() >= width)
+			throw new IndexOutOfBoundsException("Col out of bounds"+position.getCol());
 		else {
 			if (itemMap[position.getRow()][position.getCol()] instanceof Item)
 				return (Item) itemMap[position.getRow()][position.getCol()];

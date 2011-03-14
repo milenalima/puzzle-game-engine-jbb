@@ -65,7 +65,12 @@ public class Water extends NPC{
 						if(!p.isFilled())
 							nextPositions[0] = adjTiles[Tile.LEFT].getPosition();
 						else
-							nextPositions[0] = null;	
+						{
+							if(!p.isOpenRight())
+								nextPositions[0] = adjTiles[Tile.LEFT].getPosition();
+							else
+								nextPositions[0] = null;	
+						}
 					}
 					else
 						nextPositions[0] = adjTiles[Tile.LEFT].getPosition();
@@ -82,7 +87,12 @@ public class Water extends NPC{
 						if(!p.isFilled())
 							nextPositions[1] = adjTiles[Tile.BOTTOM].getPosition();
 						else
-							nextPositions[1] = null;	
+						{
+							if(!p.isOpenTop())
+								nextPositions[1] = adjTiles[Tile.BOTTOM].getPosition();
+							else
+								nextPositions[1] = null;
+						}
 					}
 					else
 						nextPositions[1] = adjTiles[Tile.BOTTOM].getPosition();
@@ -99,7 +109,12 @@ public class Water extends NPC{
 						if(!p.isFilled())
 							nextPositions[2] = adjTiles[Tile.RIGHT].getPosition();
 						else
-							nextPositions[2] = null;	
+						{
+							if(!p.isOpenLeft())
+								nextPositions[2] = adjTiles[Tile.RIGHT].getPosition();
+							else
+								nextPositions[2] = null;
+						}						
 					}
 					else
 						nextPositions[2] = adjTiles[Tile.RIGHT].getPosition();
@@ -116,7 +131,12 @@ public class Water extends NPC{
 						if(!p.isFilled())
 							nextPositions[3] = adjTiles[Tile.TOP].getPosition();
 						else
-							nextPositions[3] = null;	
+						{
+							if(!p.isOpenBottom())
+								nextPositions[3] = adjTiles[Tile.TOP].getPosition();
+							else
+								nextPositions[3] = null;	
+						}
 					}
 					else
 						nextPositions[3] = adjTiles[Tile.TOP].getPosition();
