@@ -135,7 +135,7 @@ public class Tile extends JButton {
 				//out of bounds checks
 				if((thisRow + i) < 0 || (thisCol + j) < 0)
 					adj[adjIndex] = null;
-				else if((thisRow + i) >= board.getWidth() || (thisCol + j) >= board.getHeight())
+				else if((thisRow + i) >= board.getHeight() || (thisCol + j) >= board.getWidth())
 					adj[adjIndex] = null;
 				//add Tile to appropriate index
 				else
