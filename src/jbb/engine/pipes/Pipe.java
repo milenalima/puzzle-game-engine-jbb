@@ -82,13 +82,14 @@ public class Pipe extends Item{
 	 * @param picker
 	 * @Override
 	 */
-	public void pickedUp(Avatar picker) {
+	public boolean pickedUp(Avatar picker) {
 		//determine if the Plumber or the Water has picked up the pipe
 		if (picker instanceof Plumber) {
 			this.rotate();
 		} else if (picker instanceof Water) {
 			this.fillUp();
 		}
+		return false;
 		/*
 		Avatar p;
 		try{

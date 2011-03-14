@@ -19,6 +19,8 @@ public abstract class Item extends Tile {
 	
 	/**
 	 * The method will alter the Avatar based on if the Item has been picked up
+	 * @return true if the item is to be removed from the field
+	 * @return false if the item is to remain on the field.
 	 */
-	public abstract void pickedUp(Avatar picker);
+	public abstract boolean pickedUp(Avatar picker);
 }

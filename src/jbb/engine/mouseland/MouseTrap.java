@@ -50,10 +50,11 @@ public class MouseTrap extends Item {
  * @param avatar is who the MouseTrap has collided with
  */	
 	@Override
-	public void pickedUp(Avatar avatar) {
+	public boolean pickedUp(Avatar avatar) {
 		if (avatar instanceof Mouse) {
 			avatar.removeLife();
 		}
+		return true;
 	}
 
 
