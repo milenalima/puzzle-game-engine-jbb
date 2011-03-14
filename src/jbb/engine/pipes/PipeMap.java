@@ -15,15 +15,13 @@ import jbb.engine.Wall;
 //import jbb.engine.funnels.FunnelSpace;
 
 /**
- * 
  * @author Boris Ionine
- *
  */
 public class PipeMap extends Board{
-	public static final int WATER_START_TURN = 30;
+	public static final int WATER_START_TURN = 40;
 	public static final int WIDTH = 20;
 	public static final int HEIGHT = 7;
-	public Position winningPosition = new Position(6,1);
+	public Position winningPosition = new Position(6,15);
 	public int turnsUntilWater = WATER_START_TURN;
 	private int numTurns = 0;
 	
@@ -81,7 +79,7 @@ public class PipeMap extends Board{
 		itemMap[5][19] = new Wall(new Position(5,19),this);
 		
 		itemMap[6][0] = new Wall(new Position(6,0),this);
-		itemMap[6][1] = new Tile(new Position(6,1),this);
+		itemMap[6][1] = new Wall(new Position(6,1),this);
 		itemMap[6][2] = new Wall(new Position(6,2),this);
 		itemMap[6][3] = new Wall(new Position(6,3),this);
 		itemMap[6][4] = new Wall(new Position(6,4),this);
@@ -95,7 +93,7 @@ public class PipeMap extends Board{
 		itemMap[6][12] = new Wall(new Position(6,12),this);
 		itemMap[6][13] = new Wall(new Position(6,13),this);
 		itemMap[6][14] = new Wall(new Position(6,14),this);
-		itemMap[6][15] = new Wall(new Position(6,15),this);
+		itemMap[6][15] = new Tile(new Position(6,15),this);
 		itemMap[6][16] = new Wall(new Position(6,16),this);
 		itemMap[6][17] = new Wall(new Position(6,17),this);
 		itemMap[6][18] = new Wall(new Position(6,18),this);
@@ -126,7 +124,7 @@ public class PipeMap extends Board{
 		boolean itemPickedUp = plumber.hasGoodie(movedPosition); 
 		if(itemPickedUp){
 			((Item) itemMap[movedPosition.getRow()][movedPosition.getCol()]).pickedUp(plumber);
-			System.out.println("you rotated the pipe at:" + movedPosition.getRow() + "," + movedPosition.getCol());
+			//System.out.println("you rotated the pipe at:" + movedPosition.getRow() + "," + movedPosition.getCol());
 			plumber.setPosition(movedPosition);
 			syncItemMapAndField(movableTiles);
 		}
