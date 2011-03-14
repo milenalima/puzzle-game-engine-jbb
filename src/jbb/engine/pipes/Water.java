@@ -16,6 +16,7 @@ import jbb.engine.Tile;
  * ends the game.
  * @author Boris Ionine
  */
+@SuppressWarnings("serial")
 public class Water extends NPC{
 
 	public static final int LIVES = 1;
@@ -57,8 +58,17 @@ public class Water extends NPC{
 			adjTiles = tile.getAdjacentTiles(); 
 			//check
 			if(((Pipe) tile).isOpenLeft()){
-				if(adjTiles[Tile.LEFT]!=null)
-					nextPositions[0] = adjTiles[Tile.LEFT].getPosition();
+				if(adjTiles[Tile.LEFT]!=null) 
+					if(adjTiles[Tile.LEFT] instanceof Pipe)
+					{
+						Pipe p = (Pipe) adjTiles[Tile.LEFT];
+						if(!p.isFilled())
+							nextPositions[0] = adjTiles[Tile.LEFT].getPosition();
+						else
+							nextPositions[0] = null;	
+					}
+					else
+						nextPositions[0] = adjTiles[Tile.LEFT].getPosition();
 				else
 					nextPositions[0] = null;
 			}
@@ -66,7 +76,16 @@ public class Water extends NPC{
 				nextPositions[0] = null;
 			if(((Pipe) tile).isOpenBottom()){
 				if(adjTiles[Tile.BOTTOM]!=null)
-					nextPositions[1] = adjTiles[Tile.BOTTOM].getPosition();
+					if(adjTiles[Tile.BOTTOM] instanceof Pipe)
+					{
+						Pipe p = (Pipe) adjTiles[Tile.BOTTOM];
+						if(!p.isFilled())
+							nextPositions[1] = adjTiles[Tile.BOTTOM].getPosition();
+						else
+							nextPositions[1] = null;	
+					}
+					else
+						nextPositions[1] = adjTiles[Tile.BOTTOM].getPosition();
 				else
 					nextPositions[1] = null;
 			}
@@ -74,7 +93,16 @@ public class Water extends NPC{
 				nextPositions[1] = null;
 			if(((Pipe) tile).isOpenRight()){
 				if(adjTiles[Tile.RIGHT]!=null)
-					nextPositions[2] = adjTiles[Tile.RIGHT].getPosition();
+					if(adjTiles[Tile.RIGHT] instanceof Pipe)
+					{
+						Pipe p = (Pipe) adjTiles[Tile.RIGHT];
+						if(!p.isFilled())
+							nextPositions[2] = adjTiles[Tile.RIGHT].getPosition();
+						else
+							nextPositions[2] = null;	
+					}
+					else
+						nextPositions[2] = adjTiles[Tile.RIGHT].getPosition();
 				else
 					nextPositions[2] = null;
 			}
@@ -82,7 +110,16 @@ public class Water extends NPC{
 				nextPositions[2] = null;
 			if(((Pipe) tile).isOpenTop()){
 				if(adjTiles[Tile.TOP]!=null)
-					nextPositions[3] = adjTiles[Tile.TOP].getPosition();
+					if(adjTiles[Tile.TOP] instanceof Pipe)
+					{
+						Pipe p = (Pipe) adjTiles[Tile.TOP];
+						if(!p.isFilled())
+							nextPositions[3] = adjTiles[Tile.TOP].getPosition();
+						else
+							nextPositions[3] = null;	
+					}
+					else
+						nextPositions[3] = adjTiles[Tile.TOP].getPosition();
 				else
 					nextPositions[3] = null;
 			}
