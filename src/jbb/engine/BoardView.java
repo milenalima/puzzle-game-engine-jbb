@@ -9,27 +9,33 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
+/**
+ * The BoardView displays a window with the graphical representation of a board.
+ * The user interacts with the game by clicking tiles visible in the window.
+ * @author Jonathan Gravel
+ */
 public abstract class BoardView {
 	
 	private JFrame frame = null;
 	protected Board board = null;
 	private Component[] components = null;
-	boolean val = false;
+	private boolean frameIsSized = false;
 	
+	/**
+	 * Sets up the JFrame by defining properties and position on the screen.
+	 * It also runs updateView() once.
+	 * 
+	 * @param board the game board which contains the tile grid and the playTurn fn.
+	 */
 	public BoardView(Board board) {
 		super();
 		this.board = board;
 		frame = new JFrame(board.getClass().getSimpleName());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (dim.width-frame.getSize().width)/2;
-	    int y = (dim.height-frame.getSize().height)/2;
-	    frame.setLocation(x, y);
+	    frame.setResizable(false);
 		updateView();
 	}
 	
@@ -41,9 +47,15 @@ public abstract class BoardView {
 	 */
 	public void addMoreComponents(Component[] components) {
 		this.components = components;
+		// frame needs a resize
+		frameIsSized = false;
 		updateView();
 	}
 
+	/**
+	 * The view gets updated with the tiles on board.playingField, and with the components,
+	 * if any, set in addMoreComponents(...)
+	 */
 	private void updateView() {
 		// wraps the additional components and the board
 		Container wrapper = new Container();
@@ -76,7 +88,15 @@ public abstract class BoardView {
 			}
 		}
 		frame.setContentPane(wrapper);
-		frame.pack();
+		if (!frameIsSized) {
+			frame.pack(); // wrap window around content.
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			int x = (dim.width-frame.getSize().width)/2;
+			int y = (dim.height-frame.getSize().height)/2;
+			frame.setLocation(x, y);
+			// frame has been sized once, no need to do it again
+			frameIsSized = true;
+		}
 		frame.setVisible(true);
 	}
 	
@@ -86,10 +106,18 @@ public abstract class BoardView {
 	 */
 	protected abstract void updateComponents();
 
+	/*
+	 * This is the controller for the BoardView. When a Tile is clicked, this calls
+	 * actionPerformed(...).
+	 */
 	private class ButtonPressHandler implements ActionListener{
 
 		private Board board;
 
+		/**
+		 * 
+		 * @param board board to use as reference.
+		 */
 		public ButtonPressHandler(Board board) {
 			this.board = board;
 		}
@@ -98,15 +126,15 @@ public abstract class BoardView {
 		public void actionPerformed(ActionEvent e) {
 			Tile tile = (Tile) e.getSource();
 			try {
+				// when a button is clicked, call playTurn on the clicked position
 				board.playTurn(tile.getPosition());
 				updateView();
 			} catch (IllegalArgumentException ex) {
-				// JOptionPane.showMessageDialog(null, "Invalid Input");
-				// This is really annoying, so for now, invalid input
-				// will just be ignored.
-				//warning.setVisible(true);
+				// do nothing to avoid annoying popups.
 			} catch (GameOver e1) {
+				// either the game is won, or the game is lost
 				updateView();
+				// ask the user if he wants to play again, or quit this game.
 				String[] options = {"Play again","Quit"};
 				int result = JOptionPane.showOptionDialog(null, e1.getMessage(), "End of Game",
 						JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,
@@ -120,7 +148,7 @@ public abstract class BoardView {
 					board.restartGame();
 					updateView();
 				} else {
-					// if any other option is chosen, quit the game
+					// if any other option is chosen, show game select menu
 					frame.dispose();
 					GameLauncher.main(null);
 				}

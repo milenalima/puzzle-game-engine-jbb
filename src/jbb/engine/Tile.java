@@ -22,13 +22,23 @@ public class Tile extends JButton {
 	public static final int BOTTOM=6;
 	public static final int BOTTOM_RIGHT=7;
 	
-	private static final int HEIGHT_OF_IMG = 20;
-	private static final int WIDTH_OF_IMG = 20;
+	/**
+	 * an img on the board will have a image that is 20x20 pixels
+	 */
+	public static final int HEIGHT_OF_IMG = 20;
+
+	/**
+	 * an img on the board will have a image that is 20x20 pixels
+	 */
+	public static final int WIDTH_OF_IMG = 20;
 	
 	private ImageIcon image; 
 	private boolean accessible;
 	
-	protected static ImageIcon blankTileImage = null;
+	/**
+	 * the blankTileImage represents an instance of Tile
+	 */
+	protected static ImageIcon blankTileImage = new ImageIcon("img/white-tile.png");
 	
 	protected Position position;
 	
@@ -36,8 +46,7 @@ public class Tile extends JButton {
 	
 	/**
 	 * The constructor will create a Tile at the positions of
-	 * the row and column. The image of a standard Tile is blank.
-	 * default color for blank tile is white
+	 * the row and column. The image of a standard Tile is white.
 	 * @param position will set the position of the Tile
 	 * @param board will set the Tile to the specified board
 	 */
@@ -52,7 +61,7 @@ public class Tile extends JButton {
 	}
 	
 	/**
-	 * Sets the color of blank tiles to the given color
+	 * Sets the image of blank tiles to the given image
 	 * 
 	 * @param color
 	 */
