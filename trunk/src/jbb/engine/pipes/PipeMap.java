@@ -24,6 +24,7 @@ public class PipeMap extends Board{
 	public static final int WIDTH = 20;
 	public static final int HEIGHT = 7;
 	public Position winningPosition = new Position(6,1);
+	public int turnsUntilWater = WATER_START_TURN;
 	private int numTurns = 0;
 	
 	public PipeMap(){
@@ -115,6 +116,7 @@ public class PipeMap extends Board{
 	@Override
 	public void playTurn(Position position) throws GameOver{
 		numTurns++;
+		turnsUntilWater--;
 		//Hero is always the first element of the ArrayList
 		Plumber plumber = (Plumber) movableTiles.get(0);
 		
@@ -160,17 +162,20 @@ public class PipeMap extends Board{
 							Tile tile = itemMap[nextRow][nextCol];
 							//if the tile is a pipe try to fill it
 							if(tile instanceof Pipe){
-								if(((Pipe) tile).isOpenLeft()){
-									//((Item) itemMap[nextRow][nextCol]).pickedUp(water);
+								if((((Pipe) tile).isOpenLeft()) &&
+										(currentRow == nextRow) && (currentCol == nextCol - 1)){
 									movableTiles.add(new Water(new Position(nextRow, nextCol),this));
 								}
-								else if(((Pipe) tile).isOpenBottom()){
+								else if((((Pipe) tile).isOpenBottom()) && 
+										(currentRow == nextRow + 1) && (currentCol == nextCol)){
 									movableTiles.add(new Water(new Position(nextRow, nextCol),this));
 								}
-								else if(((Pipe) tile).isOpenRight()){
+								else if((((Pipe) tile).isOpenRight()) &&
+										(currentRow == nextRow) && (currentCol == nextCol + 1)){
 									movableTiles.add(new Water(new Position(nextRow, nextCol),this));
 								}
-								else if(((Pipe) tile).isOpenTop()){
+								else if((((Pipe) tile).isOpenTop()) &&
+										(currentRow == nextRow - 1) && (currentCol == nextCol)){
 									movableTiles.add(new Water(new Position(nextRow, nextCol),this));
 								}
 								//if the pipe cannot be filled (water trying to enter a blocked wall)
@@ -202,6 +207,10 @@ public class PipeMap extends Board{
 			}
 		}
 	}
+	
+	public int getTurnsUntilWater(){
+		return turnsUntilWater; 
+	}
 
 	@Override
 	public void resetPlayingField() {
@@ -219,6 +228,7 @@ public class PipeMap extends Board{
 	@Override
 	public void restartGame() {
 		numTurns = 0;
+		turnsUntilWater = WATER_START_TURN;
 		this.width = WIDTH;
 		this.height = HEIGHT;
 		playingField = new Tile[height][width];	
