@@ -1,7 +1,7 @@
 package jbb.engine.pipes;
 
 import javax.swing.ImageIcon;
-//import java.util.Random;
+import java.util.Random;
 import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.Hero;
@@ -28,7 +28,7 @@ public class Plumber extends Hero{
 	//acquires the next pipe 
 	public void acquireNextPipeType(){
 		//EVENTUALLY, the pipes the plumber drops will be generated randomly
-	    /*Random generator = new Random();
+	    Random generator = new Random();
 	    int rand = generator.nextInt(5);
 	    switch (rand){
 	    case 0:
@@ -46,9 +46,9 @@ public class Plumber extends Hero{
 	    case 4:
 	    	nextPipeType = 'L';
 	    	break;
-	    }*/
-		//FOR NOW ONLY 'I' PIPES ARE AVAILABLE
-		nextPipeType = 'I';
+	    }
+	    //FOR NOW ONLY 'I' PIPES ARE AVAILABLE
+		//nextPipeType = 'I';
 	}
 	
 	public char getNextPipeType(){

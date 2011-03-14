@@ -11,8 +11,8 @@ import jbb.engine.Item;
 import jbb.engine.Position;
 import jbb.engine.Tile;
 import jbb.engine.Wall;
-import jbb.engine.funnels.Funnel;
-import jbb.engine.funnels.FunnelSpace;
+//import jbb.engine.funnels.Funnel;
+//import jbb.engine.funnels.FunnelSpace;
 
 /**
  * 
@@ -21,7 +21,7 @@ import jbb.engine.funnels.FunnelSpace;
  */
 public class PipeMap extends Board{
 	public static final int WATER_START_TURN = 10;
-	public static final int WIDTH = 7;
+	public static final int WIDTH = 20;
 	public static final int HEIGHT = 7;
 	public Position winningPosition = new Position(6,1);
 	private int numTurns = 0;
@@ -59,7 +59,7 @@ public class PipeMap extends Board{
 		
 		for (int row = 1; row < HEIGHT-1; row++) {
 			for (int col = 1; col < WIDTH-1; col++) {
-				itemMap[row][col] = new FunnelSpace(new Position(row,col),this);
+				itemMap[row][col] = new Tile(new Position(row,col),this);
 			}
 		}
 		
@@ -67,7 +67,7 @@ public class PipeMap extends Board{
 		itemMap[1][19] = new Wall(new Position(1,19),this);
 		
 		itemMap[2][0] = new Wall(new Position(2,0),this);
-		itemMap[2][1] = new Funnel(new Position(2,1),this, 'Q');
+		itemMap[2][1] = new Pipe(new Position(2,1),this, 'Q');
 		itemMap[2][19] = new Wall(new Position(2,19),this);
 
 		itemMap[3][0] = new Wall(new Position(3,0),this);
@@ -131,6 +131,7 @@ public class PipeMap extends Board{
 		else{
 			plumber.setPosition(movedPosition);
 			plumber.placePipe();
+			plumber.acquireNextPipeType();
 			syncItemMapAndField(movableTiles);
 		}		
 		
