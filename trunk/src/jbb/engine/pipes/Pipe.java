@@ -55,8 +55,8 @@ public class Pipe extends Item{
 				break;
 			case 'L':
 				this.numOpenings = 2;
-				openLeft = true;
-				openBottom = true;
+				openRight = true;
+				openTop = true;
 				break;
 			case 'T':
 				this.numOpenings = 3;
@@ -85,7 +85,8 @@ public class Pipe extends Item{
 	public boolean pickedUp(Avatar picker) {
 		//determine if the Plumber or the Water has picked up the pipe
 		if (picker instanceof Plumber) {
-			this.rotate();
+			if(!filled)
+				this.rotate();
 		} else if (picker instanceof Water) {
 			this.fillUp();
 		}
