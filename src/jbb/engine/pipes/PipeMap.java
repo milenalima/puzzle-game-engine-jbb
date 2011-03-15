@@ -24,7 +24,7 @@ public class PipeMap extends Board{
 	public static final int WIDTH = 20;
 	public static final int HEIGHT = 7;
 	public Position winningPosition = new Position(6,15);
-	public int turnsUntilWater = WATER_START_TURN;
+	private int turnsUntilWater = WATER_START_TURN;
 	private int numTurns = 0;
 	
 	public PipeMap(){
@@ -136,6 +136,9 @@ public class PipeMap extends Board{
 			//System.out.println("you rotated the pipe at:" + movedPosition.getRow() + "," + movedPosition.getCol());
 			plumber.setPosition(movedPosition);
 			syncItemMapAndField(movableTiles);
+			if(turnsUntilWater > 0)
+				turnsUntilWater++;
+			return;			
 		}
 		else{ //plumber is placing a pipe
 			plumber.setPosition(movedPosition);
@@ -144,7 +147,7 @@ public class PipeMap extends Board{
 			syncItemMapAndField(movableTiles);
 		}		
 		
-		if(numTurns > WATER_START_TURN){
+		if(turnsUntilWater <= 0){
 			Water water;
 			Position[] nextWaterPositions;
 			//need the current number of movable Tiles to loop over
@@ -196,18 +199,20 @@ public class PipeMap extends Board{
 							//if the tile is not a pipe the game ends with a win (winningTile) 
 							//or a loss (any other non-pipe tile)
 							else{
-								if (checkWin()) {
-									throw new GameOver("YOU WIN!");
-								}
-								throw new GameOver("YOU LOSE (YOU HAVE A LEAK)!");
+								movableTiles.add(new Water(new Position(nextRow, nextCol),this));
+
 							}
 						}
 					}
 						
 					
 				}
-				else
+				else{
+					if (checkWin()) {
+						throw new GameOver("YOU WIN!");
+					}
 					throw new GameOver("YOU LOSE (YOU HAVE A LEAK)!");
+				}
 			}
 			
 			syncItemMapAndField(movableTiles);
