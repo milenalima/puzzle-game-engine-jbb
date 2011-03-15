@@ -21,6 +21,10 @@ public class MouseHero extends Hero{
 	
 	private int numMouseTraps = 1;
 	private MouseTrap mouseTrap = null;
+	protected static ImageIcon mhRightImage = new ImageIcon("img/cheesy-right.png");
+	protected static ImageIcon mhUpImage = new ImageIcon("img/cheesy-up.png");
+	protected static ImageIcon mhdownImage = new ImageIcon("img/cheesy-down.png");
+	protected static ImageIcon mhLeftImage = new ImageIcon("img/cheesy-left.png");
 		
 		
 /**
@@ -39,6 +43,11 @@ public class MouseHero extends Hero{
  * @return an integer of the number of Mouse Traps
  */
 	public int getNumMouseTraps(){
+		return numMouseTraps;
+	}
+	
+	public int addMouseTraps(){
+		numMouseTraps++;
 		return numMouseTraps;
 	}
 	
@@ -66,7 +75,21 @@ public class MouseHero extends Hero{
  */	
 	public Position getNextPosition(Position position) {
 		Position returnVal = super.getNextPosition(position);
+			if (returnVal.isSouthOf(this.position)) {
+				setImage(mhdownImage);
+			}
+			if (returnVal.isNorthOf(this.position)) {
+				setImage(mhUpImage);
+			}
+			if (returnVal.isEastOf(this.position)) {
+				setImage(mhRightImage);
+			}
+			if (returnVal.isWestOf(this.position)) {
+				setImage(mhLeftImage);
+			}
+	 		
 		return returnVal;
+		
 	}
 
 /**
@@ -78,9 +101,18 @@ public class MouseHero extends Hero{
  * @return false because there are no items
  */
 	public boolean hasGoodie(Position position) {
-		//Will always return false because he MouseHero never picks up and item.
+		Tile tile = board.getItem(position);
+		//create a tile at the position at the moment and compare it with a 
+		//mouseTrap, if it is an instance of MouseTrap do the following..
+		if (tile instanceof MouseTrap) {
+			//System.out.print("\nThe Mouse walk over Cheesy's Mouse Trap!!\n\n");
+			MouseTrap mt = (MouseTrap) tile;
+			this.addMouseTraps();
+			return true;
+		}
 		return false;
 	}
+	
 	
 /**
  * the toString method return the character "m" to show were the MouseHero is on the board and if the MouseHero is
