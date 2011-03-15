@@ -15,8 +15,6 @@ import jbb.engine.Position;
 public class Pipe extends Item{
 	
 	private static final int degrees0 = 1;
-	//private static final int degrees90 = 2;
-	//private static final int degrees180 = 3;
 	private static final int degrees270 = 4;
 	
 	private int numOpenings;
@@ -85,72 +83,40 @@ public class Pipe extends Item{
 	public boolean pickedUp(Avatar picker) {
 		//determine if the Plumber or the Water has picked up the pipe
 		if (picker instanceof Plumber) {
-			if(!filled)
+			if(!filled)//don't allow rotation of filled pipes
 				this.rotate();
 		} else if (picker instanceof Water) {
 			this.fillUp();
 		}
 		return false;
-		/*
-		Avatar p;
-		try{
-			p = (Plumber) picker;
-		}
-		catch(ClassCastException e){
-			p = (Water) picker; 
-		}
-		//use internal methods to handle either case
-		if(p instanceof Water)
-		{
-			this.fillUp();
-		}
-		else{
-			this.rotate();
-		}		
-		*/		
 	}
 	
 	/**
-	 * Sets boolean filled to true.
+	 * Sets boolean filled to true. 
+	 * Changes the Pipe's image to one with water.
 	 */
 	private void fillUp() {
 		filled = true;
-		//this.setImage(new ImageIcon("img/pacman-up.png"));
 		this.setImage(new ImageIcon("img/pipe-"+pipeType+"-water-"+rotation+".png"));
 	}
 
 	/**
 	 * Rotates the Pipe counter-clockwise.
+	 * Changes the image to the appropriate, rotated one.
 	 * Called when Plumber lands on a Pipe.
 	 */
 	public void rotate(){
-		boolean bTemp = openBottom;
-		openBottom = openLeft;
-		boolean rTemp = openRight;
-		openRight = bTemp;
-		boolean tTemp = openTop;
-		openTop = rTemp;
-		openLeft = tTemp;
+		
+		boolean temp = openLeft;
+	  	openLeft = openTop;
+	  	openTop = openRight;
+	  	openRight = openBottom;
+	  	openBottom = temp;
+	 
 		if(++rotation > degrees270)
 			rotation = degrees0;
+		
 		this.setImage(new ImageIcon("img/pipe-"+pipeType+"-"+rotation+".png"));
-		/* :::would this work?:::
-		 * boolean temp = openLeft;
-		 * openLeft = openTop;
-		 * openTop = openRight;
-		 * openRight = openBottom;
-		 * openBottom = temp;
-		 */
-	}
-	
-	/**
-	 * Will be used in the GUI implementation to link adjacent pipe 
-	 * openings graphically.
-	 * @return boolean
-	 */
-	public boolean connectToAdjacent(){
-		//should eventually (GUI) look for adjacent pipes and make "connections" where possible
-		return false;
 	}
 	
 	/**
@@ -195,6 +161,9 @@ public class Pipe extends Item{
 		return openTop;
 	}
 	
+	/**
+	 * @return filled
+	 */
 	public boolean isFilled() {
 		return filled;
 	}

@@ -15,6 +15,8 @@ import jbb.engine.Wall;
 //import jbb.engine.funnels.FunnelSpace;
 
 /**
+ * Board class for the Pipes game. 
+ * Manages the pieces when a turn is played.
  * @author Boris Ionine
  */
 public class PipeMap extends Board{
@@ -111,6 +113,13 @@ public class PipeMap extends Board{
 		}
 	}
 	
+	/**
+	 * Overridden playTurn method for Pipes game. 
+	 * Needed to be overridden completely largely due to the
+	 * multiplying nature of the Water flowing through
+	 * the Pipes.
+	 * @throws GameOver
+	 */
 	@Override
 	public void playTurn(Position position) throws GameOver{
 		numTurns++;
@@ -122,13 +131,13 @@ public class PipeMap extends Board{
 		
 		//check if moved to existing Pipe
 		boolean itemPickedUp = plumber.hasGoodie(movedPosition); 
-		if(itemPickedUp){
+		if(itemPickedUp){ //player has clicked on a pipe
 			((Item) itemMap[movedPosition.getRow()][movedPosition.getCol()]).pickedUp(plumber);
 			//System.out.println("you rotated the pipe at:" + movedPosition.getRow() + "," + movedPosition.getCol());
 			plumber.setPosition(movedPosition);
 			syncItemMapAndField(movableTiles);
 		}
-		else{
+		else{ //plumber is placing a pipe
 			plumber.setPosition(movedPosition);
 			plumber.placePipe();
 			plumber.acquireNextPipeType();
@@ -160,6 +169,8 @@ public class PipeMap extends Board{
 							Tile tile = itemMap[nextRow][nextCol];
 							//if the tile is a pipe try to fill it
 							if(tile instanceof Pipe){
+								//for each possible opening, also check that the water is
+								//coming from the appropriate place.
 								if((((Pipe) tile).isOpenLeft()) &&
 										(currentRow == nextRow) && (currentCol == nextCol - 1)){
 									movableTiles.add(new Water(new Position(nextRow, nextCol),this));
@@ -206,6 +217,11 @@ public class PipeMap extends Board{
 		}
 	}
 	
+	/**
+	 * Returns the number of turns left until
+	 * water starts to flow.
+	 * @return turnsUntilWater
+	 */
 	public int getTurnsUntilWater(){
 		return turnsUntilWater; 
 	}

@@ -6,20 +6,26 @@ import javax.swing.JTextArea;
 
 import jbb.engine.BoardView;
 import jbb.engine.Hero;
-
+/**
+ * GUI View for the Pipes game.
+ * @author Jonathan Gravel
+ */
 public class PipeGameView extends BoardView {
 	
 	private JTextArea lives;
 	private JTextArea nextPipe;
 	private JTextArea timer;
-	//private int tick;
 
+	/**
+	 * Constructor of the PipeGameView class.
+	 * Initialises instance variables, 
+	 * which are the Components of the board.
+	 */
 	public PipeGameView(PipeMap board) {
 		super(board);
 		lives = new JTextArea();
 		nextPipe = new JTextArea();
 		timer = new JTextArea();
-		//tick = -1;
 		updateComponents();
 		Component[] more = {lives, nextPipe, timer};
 		addMoreComponents(more);

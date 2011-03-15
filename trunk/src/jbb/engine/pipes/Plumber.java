@@ -25,7 +25,10 @@ public class Plumber extends Hero{
 		acquireNextPipeType();
 	}
 	
-	//acquires the next pipe 
+	/**
+	 * Method randomly generates the next kind of Pipe 
+	 * the plumber will be able to place.
+	 */
 	public void acquireNextPipeType(){
 		//EVENTUALLY, the pipes the plumber drops will be generated randomly
 	    Random generator = new Random();
@@ -47,18 +50,26 @@ public class Plumber extends Hero{
 	    	nextPipeType = 'L';
 	    	break;
 	    }
-	    //FOR NOW ONLY 'I' PIPES ARE AVAILABLE
-		//nextPipeType = 'I';
 	}
-	
+	/**
+	 * @return nextPipeType
+	 */
 	public char getNextPipeType(){
 		return nextPipeType;
 	}
 	
+	/**
+	 * Sets the nextPipeType 
+	 * @param nextPipeType
+	 */
 	public void setNextPipeType(char nextPipeType){
 		this.nextPipeType = nextPipeType;
 	}
 	
+	/**
+	 * Places a Pipe corresponding to the nextPipeType
+	 * on the Plumber's current location.
+	 */
 	public void placePipe(){
 		//place the next Pipe according to the nextPipeType stored
 		this.board.placeItem(new Pipe(position, board, nextPipeType));
