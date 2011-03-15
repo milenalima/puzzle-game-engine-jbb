@@ -7,9 +7,6 @@ Project group members:
 Deliverables and task distribution:
 
 [!]	Unit Tests:
-		These are difficult to implement due to the number of private
-		methods present in the classes.
-[!]		- Tile ()
 [!]		- PacMan (Jonathan)
 [!]		- MouseLand (Bruno)
 [!]		- Pipes (Boris)
@@ -18,6 +15,7 @@ Deliverables and task distribution:
 		- Engine
 			- Avatar (Jonathan)
 			- Board (Boris, Jonathan)
+			- BoardView (Jonathan)
 			- GameOver (Jonathan)
 			- Hero (Jonathan)
 			- Item (Jonathan)
@@ -51,8 +49,15 @@ Changes since Milestone #2:
 	- The PacMan game now has three different personalities for each Ghost on the board.
 	One of the ghosts has a personality which causes it to flee from PacMan when he
 	becomes invulnerable. This makes the game more interesting.
-	
+	- New map for MouseLand which should allow more challenging play.
 	
 Known issues and roadmaps:
 
-	
+	- We will be adding a JMenuBar which will have the following JMenus:
+		(Game) which will have JMenuItems:
+			(New Game) restarts the game
+			(Level Code) allows user to input a level code which loads a certain game level
+			(Undo) allows 4 undos
+			(Redo)
+	- Since more levels will be required, it would be more ideal to have levels in text files,
+	and so it will be easier to load and create new levels (rather than hardcoding in java)
