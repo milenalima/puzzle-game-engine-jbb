@@ -20,6 +20,7 @@ import jbb.engine.Tile;
 public class Water extends NPC{
 
 	public static final int LIVES = 1;
+	public static final int NUM_ADJ_POS = 4;
 	
 	/**
 	 * Constructor for Water.
@@ -51,12 +52,21 @@ public class Water extends NPC{
 	public Position[] getNextPositions(Position position) throws IllegalArgumentException {
 		//figure out the kind of Pipe/Tile the water's on right now:
 		Tile tile = board.getItem(position);
-		Position[] nextPositions = new Position[4];
+		//there are only 4 possible positions
+		Position[] nextPositions = new Position[NUM_ADJ_POS];
 		Tile[] adjTiles;
 		if(tile instanceof Pipe){
 			tile = (Pipe) board.getItem(position);
 			adjTiles = tile.getAdjacentTiles(); 
-			//check
+			//in this if and the following three if statements:
+			//--check if a particular side of the current pipe is open
+			//--if that side is open, check:
+			//----that the tile adjacent to that side is not null
+			//----if that tile is not null:
+			//-------check if it is a Pipe
+			//-------if it is a Pipe
+			//---------add it to nextPositions if it is not filled
+			//---------or if it is filled but inaccessible from this direction (results in defeat)
 			if(((Pipe) tile).isOpenLeft()){
 				if(adjTiles[Tile.LEFT]!=null) 
 					if(adjTiles[Tile.LEFT] instanceof Pipe)
@@ -151,7 +161,6 @@ public class Water extends NPC{
 	}
 	
 	/**
-	 * Method also not used by Water yet...may find a use for it later
 	 * @return false
 	 * @Override
 	 */

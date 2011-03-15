@@ -7,8 +7,7 @@ import jbb.engine.GameOver;
 import jbb.engine.Position;
 
 /**
- * 
- * @author Boris Ionine
+ * @author Jonathan Gravel, Boris Ionine
  */
 public class PipeGame {
 	
@@ -18,6 +17,9 @@ public class PipeGame {
 		board = new PipeMap();
 	}
 	
+	/**
+	 * Start game. This game only ends when a GameOver exception is thrown.
+	 */
 	public void play() {
 		Position newPos;
 		Scanner s1;
