@@ -38,19 +38,6 @@ public class MouseLand extends Board{
  * if the tile is blank then a Mouse or MouseHero can be made and if able to move 
  * on those tiles.	
  * 
- * Initial Playing Field
- * 
- * X X X X X X X X X X
- * X e			   e	
- * X   X X	   X X   X	
- * X   X X     X X   X
- * X                 X  
- * X   X X     X X   X
- * X   X X     X X   X 
- * X   X       X X   X
- * X			   e X 
- * X m X X X X X X X X
- * 
  */
 	@Override
 	protected void populateItemMap() {
@@ -62,8 +49,6 @@ public class MouseLand extends Board{
 		//row 1
 		itemMap[1][0] = new Wall(new Position(1,0),this);
 		itemMap[1][1] = new Tile(new Position(1,1),this);
-		itemMap[1][10] = new Tile(new Position(1,10),this);
-		itemMap[1][13] = new Tile(new Position(1,13),this);
 		itemMap[1][14] = new Tile(new Position(1,14),this);
 
 		for(int col =2;col<=4;col++){
@@ -79,12 +64,9 @@ public class MouseLand extends Board{
 		//row 2
 		itemMap[2][0] = new Wall(new Position(2,0),this);
 		itemMap[2][1] = new Tile(new Position(2,1),this);
-		itemMap[2][7] = new Tile(new Position(2,7),this);
-		itemMap[2][10] = new Tile(new Position(2,10),this);
 		itemMap[2][9] = new Wall(new Position(2,9),this);
+		itemMap[2][10] = new Tile(new Position(2,10),this);
 		itemMap[2][11] = new Wall(new Position(2,11),this);
-		itemMap[2][12] = new Tile(new Position(2,12),this);
-		itemMap[2][13] = new Tile(new Position(2,13),this);
 		itemMap[2][14] = new Wall(new Position(2,14),this);
 
 		for(int col =2;col<=3;col++){
@@ -93,40 +75,41 @@ public class MouseLand extends Board{
 		for(int col =4;col<=8;col++){
 			itemMap[2][col] = new Tile(new Position(2,col),this);
 		}
+		for(int col =12;col<=13;col++){
+			itemMap[2][col] = new Tile(new Position(2,col),this);
+		}
 
 
 		//row 3
 		itemMap[3][0] = new Wall(new Position(3,0),this);
 		itemMap[3][1] = new Tile(new Position(3,1),this);
-		itemMap[3][4] = new Wall(new Position(3,4),this);
-		itemMap[3][5] = new Wall(new Position(3,5),this);
-		itemMap[3][6] = new Wall(new Position(3,6),this);
-		itemMap[3][7] = new Wall(new Position(3,7),this);
 		itemMap[3][8] = new Tile(new Position(3,8),this);
-		itemMap[3][9] = new Wall(new Position(3,9),this);
-		itemMap[3][10] = new Wall(new Position(3,10),this);
-		itemMap[3][13] = new Tile(new Position(3,13),this);
 		itemMap[3][14] = new Wall(new Position(3,14),this);
 
 		for(int col =2;col<=3;col++){
 			itemMap[3][col] = new Tile(new Position(3,col),this);
 		}
+		for(int col =4;col<=7;col++){
+			itemMap[3][col] = new Wall(new Position(3,col),this);
+		}
+		for(int col =9;col<=10;col++){
+			itemMap[3][col] = new Wall(new Position(3,col),this);
+		}
 
-		for(int col =11;col<=12;col++){
+		for(int col =11;col<=13;col++){
 			itemMap[3][col] = new Tile(new Position(3,col),this);
 		}
 		//row 4
 		itemMap[4][0] = new Wall(new Position(4,0),this);
-		itemMap[4][1] = new Wall(new Position(4,1),this);
-		itemMap[4][2] = new Wall(new Position(4,2),this);
 		itemMap[4][3] = new Tile(new Position(4,3),this);
 		itemMap[4][4] = new Wall(new Position(4,4),this);
-
 		itemMap[4][12] = new Wall(new Position(4,12),this);
 		itemMap[4][13] = new Tile(new Position(4,13),this);
 		itemMap[4][14] = new Wall(new Position(4,14),this);
 
-
+		for(int col =1;col<=2;col++){
+			itemMap[4][col] = new Wall(new Position(4,col),this);
+		}
 		for(int col =5;col<=11;col++){
 			itemMap[4][col] = new Tile(new Position(4,col),this);
 		}
@@ -151,29 +134,29 @@ public class MouseLand extends Board{
 
 		//row 6
 		itemMap[6][0] = new Wall(new Position(6,0),this);
-		itemMap[6][7] = new Tile(new Position(6,7),this);
 		itemMap[6][8] = new Wall(new Position(6,8),this);
-		itemMap[6][9] = new Tile(new Position(6,9),this);
-		itemMap[6][10] = new Tile(new Position(6,10),this);
 		itemMap[6][11] = new Wall(new Position(6,11),this);
 		itemMap[6][12] = new Tile(new Position(6,12),this);
 		itemMap[6][13] = new Wall(new Position(6,13),this);
 		itemMap[6][14] = new Wall(new Position(6,14),this);
 
-		for(int col =1;col<=6;col++){
+		for(int col =1;col<=7;col++){
+			itemMap[6][col] = new Tile(new Position(6,col),this);
+		}
+		for(int col =9;col<=10;col++){
 			itemMap[6][col] = new Tile(new Position(6,col),this);
 		}
 		//row 7
 		itemMap[7][0] = new Wall(new Position(7,0),this);
 		itemMap[7][1] = new Tile(new Position(7,1),this);
-		itemMap[7][2] = new Wall(new Position(7,2),this);
-		itemMap[7][3] = new Wall(new Position(7,3),this);
-		itemMap[7][4] = new Wall(new Position(7,4),this);
 		itemMap[7][5] = new Tile(new Position(7,5),this);
 		itemMap[7][6] = new Wall(new Position(7,6),this);
 		itemMap[7][13] = new Wall(new Position(7,13),this);
 		itemMap[7][14] = new Wall(new Position(7,14),this);
 
+		for(int col =2;col<=4;col++){
+			itemMap[7][col] = new Wall(new Position(7,col),this);
+		}
 		for(int col =7;col<=12;col++){
 			itemMap[7][col] = new Tile(new Position(7,col),this);
 		}

@@ -7,6 +7,8 @@
 
 package jbb.engine.mouseland;
 
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 
 import jbb.engine.Avatar;
@@ -18,6 +20,11 @@ import jbb.engine.Tile;
 @SuppressWarnings("serial")
 public class Mouse extends NPC{
 	public static final int LIVES = 1;
+	private Position[] recentPos = {null, null, null};
+	protected static ImageIcon mouseRightImage = new ImageIcon("img/redEyes-right.png");
+	protected static ImageIcon mouseUpImage = new ImageIcon("img/redEyes-up.png");
+	protected static ImageIcon mouseDownImage = new ImageIcon("img/redEyes-down.png");
+	protected static ImageIcon mouseLeftImage = new ImageIcon("img/redEyes-left.png");
 	
 /**
  * Constructor for the Mouse using Position and Board as parameter
@@ -26,7 +33,7 @@ public class Mouse extends NPC{
  * @param position represents the position of the Mouse on the Board
  */
 	public Mouse(Position position, Board board) {
-		super(new ImageIcon("img/redEyes-left.png"), LIVES, position, board);
+		super(mouseLeftImage, LIVES, position, board);
 	}
 
 /**
@@ -36,11 +43,47 @@ public class Mouse extends NPC{
  * 
  * @return the Position of the next position 
  */
-	public Position getNextPosition(Position position) {
-		Position returnVal = super.getNextPosition(position);
+	public Position getNextPosition(Position position) {	
+		Position returnVal = position;
+		
+		recentPos[2] = recentPos[1];
+		recentPos[1] = recentPos[0];
+		recentPos[0] = super.getNextPosition(position);		
+		if (recentPos[0].equals(recentPos[1]) || recentPos[0].equals(recentPos[2])){
+			Random r = new Random();
+			int row = r.nextInt(board.getHeight());
+			int col = r.nextInt(board.getWidth());
+			returnVal = super.getNextPosition(new Position(row,col));
+			if (returnVal.isSouthOf(this.position)) {
+				setImage(mouseDownImage);
+			}
+			if (returnVal.isNorthOf(this.position)) {
+				setImage(mouseUpImage);
+			}
+			if (returnVal.isEastOf(this.position)) {
+				setImage(mouseRightImage);
+			}
+			if (returnVal.isWestOf(this.position)) {
+				setImage(mouseLeftImage);
+			}
+		}
+		else{
+			returnVal = super.getNextPosition(position);
+		}
+		if (returnVal.isSouthOf(this.position)) {
+			setImage(mouseDownImage);
+		}
+		if (returnVal.isNorthOf(this.position)) {
+			setImage(mouseUpImage);
+		}
+		if (returnVal.isEastOf(this.position)) {
+			setImage(mouseRightImage);
+		}
+		if (returnVal.isWestOf(this.position)) {
+			setImage(mouseLeftImage);
+		}
 		return returnVal;
 	}
-
 	
 /**
  * the hasGoodie method checks to see if Mouse walked over a Mouse Trap on the position given (which is the parameter)
@@ -55,6 +98,9 @@ public class Mouse extends NPC{
 		//mouseTrap, if it is an instance of MouseTrap do the following..
 		if (tile instanceof MouseTrap) {
 			//System.out.print("\nThe Mouse walk over Cheesy's Mouse Trap!!\n\n");
+			MouseTrap mt = (MouseTrap) tile;
+			setImage(new ImageIcon("img/mouseTrapWithMouse.png"));
+			mt.deactivate();
 			return true;
 		}
 		return false;

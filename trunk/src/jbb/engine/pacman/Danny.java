@@ -23,6 +23,7 @@ public class Danny extends Ghost {
 	/**
 	 * Danny randomly selects a position to move, and sticks to it until he
 	 * can't move any closer, and then he tries a new position to move to.
+	 * @author jon
 	 */
 	public Position getNextPosition(Position position) {
 		if (destination == null) {
