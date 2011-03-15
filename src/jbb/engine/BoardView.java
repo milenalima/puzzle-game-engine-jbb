@@ -100,6 +100,29 @@ public abstract class BoardView {
 		frame.setVisible(true);
 	}
 	
+	protected void handleGameOver(GameOver e1) {
+		// either the game is won, or the game is lost
+		updateView();
+		// ask the user if he wants to play again, or quit this game.
+		String[] options = {"Play again","Quit"};
+		int result = JOptionPane.showOptionDialog(null, e1.getMessage(), "End of Game",
+				JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+				options, options[0]);
+		if (result == JOptionPane.CLOSED_OPTION) {
+			// if the user closes the YOU WIN window, show game select menu
+			frame.dispose();
+			GameLauncher.main(null);
+		} else if (result == 0) {
+			// if option 0 is chosen, start a new game
+			board.restartGame();
+			updateView();
+		} else {
+			// if any other option is chosen, show game select menu
+			frame.dispose();
+			GameLauncher.main(null);
+		}
+	}
+	
 	/**
 	 * This function will change the value of any additional components that have
 	 * been added to the board, e.g. updating lives remaining on JTextArea.
@@ -110,7 +133,7 @@ public abstract class BoardView {
 	 * This is the controller for the BoardView. When a Tile is clicked, this calls
 	 * actionPerformed(...).
 	 */
-	private class ButtonPressHandler implements ActionListener{
+	protected class ButtonPressHandler implements ActionListener{
 
 		private Board board;
 
@@ -132,27 +155,9 @@ public abstract class BoardView {
 			} catch (IllegalArgumentException ex) {
 				// do nothing to avoid annoying popups.
 			} catch (GameOver e1) {
-				// either the game is won, or the game is lost
-				updateView();
-				// ask the user if he wants to play again, or quit this game.
-				String[] options = {"Play again","Quit"};
-				int result = JOptionPane.showOptionDialog(null, e1.getMessage(), "End of Game",
-						JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-						options, options[0]);
-				if (result == JOptionPane.CLOSED_OPTION) {
-					// if the user closes the YOU WIN window, show game select menu
-					frame.dispose();
-					GameLauncher.main(null);
-				} else if (result == 0) {
-					// if option 0 is chosen, start a new game
-					board.restartGame();
-					updateView();
-				} else {
-					// if any other option is chosen, show game select menu
-					frame.dispose();
-					GameLauncher.main(null);
-				}
+				handleGameOver(e1);
 			}
 		}
+
 	}
 }

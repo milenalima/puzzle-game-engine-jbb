@@ -66,7 +66,7 @@ public class Water extends NPC{
 			//-------check if it is a Pipe
 			//-------if it is a Pipe
 			//---------add it to nextPositions if it is not filled
-			//---------or if it is filled but inaccessible from this direction (results in defeat)
+			//---------or if it is filled but inaccessible from this direction, pass the board's losing position
 			if(((Pipe) tile).isOpenLeft()){
 				if(adjTiles[Tile.LEFT]!=null) 
 					if(adjTiles[Tile.LEFT] instanceof Pipe)
@@ -94,7 +94,7 @@ public class Water extends NPC{
 					if(adjTiles[Tile.BOTTOM] instanceof Pipe)
 					{
 						Pipe p = (Pipe) adjTiles[Tile.BOTTOM];
-						if(!p.isFilled())
+						if(!p.isFilled()&&p.isOpenTop())
 							nextPositions[1] = adjTiles[Tile.BOTTOM].getPosition();
 						else
 						{

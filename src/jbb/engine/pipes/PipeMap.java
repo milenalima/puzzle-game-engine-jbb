@@ -20,12 +20,13 @@ import jbb.engine.Wall;
  * @author Boris Ionine
  */
 public class PipeMap extends Board{
-	public static final int WATER_START_TURN = 40;
+	public static final int WATER_START_TURN = 60;
 	public static final int WIDTH = 20;
 	public static final int HEIGHT = 7;
 	public Position winningPosition = new Position(6,15);
 	private int turnsUntilWater = WATER_START_TURN;
 	private int numTurns = 0;
+	private boolean runWater = false;
 	
 	public PipeMap(){
 		super(WIDTH, HEIGHT);
@@ -131,21 +132,24 @@ public class PipeMap extends Board{
 		
 		//check if moved to existing Pipe
 		boolean itemPickedUp = plumber.hasGoodie(movedPosition); 
-		if(itemPickedUp){ //player has clicked on a pipe
-			((Item) itemMap[movedPosition.getRow()][movedPosition.getCol()]).pickedUp(plumber);
-			//System.out.println("you rotated the pipe at:" + movedPosition.getRow() + "," + movedPosition.getCol());
-			plumber.setPosition(movedPosition);
-			syncItemMapAndField(movableTiles);
-			if(turnsUntilWater > 0)
-				turnsUntilWater++;
-			return;			
+		if(!runWater)
+		{
+			if(itemPickedUp){ //player has clicked on a pipe
+				((Item) itemMap[movedPosition.getRow()][movedPosition.getCol()]).pickedUp(plumber);
+				//System.out.println("you rotated the pipe at:" + movedPosition.getRow() + "," + movedPosition.getCol());
+				plumber.setPosition(movedPosition);
+				syncItemMapAndField(movableTiles);
+				if(turnsUntilWater > 0)
+					turnsUntilWater++;
+				return;			
+			}
+			else{ //plumber is placing a pipe
+				plumber.setPosition(movedPosition);
+				plumber.placePipe();
+				plumber.acquireNextPipeType();
+				syncItemMapAndField(movableTiles);
+			}		
 		}
-		else{ //plumber is placing a pipe
-			plumber.setPosition(movedPosition);
-			plumber.placePipe();
-			plumber.acquireNextPipeType();
-			syncItemMapAndField(movableTiles);
-		}		
 		
 		if(turnsUntilWater <= 0){
 			Water water;
@@ -230,6 +234,18 @@ public class PipeMap extends Board{
 	public int getTurnsUntilWater(){
 		return turnsUntilWater; 
 	}
+	
+	public void runWaterPressed() throws GameOver{
+		runWater = true;
+		while(runWater){
+			try{
+				this.playTurn(new Position(1,1));
+			}
+			catch(GameOver g){
+				throw g;
+			}
+		}
+	}
 
 	@Override
 	public void resetPlayingField() {
@@ -247,6 +263,7 @@ public class PipeMap extends Board{
 	@Override
 	public void restartGame() {
 		numTurns = 0;
+		runWater = false;
 		turnsUntilWater = WATER_START_TURN;
 		this.width = WIDTH;
 		this.height = HEIGHT;
