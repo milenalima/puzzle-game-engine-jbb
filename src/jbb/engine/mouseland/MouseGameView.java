@@ -1,6 +1,7 @@
 package jbb.engine.mouseland;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,6 +19,8 @@ public class MouseGameView extends BoardView {
 		super(board);
 		lives = new JTextArea();
 		drop = new JButton();
+		// make it as small as possible so it fits with the JTextArea
+		drop.setPreferredSize(new Dimension(1,1));
 		drop.addActionListener(new DropButtonHandler(board));
 		updateComponents();
 		Component[] more = {lives,drop};
@@ -50,6 +53,7 @@ public class MouseGameView extends BoardView {
 		public void actionPerformed(ActionEvent e) {
 			MouseHero hero = (MouseHero) board.getHero();
 			hero.setTrap();
+			drop.setText("Set trap (" + hero.getNumMouseTraps() + ")");
 		}
 		
 	}
