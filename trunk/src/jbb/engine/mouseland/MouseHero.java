@@ -34,7 +34,7 @@ public class MouseHero extends Hero{
  * @param position represents the position of the MouseHero on the Board
  */
 	public MouseHero(Position position, Board board) {
-		super(new ImageIcon("img/cheesy-right.png"), LIVES, position, board);
+		super(mhUpImage, LIVES, position, board);
 	}
 	
 /**
@@ -46,6 +46,11 @@ public class MouseHero extends Hero{
 		return numMouseTraps;
 	}
 	
+/**
+ * It adds one to the number of Mouse Traps
+ * 
+ * @return an integer of the number of Mouse Traps
+ */
 	public int addMouseTraps(){
 		numMouseTraps++;
 		return numMouseTraps;
@@ -68,6 +73,8 @@ public class MouseHero extends Hero{
 
 /**
  * the getNextPosition method uses a position as the parameter and returns the next position
+ * It also checks to see what direction the MouseHero is going and will setImage() according
+ * to the direction.
  * 
  * @param position represents the position of the MouseHero on the Board
  * 
@@ -93,12 +100,12 @@ public class MouseHero extends Hero{
 	}
 
 /**
- * the hasGoodie method always returns false because there are no items for the 
- * MouseHero to pick up.
+ * the hasGoodie method true if the tile MouseHero is currently on is of instance 
+ * of Mouse Trap, else false
  * 
  * @param position represents the position of the MouseHero on the Board
  * 
- * @return false because there are no items
+ * @return true if the tile MouseHero is currently on is of instance of Mouse Trap, else false
  */
 	public boolean hasGoodie(Position position) {
 		Tile tile = board.getItem(position);
@@ -106,10 +113,8 @@ public class MouseHero extends Hero{
 		//mouseTrap, if it is an instance of MouseTrap do the following..
 		if (tile instanceof MouseTrap) {
 			//System.out.print("\nThe Mouse walk over Cheesy's Mouse Trap!!\n\n");
-			MouseTrap mt = (MouseTrap) tile;
-			this.addMouseTraps();
 			return true;
-		}
+			}
 		return false;
 	}
 	

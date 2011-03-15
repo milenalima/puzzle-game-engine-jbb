@@ -37,14 +37,17 @@ public class Mouse extends NPC{
 	}
 
 /**
- * the getNextPosition method uses a position as the parameter and returns the next position
+ * the getNextPosition method uses a position as the parameter and returns the next position,
+ * It keeps in memory the previous positions and checks to see if the mouse is stuck in a 
+ * corner, (or if the mouse is going back and forth, from one position to another), and will 
+ * create a random new position so it leaves the area.
  * 
  * @param position represents the position of the Mouse on the Board
  * 
  * @return the Position of the next position 
  */
-	public Position getNextPosition(Position position) {	
-		Position returnVal = position;
+	public Position getNextPosition(Position position) {
+		Position returnVal;
 		
 		recentPos[2] = recentPos[1];
 		recentPos[1] = recentPos[0];
@@ -54,22 +57,12 @@ public class Mouse extends NPC{
 			int row = r.nextInt(board.getHeight());
 			int col = r.nextInt(board.getWidth());
 			returnVal = super.getNextPosition(new Position(row,col));
-			if (returnVal.isSouthOf(this.position)) {
-				setImage(mouseDownImage);
-			}
-			if (returnVal.isNorthOf(this.position)) {
-				setImage(mouseUpImage);
-			}
-			if (returnVal.isEastOf(this.position)) {
-				setImage(mouseRightImage);
-			}
-			if (returnVal.isWestOf(this.position)) {
-				setImage(mouseLeftImage);
-			}
 		}
 		else{
 			returnVal = super.getNextPosition(position);
 		}
+		
+		
 		if (returnVal.isSouthOf(this.position)) {
 			setImage(mouseDownImage);
 		}
@@ -82,15 +75,19 @@ public class Mouse extends NPC{
 		if (returnVal.isWestOf(this.position)) {
 			setImage(mouseLeftImage);
 		}
+		
 		return returnVal;
+		
 	}
 	
 /**
- * the hasGoodie method checks to see if Mouse walked over a Mouse Trap on the position given (which is the parameter)
+ * the hasGoodie method checks to see if Mouse walked over a Mouse Trap on the 
+ * position given (which is the parameter), if yes, it checks to see if the MouseTrap is
+ * set or used and if used returns false and if set returns true.
  * 
  * @param position represents the position of the Mouse on the Board
  * 
- * @return true if the Mouse walked over a Mouse Trap
+ * @return true if the Mouse walked over a Mouse Trap and the MouseTrap is set
  */
 	public boolean hasGoodie(Position position) {
 		Tile tile = board.getItem(position);
@@ -99,9 +96,12 @@ public class Mouse extends NPC{
 		if (tile instanceof MouseTrap) {
 			//System.out.print("\nThe Mouse walk over Cheesy's Mouse Trap!!\n\n");
 			MouseTrap mt = (MouseTrap) tile;
-			setImage(new ImageIcon("img/mouseTrapWithMouse.png"));
-			mt.deactivate();
-			return true;
+			if(mt.set()==true){
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 		return false;
 	}
