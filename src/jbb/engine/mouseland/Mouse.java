@@ -21,10 +21,10 @@ import jbb.engine.Tile;
 public class Mouse extends NPC{
 	public static final int LIVES = 1;
 	private Position[] recentPos = {null, null, null};
-	protected static ImageIcon mouseRightImage = new ImageIcon("img/redEyes-right.png");
-	protected static ImageIcon mouseUpImage = new ImageIcon("img/redEyes-up.png");
-	protected static ImageIcon mouseDownImage = new ImageIcon("img/redEyes-down.png");
-	protected static ImageIcon mouseLeftImage = new ImageIcon("img/redEyes-left.png");
+	protected static final ImageIcon mouseRightImage = new ImageIcon("img/redEyes-right.png");
+	protected static final ImageIcon mouseUpImage = new ImageIcon("img/redEyes-up.png");
+	protected static final ImageIcon mouseDownImage = new ImageIcon("img/redEyes-down.png");
+	protected static final ImageIcon mouseLeftImage = new ImageIcon("img/redEyes-left.png");
 	
 /**
  * Constructor for the Mouse using Position and Board as parameter

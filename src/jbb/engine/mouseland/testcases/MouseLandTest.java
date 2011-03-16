@@ -1,34 +1,43 @@
 package jbb.engine.mouseland.testcases;
 
 import static org.junit.Assert.*;
+import jbb.engine.GameOver;
+import jbb.engine.Hero;
+import jbb.engine.Position;
+import jbb.engine.mouseland.Mouse;
+import jbb.engine.mouseland.MouseHero;
+import jbb.engine.mouseland.MouseLand;
+import jbb.engine.pacman.PacWorld;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class MouseLandTest {
+	
+	MouseLand ml = null;
 
 	@Before
 	public void setUp() throws Exception {
-	}
-
-	@Test
-	public void testPopulateItemMap() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCheckWin() {
-		fail("Not yet implemented");
+		ml = new MouseLand();
 	}
 
 	@Test
 	public void testResetPlayingField() {
-		fail("Not yet implemented");
+		Hero hero = ml.getHero();
+		Position pos = new Position(hero.getPosition().getRow(),hero.getPosition().getCol());
+		hero.setPosition(new Position(14,1));
+		ml.resetPlayingField();
+		assertEquals(pos,hero.getPosition());
 	}
 
 	@Test
-	public void testMouseLand() {
-		fail("Not yet implemented");
+	public void testRestartGame() {
+		Hero hero = ml.getHero();
+		Position pos = new Position(hero.getPosition().getRow(),hero.getPosition().getCol());
+		hero.setPosition(new Position(14,1));
+		hero.removeLife();
+		ml.resetPlayingField();
+		assertEquals(pos,hero.getPosition());
 	}
 
 }

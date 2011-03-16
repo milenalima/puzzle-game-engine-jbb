@@ -21,10 +21,10 @@ public class MouseHero extends Hero{
 	
 	private int numMouseTraps = 1;
 	private MouseTrap mouseTrap = null;
-	protected static ImageIcon mhRightImage = new ImageIcon("img/cheesy-right.png");
-	protected static ImageIcon mhUpImage = new ImageIcon("img/cheesy-up.png");
-	protected static ImageIcon mhdownImage = new ImageIcon("img/cheesy-down.png");
-	protected static ImageIcon mhLeftImage = new ImageIcon("img/cheesy-left.png");
+	protected static final ImageIcon mhRightImage = new ImageIcon("img/cheesy-right.png");
+	protected static final ImageIcon mhUpImage = new ImageIcon("img/cheesy-up.png");
+	protected static final ImageIcon mhdownImage = new ImageIcon("img/cheesy-down.png");
+	protected static final ImageIcon mhLeftImage = new ImageIcon("img/cheesy-left.png");
 		
 		
 /**
