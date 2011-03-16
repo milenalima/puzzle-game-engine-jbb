@@ -78,13 +78,11 @@ public class Plumber extends Hero{
 
 	@Override
 	public boolean collidesWith(Avatar avatar) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean hasGoodie(Position position) {
-		// TODO Auto-generated method stub
 		Tile tile = board.getTile(position);
 		if (tile instanceof Pipe) {
 			return true;
