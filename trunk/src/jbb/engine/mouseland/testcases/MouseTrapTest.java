@@ -31,7 +31,9 @@ public class MouseTrapTest {
 	public void testPickedUp() {
 		mh.setPosition(new Position(1,13));
 		mh.setTrap();
+		//If Mouse is on same Tile as MouseTrap
 		assertFalse(mt.pickedUp(m));
+		//If MouseHero is on same Tile as MouseTrap
 		assertFalse(mt.pickedUp(mh));
 	}
 
