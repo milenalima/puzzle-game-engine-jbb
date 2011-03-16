@@ -78,8 +78,8 @@ public class Pipe extends Item{
 	 * Checks to see if Water or a Plumber picked up the Pipe and reacts
 	 * accordingly (calls corresponding method).
 	 * @param picker
-	 * @Override
 	 */
+	@Override
 	public boolean pickedUp(Avatar picker) {
 		//determine if the Plumber or the Water has picked up the pipe
 		if (picker instanceof Plumber) {

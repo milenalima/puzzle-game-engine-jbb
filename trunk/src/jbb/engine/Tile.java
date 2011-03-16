@@ -63,7 +63,7 @@ public class Tile extends JButton {
 	/**
 	 * Sets the image of blank tiles to the given image
 	 * 
-	 * @param color
+	 * @param image
 	 */
 	public static void setBlankImage(ImageIcon image) {
 		blankTileImage = image;
