@@ -36,8 +36,8 @@ public class Water extends NPC{
 	 * STUB.
 	 * @param position
 	 * @return position
-	 * @Override
 	 */
+	@Override
 	public Position getNextPosition(Position position) throws IllegalArgumentException{
 		return position;
 	}
@@ -162,8 +162,8 @@ public class Water extends NPC{
 	
 	/**
 	 * @return false
-	 * @Override
 	 */
+	@Override
 	public boolean collidesWith(Avatar avatar) {
 		// TODO Auto-generated method stub
 		return false;
@@ -185,8 +185,8 @@ public class Water extends NPC{
 	 * Checks to see if the water is in a Pipe.
 	 * @param position
 	 * @return boolean
-	 * @Override
 	 */
+	@Override
 	public boolean hasGoodie(Position position) {
 		Tile tile = board.getItem(position);
 		if (tile instanceof Pipe) {

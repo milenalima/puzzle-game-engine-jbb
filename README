@@ -1,44 +1,43 @@
 SYSC 2101 Project – puzzle-game-engine-jbb - Milestone 1
 
+Important Note:
+
+	The game was intended to run in a .jar file, with the main class being
+	GameLauncher, however the jar file does not allow images with our current
+	implementation. This will be something to fix later on, but for the time
+	being, the games are executed by running GameLauncher.java
+
 Project group members:
 
 	Bruno Colantonio, Boris Ionine, Jonathan Gravel
 
 Deliverables and task distribution:
 
-[!]	Unit Tests:
-[!]		- PacMan (Jonathan)
-[!]		- MouseLand (Bruno)
-[!]		- Pipes (Boris)
+	Unit Tests:
+		- PacMan (Jonathan)
+		- MouseLand (Bruno)
+		- Pipes (Boris)
 		
 	Refined Design:
 		- Engine
-			- Avatar (Jonathan)
-			- Board (Boris, Jonathan)
 			- BoardView (Jonathan)
-			- GameOver (Jonathan)
-			- Hero (Jonathan)
-			- Item (Jonathan)
-			- NPC (Jonathan)
-			- Position (Boris)
-			- Tile (Boris, Bruno)
-			- Wall (Bruno)
-		- PacMan classes and Text Game (Jonathan)
-		- MouseLand classes and Text Game (Bruno)
-		- Pipes classes and Text Game (Boris)
+			- ButtonHandler(Jonathan)
+		- PacMan (Jonathan)
+		- MouseLand (Bruno)
+		- Pipes classes (Boris)
 
 	Documentation:
 		- USER GUIDE
 			- PacGame (Jonathan)
 			- MouseGame (Bruno)
-			- Pipes (Bruno)
+			- Pipes (Boris)
 			- Engine (Jonathan)
 
 Changes since Milestone #2:
 
-[!]	- USER MANUAL has been updated for the GUI games explaining all the games and
+	- USER MANUAL has been updated for the GUI games explaining all the games and
 	the engine.
-[!] - A .jar file is created, which runs a game selector allowing the User to easily
+	- A .jar file is created, which runs a game selector allowing the User to easily
 	select a game to play at the beginning, and when exiting another game.
 	- A general graphical representation of the game was developed. It is functional
 	for all games as it simply displays the content of playingField.
@@ -61,3 +60,6 @@ Known issues and roadmaps:
 			(Redo)
 	- Since more levels will be required, it would be more ideal to have levels in text files,
 	and so it will be easier to load and create new levels (rather than hardcoding in java)
+	- Pipes currently throws a GameOver before an actual leak occurs. Though graphically this
+	makes sense because it seems there is a leak, our intent is to allow a more forgiving game
+	so this will be changed.

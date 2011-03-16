@@ -21,7 +21,7 @@ public class MouseGameView extends BoardView {
  * -Initializes the size and the action listener
  * -Initializes what the buttons say
  * 
- * @param MouseLand board
+ * @param board
  */
 	public MouseGameView(MouseLand board) {
 		super(board);
