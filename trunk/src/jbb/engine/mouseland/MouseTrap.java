@@ -17,8 +17,8 @@ import jbb.engine.Position;
 public class MouseTrap extends Item {
 	
 	private boolean is_set;			//false is MouseTrap already used
-	protected static ImageIcon mouseTrapImage = new ImageIcon("img/mouseTrap.png");
-	protected static ImageIcon mouseTrapCaughtImage = new ImageIcon("img/mouseTrapWithMouse.png");
+	protected static final ImageIcon mouseTrapImage = new ImageIcon("img/mouseTrap.png");
+	protected static final ImageIcon mouseTrapCaughtImage = new ImageIcon("img/mouseTrapWithMouse.png");
 
 /**
  * Constructor for the MouseTrap using Position and Board as parameter
