@@ -1,13 +1,9 @@
 package jbb.engine.mouseland.testcases;
 
-import static org.junit.Assert.*;
-import jbb.engine.GameOver;
+import static org.junit.Assert.assertEquals;
 import jbb.engine.Hero;
 import jbb.engine.Position;
-import jbb.engine.mouseland.Mouse;
-import jbb.engine.mouseland.MouseHero;
 import jbb.engine.mouseland.MouseLand;
-import jbb.engine.pacman.PacWorld;
 
 import org.junit.Before;
 import org.junit.Test;

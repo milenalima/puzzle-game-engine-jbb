@@ -1,8 +1,7 @@
 package jbb.engine.mouseland.testcases;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.fail;
-import jbb.engine.Board;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import jbb.engine.Position;
 import jbb.engine.mouseland.Mouse;
 import jbb.engine.mouseland.MouseHero;
@@ -30,7 +29,7 @@ public class MouseTest {
 		//walked to a blank tile
 		assertFalse(mouse.hasGoodie(new Position(1,4)));
 		//walked into a MouseTrap
-		assertFalse(mouse.hasGoodie(new Position(1,2)));
+		assertTrue(mouse.hasGoodie(new Position(1,2)));
 		//walked into a wall
 		assertFalse(mouse.hasGoodie(new Position(0,3)));
 	}

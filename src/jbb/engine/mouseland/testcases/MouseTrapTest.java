@@ -1,14 +1,12 @@
 package jbb.engine.mouseland.testcases;
 
-import static org.junit.Assert.*;
-import jbb.engine.Avatar;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import jbb.engine.Position;
 import jbb.engine.mouseland.Mouse;
 import jbb.engine.mouseland.MouseHero;
 import jbb.engine.mouseland.MouseLand;
 import jbb.engine.mouseland.MouseTrap;
-import jbb.engine.pacman.PacMan;
-import jbb.engine.pacman.PacWorld;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,17 +22,16 @@ public class MouseTrapTest {
 	public void setUp() throws Exception {
 		board = new MouseLand();
 		mh = (MouseHero) board.getHero();
+		mt = new MouseTrap(new Position(1,13),board);
 	}
 
 
 	@Test
 	public void testPickedUp() {
-		mh.setPosition(new Position(1,13));
-		mh.setTrap();
 		//If Mouse is on same Tile as MouseTrap
 		assertFalse(mt.pickedUp(m));
 		//If MouseHero is on same Tile as MouseTrap
-		assertFalse(mt.pickedUp(mh));
+		assertTrue(mt.pickedUp(mh));
 	}
 
 }

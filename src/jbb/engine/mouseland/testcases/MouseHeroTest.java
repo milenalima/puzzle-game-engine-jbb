@@ -1,8 +1,8 @@
 package jbb.engine.mouseland.testcases;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import jbb.engine.Position;
-import jbb.engine.mouseland.Mouse;
 import jbb.engine.mouseland.MouseHero;
 import jbb.engine.mouseland.MouseLand;
 import jbb.engine.mouseland.MouseTrap;
@@ -18,7 +18,7 @@ public class MouseHeroTest {
 	@Before
 	public void setUp() throws Exception {
 		board = new MouseLand();
-		mh = (MouseHero) board.getTile(new Position(13,1));
+		mh = (MouseHero) board.getTile(new Position(14,1));
 	}
 
 	@Test
@@ -26,7 +26,7 @@ public class MouseHeroTest {
 		MouseTrap mt = new MouseTrap(new Position(12,1), board); 
 		board.placeItem(mt);
 		//walked to a MouseTrap
-		assertFalse(mh.hasGoodie(new Position(12,1)));
+		assertTrue(mh.hasGoodie(new Position(12,1)));
 		//walked into a wall
 		assertFalse(mh.hasGoodie(new Position(12,2)));
 		//walked into a blank tile
@@ -48,7 +48,6 @@ public class MouseHeroTest {
 
 	@Test
 	public void testCollidesWith() {
-		Mouse m = new Mouse(new Position(12,1), board);
 		//walked to a blank tile
 		assertFalse(mh.hasGoodie(new Position(14,1)));
 		//walked into a blank tile
