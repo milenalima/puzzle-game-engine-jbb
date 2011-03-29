@@ -2,7 +2,6 @@ package jbb.engine.pacman.testcases;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import jbb.engine.GameOver;
 import jbb.engine.Hero;
 import jbb.engine.Item;
 import jbb.engine.Position;
@@ -35,11 +34,7 @@ public class PacWorldTest {
 
 	@Test
 	public void testPlayTurn() {
-		try {
-			pw.playTurn(new Position(6,6));
-		} catch (GameOver e) {
-			fail("No exception should be raised here");
-		}
+		pw.playTurn(new Position(6,6));
 	}
 
 	@Test

@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 
 import jbb.engine.BoardView;
-import jbb.engine.GameOver;
 import jbb.engine.Hero;
 /**
  * GUI View for the Pipes game.
@@ -67,13 +66,7 @@ public class PipeGameView extends BoardView {
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			try {
-				board.runWaterPressed();
-			} catch (GameOver e1) {
-				// TODO Auto-generated catch block
-				handleGameOver(e1);
-			}
+			board.runWaterPressed();
 		}
 		
 	}

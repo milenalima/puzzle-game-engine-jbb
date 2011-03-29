@@ -1,6 +1,7 @@
 package jbb.engine;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  * This abstract class contains a two-dimensional array of Tiles, that
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * populate the board as required by the game.
  * @author Boris Ionine, Jonathan Gravel
  */
-public abstract class Board {
+public abstract class Board extends Observable{
 	protected Tile[][] playingField;
 	protected Tile[][] itemMap;
 	protected int width;
@@ -46,7 +47,7 @@ public abstract class Board {
 	 * @param position is the Position of the Tile the player selected.
 	 * @throws GameOver if the Hero loses all his lives or wins
 	 */
-	public void playTurn(Position position) throws GameOver
+	public void playTurn(Position position)
 	{
 		Position nextPos;
 		//Hero is always the first element of the ArrayList
@@ -76,8 +77,8 @@ public abstract class Board {
 				if(hero.collidesWith(npc)){ // if hero dies
 					if (hero.getLives() <= 0) {
 						// refresh the board and quit
-						syncItemMapAndField(movableTiles);
-						throw new GameOver("No more lives! YOU LOSE!");
+						setChanged();
+						notifyObservers("Sorry, you are out of lives!");
 					}
 					this.resetPlayingField();
 					break; // don't do anything after reset
@@ -90,7 +91,8 @@ public abstract class Board {
 					if (hero.getLives() <= 0) {
 						// refresh the board and quit
 						syncItemMapAndField(movableTiles);
-						throw new GameOver("No more lives! YOU LOSE!");
+						setChanged();
+						notifyObservers("Sorry, you are out of lives!");
 					}
 					this.resetPlayingField();
 					break; // don't do anything after reset
@@ -108,7 +110,8 @@ public abstract class Board {
 		// reload playingField
 		syncItemMapAndField(movableTiles);
 		if (checkWin()) {
-			throw new GameOver("YOU WIN!");
+			setChanged();
+			notifyObservers("Congratulations: You win!");
 		}
 	}
 	
@@ -149,6 +152,8 @@ public abstract class Board {
 				playingField[mT.getPosition().getRow()][mT.getPosition().getCol()] = mT;
 			}
 		}
+		setChanged();
+		notifyObservers("update");
 	}
 	/**
 	 * Returns the width of the board.

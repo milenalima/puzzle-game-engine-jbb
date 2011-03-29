@@ -6,8 +6,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * The user interacts with the game by clicking tiles visible in the window.
  * @author Jonathan Gravel
  */
-public abstract class BoardView {
+public abstract class BoardView implements Observer {
 	
 	private JFrame frame = null;
 	protected Board board = null;
@@ -33,6 +33,7 @@ public abstract class BoardView {
 	public BoardView(Board board) {
 		super();
 		this.board = board;
+		board.addObserver(this);
 		frame = new JFrame(board.getClass().getSimpleName());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.setResizable(false);
@@ -76,7 +77,7 @@ public abstract class BoardView {
 		wrapper.add(gameField,BorderLayout.CENTER);
 		// Place playingField tiles on the board.
 		Tile tile;
-		ButtonPressHandler handler = new ButtonPressHandler(board);
+		BoardController handler = new BoardController(board);
 		for (int row = 0; row < board.getHeight(); row++) {
 			for (int col = 0; col < board.getWidth(); col++) {
 				tile = board.getTile(new Position(row,col));
@@ -100,12 +101,12 @@ public abstract class BoardView {
 		frame.setVisible(true);
 	}
 	
-	protected void handleGameOver(GameOver e1) {
+	private void handleGameOver(String str) {
 		// either the game is won, or the game is lost
 		updateView();
 		// ask the user if he wants to play again, or quit this game.
 		String[] options = {"Play again","Quit"};
-		int result = JOptionPane.showOptionDialog(null, e1.getMessage(), "End of Game",
+		int result = JOptionPane.showOptionDialog(null, str, "End of Game",
 				JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,
 				options, options[0]);
 		if (result == JOptionPane.CLOSED_OPTION) {
@@ -128,36 +129,13 @@ public abstract class BoardView {
 	 * been added to the board, e.g. updating lives remaining on JTextArea.
 	 */
 	protected abstract void updateComponents();
-
-	/*
-	 * This is the controller for the BoardView. When a Tile is clicked, this calls
-	 * actionPerformed(...).
-	 */
-	protected class ButtonPressHandler implements ActionListener{
-
-		private Board board;
-
-		/**
-		 * 
-		 * @param board board to use as reference.
-		 */
-		public ButtonPressHandler(Board board) {
-			this.board = board;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			Tile tile = (Tile) e.getSource();
-			try {
-				// when a button is clicked, call playTurn on the clicked position
-				board.playTurn(tile.getPosition());
-				updateView();
-			} catch (IllegalArgumentException ex) {
-				// do nothing to avoid annoying popups.
-			} catch (GameOver e1) {
-				handleGameOver(e1);
-			}
-		}
-
+	
+	public void update(Observable o, Object arg) {
+		if (!(arg instanceof String)) return; // do nothing
+		String str = (String) arg;
+		// either an update or a game over
+		if (str.equals("update")) updateView();
+		else handleGameOver(str);
 	}
+
 }

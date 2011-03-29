@@ -6,13 +6,10 @@ import javax.swing.ImageIcon;
 
 import jbb.engine.Avatar;
 import jbb.engine.Board;
-import jbb.engine.GameOver;
 import jbb.engine.Item;
 import jbb.engine.Position;
 import jbb.engine.Tile;
 import jbb.engine.Wall;
-//import jbb.engine.funnels.Funnel;
-//import jbb.engine.funnels.FunnelSpace;
 
 /**
  * Board class for the Pipes game. 
@@ -122,7 +119,7 @@ public class PipeMap extends Board{
 	 * @throws GameOver
 	 */
 	@Override
-	public void playTurn(Position position) throws GameOver{
+	public void playTurn(Position position) {
 		numTurns++;
 		turnsUntilWater--;
 		//Hero is always the first element of the ArrayList
@@ -197,7 +194,8 @@ public class PipeMap extends Board{
 								//if the pipe cannot be filled (water trying to enter a blocked wall)
 								//it counts as a leak and you lose
 								else{
-									throw new GameOver("YOU LOSE (YOU HAVE A LEAK)!");
+									setChanged();
+									notifyObservers("You have a leak: you lose");
 								}
 							}
 							//if the tile is not a pipe the game ends with a win (winningTile) 
@@ -213,15 +211,18 @@ public class PipeMap extends Board{
 				}
 				else{
 					if (checkWin()) {
-						throw new GameOver("YOU WIN!");
+						setChanged();
+						notifyObservers("Congratulations: You win!");
 					}
-					throw new GameOver("YOU LOSE (YOU HAVE A LEAK)!");
+					setChanged();
+					notifyObservers("You have a leak: you lose");
 				}
 			}
 			
 			syncItemMapAndField(movableTiles);
 			if (checkWin()) {
-				throw new GameOver("YOU WIN!");
+				setChanged();
+				notifyObservers("Congratulations: You win!");
 			}
 		}
 	}
@@ -235,15 +236,10 @@ public class PipeMap extends Board{
 		return turnsUntilWater; 
 	}
 	
-	public void runWaterPressed() throws GameOver{
+	public void runWaterPressed() {
 		runWater = true;
 		while(runWater){
-			try{
-				this.playTurn(new Position(1,1));
-			}
-			catch(GameOver g){
-				throw g;
-			}
+			this.playTurn(new Position(1,1));
 		}
 	}
 
