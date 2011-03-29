@@ -15,6 +15,7 @@ import jbb.engine.Hero;
 import jbb.engine.Position;
 import jbb.engine.Tile;
 
+@SuppressWarnings("serial")
 public class MouseHero extends Hero{
 
 	public static final int LIVES = 3;

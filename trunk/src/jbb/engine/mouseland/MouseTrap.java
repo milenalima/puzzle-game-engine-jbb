@@ -1,7 +1,5 @@
 package jbb.engine.mouseland;
 
-import java.awt.Dimension;
-
 import javax.swing.ImageIcon;
 
 import jbb.engine.Avatar;
@@ -14,6 +12,7 @@ import jbb.engine.Position;
  * 
  * @author Bruno Colantonio
  */
+@SuppressWarnings("serial")
 public class MouseTrap extends Item {
 	
 	private boolean is_set;			//false is MouseTrap already used
