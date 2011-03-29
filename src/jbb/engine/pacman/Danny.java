@@ -6,7 +6,6 @@ import javax.swing.ImageIcon;
 
 import jbb.engine.Board;
 import jbb.engine.Position;
-import jbb.engine.Tile;
 
 @SuppressWarnings("serial")
 public class Danny extends Ghost {
