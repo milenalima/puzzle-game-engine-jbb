@@ -2,8 +2,6 @@ package jbb.engine.pacman.testcases;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
-import jbb.engine.GameOver;
 import jbb.engine.Position;
 import jbb.engine.pacman.Cam;
 import jbb.engine.pacman.Danny;
@@ -64,28 +62,14 @@ public class GhostTest {
 		// move right beside pacman
 		sam.setPosition(new Position(5,1));
 		// make pacman collide with ghost
-		try {
-			board.playTurn(new Position(5,1));
-		} catch (GameOver go) {
-			fail("Game over was thrown");
-		}
+		board.playTurn(new Position(5,1));
 		assertEquals(init_lives-1, board.getHero().getLives());
 		// move pacman beside a powerpellet (at 1,1)
 		board.getHero().setPosition(new Position(1,2));
-		try {
-			// pick up the power pellet
-			board.playTurn(new Position(1,1));
-		} catch (GameOver go) {
-			fail("Game over was thrown");
-		}
+		board.playTurn(new Position(1,1));
 		// move a ghost right beside pacman
 		sam.setPosition(new Position(1,2));
-		try {
-			// kill the ghost
-			board.playTurn(new Position(1,2));
-		} catch (GameOver go) {
-			fail("Game over was thrown");
-		}
+		board.playTurn(new Position(1,2));
 		assertEquals(0,sam.getLives());
 	}
 

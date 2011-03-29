@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import jbb.engine.GameOver;
 import jbb.engine.Position;
 import jbb.engine.pipes.Pipe;
 import jbb.engine.pipes.PipeMap;
@@ -35,11 +34,7 @@ public class PlumberTest {
 	@Test
 	public void testGetNextPosition() {
 		// plumber moves directly to space played
-		try {
-			board.playTurn(new Position(4,4));
-		} catch (GameOver e) {
-			fail("game over thrown");
-		}
+		board.playTurn(new Position(4,4));
 		assertEquals(new Position(4,4),pl.getPosition());
 		// plumber does not move into a wall
 		try {
@@ -47,8 +42,6 @@ public class PlumberTest {
 			fail("exception not thrown");
 		} catch (IllegalArgumentException e) {
 			// good
-		} catch (GameOver e) {
-			fail("game over thrown");
 		}
 		assertEquals(new Position(4,4),pl.getPosition());
 	}

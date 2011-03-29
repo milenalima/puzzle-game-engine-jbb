@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import jbb.engine.GameOver;
 import jbb.engine.Position;
 import jbb.engine.pacman.PacMan;
 import jbb.engine.pacman.PacWorld;
@@ -58,22 +57,14 @@ private PacMan pm;
 		// move to a space away from ghost (9,3)
 		pm.setPosition(new Position(9,2));
 		// make pacman collide with ghost
-		try {
-			board.playTurn(new Position(9,3));
-		} catch (GameOver go) {
-			fail("Game over was thrown");
-		}
+		board.playTurn(new Position(9,3));
 		assertEquals(init_lives-1, board.getHero().getLives());
 		// set pacman as invulnerable
 		pm.setInvulnerable(true);
 		// move to a space away from ghost (9,3)
 		pm.setPosition(new Position(9,2));
 		// make pacman collide with ghost
-		try {
-			board.playTurn(new Position(9,3));
-		} catch (GameOver go) {
-			fail("Game over was thrown");
-		}
+		board.playTurn(new Position(9,3));
 		assertEquals(init_lives-1,pm.getLives());
 	}
 
