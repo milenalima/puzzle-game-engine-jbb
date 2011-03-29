@@ -109,6 +109,8 @@ public class PipeMap extends Board{
 			pos = movableTiles.get(i).getPosition();
 			playingField[pos.getRow()][pos.getCol()] = itemMap[pos.getRow()][pos.getCol()];
 		}
+		setChanged();
+		notifyObservers("update");
 	}
 	
 	/**
@@ -194,8 +196,11 @@ public class PipeMap extends Board{
 								//if the pipe cannot be filled (water trying to enter a blocked wall)
 								//it counts as a leak and you lose
 								else{
+									syncItemMapAndField(movableTiles);
 									setChanged();
 									notifyObservers("You have a leak: you lose");
+									runWater = false;
+									return;
 								}
 							}
 							//if the tile is not a pipe the game ends with a win (winningTile) 
@@ -211,18 +216,27 @@ public class PipeMap extends Board{
 				}
 				else{
 					if (checkWin()) {
+						syncItemMapAndField(movableTiles);
 						setChanged();
 						notifyObservers("Congratulations: You win!");
+						runWater = false;
+						return;
 					}
+					syncItemMapAndField(movableTiles);
 					setChanged();
 					notifyObservers("You have a leak: you lose");
+					runWater = false;
+					return;
 				}
 			}
 			
 			syncItemMapAndField(movableTiles);
 			if (checkWin()) {
+				syncItemMapAndField(movableTiles);
 				setChanged();
 				notifyObservers("Congratulations: You win!");
+				runWater = false;
+				return;
 			}
 		}
 	}
