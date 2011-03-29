@@ -79,6 +79,7 @@ public abstract class Board extends Observable{
 						// refresh the board and quit
 						setChanged();
 						notifyObservers("Sorry, you are out of lives!");
+						return;
 					}
 					this.resetPlayingField();
 					break; // don't do anything after reset
@@ -93,6 +94,7 @@ public abstract class Board extends Observable{
 						syncItemMapAndField(movableTiles);
 						setChanged();
 						notifyObservers("Sorry, you are out of lives!");
+						return;
 					}
 					this.resetPlayingField();
 					break; // don't do anything after reset
