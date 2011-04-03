@@ -103,7 +103,7 @@ public class MouseLand extends Board{
 							itemMap[count][col] =new Tile(new Position(count,col),this);
 						}
 						else if(str.equals(null)){
-							movableTiles.add(new Mouse(new Position(count,col), this));
+							itemMap[count][col] =new Tile(new Position(count,col),this);
 						}
 						
 					}
@@ -115,8 +115,6 @@ public class MouseLand extends Board{
 			e.printStackTrace();
 		}
 
-		
-		
 		
 	}
 

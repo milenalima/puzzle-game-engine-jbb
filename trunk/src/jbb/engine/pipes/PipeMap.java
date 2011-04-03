@@ -1,8 +1,12 @@
 package jbb.engine.pipes;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import jbb.engine.Avatar;
 import jbb.engine.Board;
@@ -10,6 +14,8 @@ import jbb.engine.Item;
 import jbb.engine.Position;
 import jbb.engine.Tile;
 import jbb.engine.Wall;
+import jbb.engine.mouseland.Mouse;
+import jbb.engine.mouseland.MouseHero;
 
 /**
  * Board class for the Pipes game. 
@@ -18,86 +24,87 @@ import jbb.engine.Wall;
  */
 public class PipeMap extends Board{
 	public static final int WATER_START_TURN = 60;
-	public static final int WIDTH = 20;
-	public static final int HEIGHT = 7;
-	public Position winningPosition = new Position(6,15);
+	public static final int WIDTH = 15;
+	public static final int HEIGHT = 15;
+	public Position winningPosition;
 	private int turnsUntilWater = WATER_START_TURN;
 	private int numTurns = 0;
 	private boolean runWater = false;
+	private String map;
 	
 	public PipeMap(){
 		super(WIDTH, HEIGHT);
-		movableTiles.add(new Plumber(new Position(1,1), this));
-		movableTiles.add(new Water(new Position(2,1), this));
 		syncItemMapAndField(movableTiles);
 	}
 	
 	@Override
 	protected void populateItemMap() {
 		Tile.setBlankImage(new ImageIcon("img/black-tile.png"));
-		itemMap[0][0] = new Wall(new Position(0,0),this);
-		itemMap[0][1] = new Wall(new Position(0,1),this);
-		itemMap[0][2] = new Wall(new Position(0,2),this);
-		itemMap[0][3] = new Wall(new Position(0,3),this);
-		itemMap[0][4] = new Wall(new Position(0,4),this);
-		itemMap[0][5] = new Wall(new Position(0,5),this);
-		itemMap[0][6] = new Wall(new Position(0,6),this);
-		itemMap[0][7] = new Wall(new Position(0,7),this);
-		itemMap[0][8] = new Wall(new Position(0,8),this);
-		itemMap[0][9] = new Wall(new Position(0,9),this);
-		itemMap[0][10] = new Wall(new Position(0,10),this);
-		itemMap[0][11] = new Wall(new Position(0,11),this);
-		itemMap[0][12] = new Wall(new Position(0,12),this);
-		itemMap[0][13] = new Wall(new Position(0,13),this);
-		itemMap[0][14] = new Wall(new Position(0,14),this);
-		itemMap[0][15] = new Wall(new Position(0,15),this);
-		itemMap[0][16] = new Wall(new Position(0,16),this);
-		itemMap[0][17] = new Wall(new Position(0,17),this);
-		itemMap[0][18] = new Wall(new Position(0,18),this);
-		itemMap[0][19] = new Wall(new Position(0,19),this);
 		
-		for (int row = 1; row < HEIGHT-1; row++) {
-			for (int col = 1; col < WIDTH-1; col++) {
-				itemMap[row][col] = new Tile(new Position(row,col),this);
-			}
+		String[] options = {"Map 1", "Map 2", "Map 3"};
+		int result = JOptionPane.showOptionDialog(null, "Select the map you would like to play",
+				"Pick Map Pipes", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
+				null);
+		switch (result) {
+		case 0:
+			map = "doc/pipeMap1.txt";
+			movableTiles.add(new Plumber(new Position(1,1), this));
+			movableTiles.add(new Water(new Position(2,1), this));
+			winningPosition = new Position(13,14);
+			break;
+		case 1:
+			map = "doc/pipeMap2.txt";
+			movableTiles.add(new Plumber(new Position(2,1), this));
+			movableTiles.add(new Water(new Position(3,1), this));
+			winningPosition = new Position(9,14);
+			break;
+		case 2:
+			map = "doc/pipeMap3.txt";
+			movableTiles.add(new Plumber(new Position(1,1), this));
+			movableTiles.add(new Water(new Position(2,1), this));
+			winningPosition = new Position(13,14);
+			break;
+		case JOptionPane.CLOSED_OPTION:
+			// shut down the application
+			System.exit(0);		
 		}
-		
-		itemMap[1][0] = new Wall(new Position(1,0),this);
-		itemMap[1][19] = new Wall(new Position(1,19),this);
-		
-		itemMap[2][0] = new Wall(new Position(2,0),this);
-		itemMap[2][1] = new Pipe(new Position(2,1),this, 'Q');
-		itemMap[2][19] = new Wall(new Position(2,19),this);
 
-		itemMap[3][0] = new Wall(new Position(3,0),this);
-		itemMap[3][19] = new Wall(new Position(3,19),this);
+	Scanner s;
+	try {
+		s = new Scanner(new File(map));
+		s.useDelimiter("\n");
+		char [] tiles;
+		int count = 0;
+		while(s.hasNext()){
+			String str = s.next();
+			tiles = str.toCharArray();
+		//	for(int row = 0; row<15; row++){
+				for(int col =0; col<tiles.length; col++){
+					if(tiles[col] == ('W')){
+						itemMap[count][col] =new Wall(new Position(count,col),this);
+					}
+					else if(tiles[col] == ('w')){
+						itemMap[count][col] =new Wall(new Position(count,col),this);
+					}
+					else if(tiles[col] == (' ')){
+						itemMap[count][col] =new Tile(new Position(count,col),this);
+					}
+					else if(tiles[col] == ('q')){
+						itemMap[count][col] = new Pipe(new Position(count,col),this, 'Q');
+					}
+					else if(str.equals(null)){
+						itemMap[count][col] =new Tile(new Position(count,col),this);
+					}
+					
+				}
+				count++;
+			}
+			
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 		
-		itemMap[4][0] = new Wall(new Position(4,0),this);
-		itemMap[4][19] = new Wall(new Position(4,19),this);
-		
-		itemMap[5][0] = new Wall(new Position(5,0),this);
-		itemMap[5][19] = new Wall(new Position(5,19),this);
-		
-		itemMap[6][0] = new Wall(new Position(6,0),this);
-		itemMap[6][1] = new Wall(new Position(6,1),this);
-		itemMap[6][2] = new Wall(new Position(6,2),this);
-		itemMap[6][3] = new Wall(new Position(6,3),this);
-		itemMap[6][4] = new Wall(new Position(6,4),this);
-		itemMap[6][5] = new Wall(new Position(6,5),this);
-		itemMap[6][6] = new Wall(new Position(6,6),this);
-		itemMap[6][7] = new Wall(new Position(6,7),this);
-		itemMap[6][8] = new Wall(new Position(6,8),this);
-		itemMap[6][9] = new Wall(new Position(6,9),this);
-		itemMap[6][10] = new Wall(new Position(6,10),this);
-		itemMap[6][11] = new Wall(new Position(6,11),this);
-		itemMap[6][12] = new Wall(new Position(6,12),this);
-		itemMap[6][13] = new Wall(new Position(6,13),this);
-		itemMap[6][14] = new Wall(new Position(6,14),this);
-		itemMap[6][15] = new Tile(new Position(6,15),this);
-		itemMap[6][16] = new Wall(new Position(6,16),this);
-		itemMap[6][17] = new Wall(new Position(6,17),this);
-		itemMap[6][18] = new Wall(new Position(6,18),this);
-		itemMap[6][19] = new Wall(new Position(6,19),this);
 	}
 	
 	@Override
