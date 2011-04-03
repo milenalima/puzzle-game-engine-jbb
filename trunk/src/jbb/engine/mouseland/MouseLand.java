@@ -49,7 +49,7 @@ public class MouseLand extends Board{
 			
 			String[] options = {"Map 1", "Map 2", "Map 3"};
 			int result = JOptionPane.showOptionDialog(null, "Select the map you would like to play",
-					"Pick Map", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
+					"Pick Map Mouseland", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
 					null);
 			switch (result) {
 			case 0:
@@ -102,18 +102,6 @@ public class MouseLand extends Board{
 						else if(tiles[col] == ('f')){
 							itemMap[count][col] =new Tile(new Position(count,col),this);
 						}
-						else if(tiles[col] == ('m')){
-							movableTiles.add(new MouseHero(new Position(count,col), this));
-						}
-						else if(tiles[col] == ('M')){
-							movableTiles.add(new MouseHero(new Position(count,col), this));
-						}
-						else if(tiles[col] == ('e')){
-							movableTiles.add(new Mouse(new Position(count,col), this));
-						}
-						else if(tiles[col] == ('E')){
-							movableTiles.add(new Mouse(new Position(count,col), this));
-						}
 						else if(str.equals(null)){
 							movableTiles.add(new Mouse(new Position(count,col), this));
 						}
@@ -151,7 +139,7 @@ public class MouseLand extends Board{
 			if(movableTiles.get(4).getLives() == 1)
 				movableTiles.get(4).setPosition(new Position(13,13));
 		}
-		if(map.equals("doc/mouseLandMap2.txt")){
+		else if(map.equals("doc/mouseLandMap2.txt")){
 			movableTiles.get(0).setPosition(new Position(14,1));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
@@ -162,7 +150,7 @@ public class MouseLand extends Board{
 			if(movableTiles.get(3).getLives() == 1)
 				movableTiles.get(3).setPosition(new Position(1,8));
 		}
-		if(map.equals("doc/mouseLandMap3.txt")){
+		else if(map.equals("doc/mouseLandMap3.txt")){
 			movableTiles.get(0).setPosition(new Position(1,0));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
