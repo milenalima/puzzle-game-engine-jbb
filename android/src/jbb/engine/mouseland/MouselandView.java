@@ -7,6 +7,8 @@ import jbb.engine.R;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.AttributeSet;
 
 public class MouselandView extends GameView {
@@ -38,6 +40,11 @@ public class MouselandView extends GameView {
 		loadTile("red_eyes_right", r.getDrawable(R.drawable.red_eyes_right));
 		loadTile("red_eyes_up", r.getDrawable(R.drawable.red_eyes_up));
 		loadTile("wall", r.getDrawable(R.drawable.wall_brick));
+	}
+	
+	public void onDraw(Canvas canvas) {
+		mPaint.setColor(Color.WHITE);
+		super.onDraw(canvas);
 	}
 
 }

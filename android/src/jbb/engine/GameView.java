@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -29,7 +31,7 @@ public abstract class GameView extends View implements Observer {
 	private Board board;
 	
 	private RefreshHandler mRedrawHandler = new RefreshHandler();
-	private final Paint mPaint = new Paint();
+	protected final Paint mPaint = new Paint();
 	
 	public GameView(Context context) {
 		super(context);
@@ -75,8 +77,27 @@ public abstract class GameView extends View implements Observer {
 		if (data.equals("update")) {
 			mRedrawHandler.sendEmptyMessage(0);
 		} else {
-		    //popup
+			AlertDialog.Builder myDiag = new AlertDialog.Builder(this.getContext());
+			myDiag.setMessage((String)data);
+			DiagHandler dh = new DiagHandler();
+			myDiag.setPositiveButton("Play Again", dh);
+			myDiag.setNegativeButton("Quit Game", dh);
+			myDiag.setCancelable(false);
+			myDiag.show();
 		}
+	}
+	
+	class DiagHandler implements DialogInterface.OnClickListener {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			if (which == DialogInterface.BUTTON_POSITIVE) {
+				board.restartGame();
+			} else if (which == DialogInterface.BUTTON_NEGATIVE) {
+				((Activity)GameView.this.getContext()).finish();
+			}
+		}
+		
 	}
 	
 	class RefreshHandler extends Handler {
@@ -96,7 +117,6 @@ public abstract class GameView extends View implements Observer {
 	public void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		mPaint.setStyle(Paint.Style.FILL);
-		mPaint.setColor(Color.BLACK);
 		canvas.drawPaint(mPaint);
 		left = canvas.getWidth()/2 - board.getWidth()*width_of_image/2;
 		top = canvas.getHeight()/2 - board.getHeight()*height_of_image/2;

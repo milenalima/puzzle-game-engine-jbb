@@ -7,6 +7,8 @@ import jbb.engine.R;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.AttributeSet;
 
 public class PacManView extends GameView {
@@ -41,6 +43,11 @@ public class PacManView extends GameView {
 		loadTile("pacman_invuln_up", r.getDrawable(R.drawable.pacman_invuln_up));
 		loadTile("pacman_invuln_right", r.getDrawable(R.drawable.pacman_invuln_right));
 		loadTile("wall", r.getDrawable(R.drawable.wall_brick));
+	}
+	
+	public void onDraw(Canvas canvas) {
+		mPaint.setColor(Color.BLACK);
+		super.onDraw(canvas);
 	}
 
 }

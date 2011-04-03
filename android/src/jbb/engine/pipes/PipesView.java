@@ -7,6 +7,8 @@ import jbb.engine.R;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.AttributeSet;
 
 public class PipesView extends GameView {
@@ -70,6 +72,11 @@ public class PipesView extends GameView {
 		loadTile("w", r.getDrawable(R.drawable.ghost_s));
 		loadTile("p", r.getDrawable(R.drawable.ghost_s));
 		loadTile("wall", r.getDrawable(R.drawable.wall_brick));
+	}
+	
+	public void onDraw(Canvas canvas) {
+		mPaint.setColor(Color.BLACK);
+		super.onDraw(canvas);
 	}
 
 }
