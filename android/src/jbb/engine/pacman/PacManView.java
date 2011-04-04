@@ -3,6 +3,7 @@ package jbb.engine.pacman;
 import java.util.HashMap;
 
 import jbb.engine.GameView;
+import jbb.engine.Hero;
 import jbb.engine.R;
 import android.content.Context;
 import android.content.res.Resources;
@@ -48,6 +49,9 @@ public class PacManView extends GameView {
 	public void onDraw(Canvas canvas) {
 		mPaint.setColor(Color.BLACK);
 		super.onDraw(canvas);
+		Hero hero = board.getHero();
+		((PacmanActivity)this.getContext()).setLives("Lives: " + hero.getLives());
+		((PacmanActivity)this.getContext()).setPoints("Points: " + hero.getPoints());
 	}
 
 }

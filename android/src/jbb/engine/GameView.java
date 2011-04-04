@@ -29,7 +29,7 @@ public abstract class GameView extends View implements Observer {
 	
 	protected HashMap<String,Bitmap> image_map;
 	private String[][] m_board;
-	private Board board;
+	protected Board board;
 	
 	private RefreshHandler mRedrawHandler = new RefreshHandler();
 	protected final Paint mPaint = new Paint();
@@ -74,8 +74,8 @@ public abstract class GameView extends View implements Observer {
 
 	@Override
 	public void update(Observable observable, Object data) {
-		refreshView();
 		if (data.equals("update")) {
+			refreshView();
 			mRedrawHandler.sendEmptyMessage(0);
 		} else {
 			AlertDialog.Builder myDiag = new AlertDialog.Builder(this.getContext());

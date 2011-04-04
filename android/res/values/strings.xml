@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, PacmanActivity!</string>
     <string name="app_name">Puzzle Game Engine</string>
     
     <string name="button_pacman">Play PacMan!</string>
     <string name="button_mouseland">Play Mouseland!</string>
     <string name="button_pipes">Play Pipes!</string>
-    <string name="livesText">Lives = </string>
 </resources>

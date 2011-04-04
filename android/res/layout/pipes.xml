@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+	android:orientation="vertical"
 	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
->
-<view class="jbb.engine.pipes.PipesView"
-	xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/pipes_view"
-    android:layout_width="fill_parent"
+	android:layout_height="fill_parent" >
+	
+	<LinearLayout
+	android:orientation="horizontal"
+	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-	android:text="@string/hello"
-	/>
+	android:background="#000000">
+	
+	<TextView android:id="@+id/nextPipe"
+		android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_weight="1"
+        android:text="Next Pipe:"
+        android:background="#000000"
+		android:visibility="visible"/>
+	<TextView android:id="@+id/waterDelay"
+		android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_weight="1"
+		android:text="Water in:"
+        android:background="#000000"
+		android:visibility="visible"/>
+	<Button android:id="@+id/runWaterButton"
+		android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_weight="1"
+		android:text="Run Water"
+		android:visibility="visible"
+		android:onClick="onClickWater"/>
+	
+	</LinearLayout>
+	<LinearLayout
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+
+	<jbb.engine.pipes.PipesView
+   		android:id="@+id/pipes_view"
+   		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"/>
+	</LinearLayout>
 </LinearLayout>

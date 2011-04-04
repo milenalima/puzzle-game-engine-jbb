@@ -14,9 +14,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".pacman.PacmanActivity" android:label="@string/app_name"></activity>
-        <activity android:name=".mouseland.MouselandActivity" android:label="@string/app_name"></activity>
-        <activity android:name=".pipes.PipesActivity" android:label="@string/app_name" android:screenOrientation="landscape"></activity>
+        <activity android:name=".pacman.PacmanActivity"
+        	android:label="@string/app_name"
+        	android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".mouseland.MouselandActivity"
+        	android:label="@string/app_name"
+        	android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".pipes.PipesActivity"
+        	android:label="@string/app_name"
+        	android:theme="@android:style/Theme.NoTitleBar"/>
     </application>
     
     <supports-screens android:anyDensity="true" />

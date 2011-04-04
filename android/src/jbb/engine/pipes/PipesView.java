@@ -77,6 +77,9 @@ public class PipesView extends GameView {
 	public void onDraw(Canvas canvas) {
 		mPaint.setColor(Color.BLACK);
 		super.onDraw(canvas);
+		Plumber hero = (Plumber)board.getHero();
+		((PipesActivity)this.getContext()).setNextPipe("NextPipe: " + hero.getNextPipeType());
+		((PipesActivity)this.getContext()).setWaterDelay("Water in: " + ((PipeMap)board).getTurnsUntilWater());
 	}
 
 }

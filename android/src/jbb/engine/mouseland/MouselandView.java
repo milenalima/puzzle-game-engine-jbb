@@ -45,6 +45,9 @@ public class MouselandView extends GameView {
 	public void onDraw(Canvas canvas) {
 		mPaint.setColor(Color.WHITE);
 		super.onDraw(canvas);
+		MouseHero hero = (MouseHero)board.getHero();
+		((MouselandActivity)this.getContext()).setLives("Lives: " + hero.getLives());
+		((MouselandActivity)this.getContext()).setTraps("Set trap (" + hero.getNumMouseTraps() + ")");
 	}
 
 }
