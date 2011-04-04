@@ -53,14 +53,14 @@ public class PipeMap extends Board{
 		}
 		else if(map == MAP_TWO){
 			mapName = "txt/pipeMap2.txt";
-			movableTiles.add(new Plumber(new Position(2,1), this));
-			movableTiles.add(new Water(new Position(2,1), this));
+			movableTiles.add(new Plumber(new Position(3,1), this));
+			movableTiles.add(new Water(new Position(3,1), this));
 			winningPosition = new Position(9,14);
 		}
 		else if(map == MAP_THREE){
 			mapName = "txt/pipeMap3.txt";
-			movableTiles.add(new Plumber(new Position(3,1), this));
-			movableTiles.add(new Water(new Position(3,1), this));
+			movableTiles.add(new Plumber(new Position(2,1), this));
+			movableTiles.add(new Water(new Position(2,1), this));
 			winningPosition = new Position(13,14);
 
 		}
