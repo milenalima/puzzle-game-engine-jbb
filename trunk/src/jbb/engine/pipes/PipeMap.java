@@ -292,5 +292,19 @@ public class PipeMap extends Board{
 		movableTiles.add(new Water(new Position(2,1), this));
 		syncItemMapAndField(movableTiles);
 	}
+
+	@Override
+	public void nextLevel() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected boolean lastLevel() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
 }
 

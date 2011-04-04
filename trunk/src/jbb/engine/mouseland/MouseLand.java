@@ -25,7 +25,8 @@ import jbb.engine.pipes.PipeGameView;
 public class MouseLand extends Board{
 	public static final int WIDTH = 15;
 	public static final int HEIGHT = 15;
-	private String map;
+	private static int map=1;
+	private static String mapName = "doc/mouseLandMap1.txt";
 	
 /**
  * the MouseLand constructor initialises a MouseHero and three Mouse instances on
@@ -34,6 +35,7 @@ public class MouseLand extends Board{
 
 	public MouseLand() {
 		super(WIDTH, HEIGHT);
+		mapName = "doc/mouseLandMap1.txt";
 		syncItemMapAndField(movableTiles);
 	}
 
@@ -45,43 +47,34 @@ public class MouseLand extends Board{
  */
 	@Override
 	protected void populateItemMap() {
-			Tile.setBlankImage(new ImageIcon("img/white-tile.png"));
-			
-			String[] options = {"Map 1", "Map 2", "Map 3"};
-			int result = JOptionPane.showOptionDialog(null, "Select the map you would like to play",
-					"Pick Map Mouseland", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
-					null);
-			switch (result) {
-			case 0:
-				map = "doc/mouseLandMap1.txt";
-				movableTiles.add(new MouseHero(new Position(14,7), this));
-				movableTiles.add(new Mouse(new Position(1,1), this));
-				movableTiles.add(new Mouse(new Position(7,7), this));
-				movableTiles.add(new Mouse(new Position(1,13), this));
-				movableTiles.add(new Mouse(new Position(13,13), this));
-				break;
-			case 1:
-				map = "doc/mouseLandMap2.txt";
-				movableTiles.add(new MouseHero(new Position(14,1), this));
-				movableTiles.add(new Mouse(new Position(1,3), this));
-				movableTiles.add(new Mouse(new Position(10,11), this));
-				movableTiles.add(new Mouse(new Position(1,13), this));
-				break;
-			case 2:
-				map = "doc/mouseLandMap3.txt";
-				movableTiles.add(new MouseHero(new Position(1,0), this));
-				movableTiles.add(new Mouse(new Position(13,1), this));
-				movableTiles.add(new Mouse(new Position(7,7), this));
-				movableTiles.add(new Mouse(new Position(1,13), this));
-				break;
-			case JOptionPane.CLOSED_OPTION:
-				// shut down the application
-				System.exit(0);		
+		Tile.setBlankImage(new ImageIcon("img/white-tile.png"));
+		if(map == 1){
+			mapName = "doc/mouseLandMap1.txt";
+			movableTiles.add(new MouseHero(new Position(14,7), this));
+			movableTiles.add(new Mouse(new Position(1,1), this));
+			movableTiles.add(new Mouse(new Position(7,7), this));
+			movableTiles.add(new Mouse(new Position(1,13), this));
+			movableTiles.add(new Mouse(new Position(13,13), this));
 			}
-
+		else if(map == 2){
+			mapName = "doc/mouseLandMap2.txt";
+			movableTiles.add(new MouseHero(new Position(14,1), this));
+			movableTiles.add(new Mouse(new Position(1,3), this));
+			movableTiles.add(new Mouse(new Position(10,11), this));
+			movableTiles.add(new Mouse(new Position(1,13), this));
+			}
+		else if(map == 3){
+			mapName = "doc/mouseLandMap3.txt";
+			movableTiles.add(new MouseHero(new Position(1,0), this));
+			movableTiles.add(new Mouse(new Position(13,1), this));
+			movableTiles.add(new Mouse(new Position(7,7), this));
+			movableTiles.add(new Mouse(new Position(1,13), this));
+			}
+				
+		
 		Scanner s;
 		try {
-			s = new Scanner(new File(map));
+			s = new Scanner(new File(mapName));
 			s.useDelimiter("\n");
 			char [] tiles;
 			int count = 0;
@@ -124,7 +117,7 @@ public class MouseLand extends Board{
  */
 	@Override
 	public void resetPlayingField() {
-		if(map.equals("doc/mouseLandMap1.txt")){
+		if(mapName.equals("doc/mouseLandMap1.txt")){
 			movableTiles.get(0).setPosition(new Position(14,7));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
@@ -137,7 +130,7 @@ public class MouseLand extends Board{
 			if(movableTiles.get(4).getLives() == 1)
 				movableTiles.get(4).setPosition(new Position(13,13));
 		}
-		else if(map.equals("doc/mouseLandMap2.txt")){
+		else if(mapName.equals("doc/mouseLandMap2.txt")){
 			movableTiles.get(0).setPosition(new Position(14,1));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
@@ -148,7 +141,7 @@ public class MouseLand extends Board{
 			if(movableTiles.get(3).getLives() == 1)
 				movableTiles.get(3).setPosition(new Position(1,8));
 		}
-		else if(map.equals("doc/mouseLandMap3.txt")){
+		else if(mapName.equals("doc/mouseLandMap3.txt")){
 			movableTiles.get(0).setPosition(new Position(1,0));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
@@ -161,6 +154,20 @@ public class MouseLand extends Board{
 		}
 	}
 
+	protected boolean lastLevel(){
+		if(map == 1){
+			return false;
+		}
+		else if(map == 2){
+			return false;
+			}
+		else if(map == 3){
+			return true;
+			}
+		return false;
+		
+	}
+	
 /**
  * The checkWin method returns true if the game is finished, the game is finished when the
  * MouseHero gets to the finish line, which is located at tile position [1][9].
@@ -172,13 +179,13 @@ public class MouseLand extends Board{
 		//Create the End Tile and if the MouseHero has the same row and column 
 		//then her wins.
 		Position endPos = new Position(0,0);
-		if(map.equals("doc/mouseLandMap1.txt")){
+		if(mapName.equals("doc/mouseLandMap1.txt")){
 			endPos = new Position(0,7);
 		}
-		if(map.equals("doc/mouseLandMap2.txt")){
+		if(mapName.equals("doc/mouseLandMap2.txt")){
 			endPos = new Position(1,14);
 		}
-		if(map.equals("doc/mouseLandMap3.txt")){
+		if(mapName.equals("doc/mouseLandMap3.txt")){
 			endPos = new Position(13,14);
 		}
 
@@ -201,6 +208,18 @@ public class MouseLand extends Board{
 		playingField = new Tile[width][height];	
 		itemMap = new Tile[width][height];
 		movableTiles = new ArrayList<Avatar>();
+		map=1;
+		populateItemMap();
+		syncItemMapAndField(movableTiles);
+	}
+	
+	public void nextLevel() {
+		this.width = WIDTH;
+		this.height = HEIGHT;
+		playingField = new Tile[width][height];	
+		itemMap = new Tile[width][height];
+		movableTiles = new ArrayList<Avatar>();
+		map++;
 		populateItemMap();
 		syncItemMapAndField(movableTiles);
 	}
