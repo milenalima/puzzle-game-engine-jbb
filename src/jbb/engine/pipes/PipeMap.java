@@ -23,6 +23,9 @@ import jbb.engine.mouseland.MouseHero;
  * @author Boris Ionine
  */
 public class PipeMap extends Board{
+	private static final int MAP_ONE = 1;
+	private static final int MAP_TWO = 2;
+	private static final int MAP_THREE = 3;	
 	public static final int WATER_START_TURN = 60;
 	public static final int WIDTH = 15;
 	public static final int HEIGHT = 15;
@@ -31,7 +34,7 @@ public class PipeMap extends Board{
 	private int numTurns = 0;
 	private boolean runWater = false;
 	private static int map=1;
-	private static String mapName = "doc/mouseLandMap1.txt";
+	private static String mapName = "txt/pipeMap1.txt";
 	
 	public PipeMap(){
 		super(WIDTH, HEIGHT);
@@ -42,22 +45,22 @@ public class PipeMap extends Board{
 	protected void populateItemMap() {
 		Tile.setBlankImage(new ImageIcon("img/black-tile.png"));
 
-		if(map == 1){
-			mapName = "doc/pipeMap1.txt";
-			movableTiles.add(new Plumber(new Position(3,1), this));
-			movableTiles.add(new Water(new Position(3,1), this));
+		if(map == MAP_ONE){
+			mapName = "txt/pipeMap1.txt";
+			movableTiles.add(new Plumber(new Position(1,1), this));
+			movableTiles.add(new Water(new Position(1,1), this));
 			winningPosition = new Position(13,14);
 		}
-		else if(map == 2){
-			mapName = "doc/pipeMap2.txt";
+		else if(map == MAP_TWO){
+			mapName = "txt/pipeMap2.txt";
 			movableTiles.add(new Plumber(new Position(2,1), this));
 			movableTiles.add(new Water(new Position(2,1), this));
 			winningPosition = new Position(9,14);
 		}
-		else if(map == 3){
-			mapName = "doc/pipeMap3.txt";
-			movableTiles.add(new Plumber(new Position(1,1), this));
-			movableTiles.add(new Water(new Position(1,1), this));
+		else if(map == MAP_THREE){
+			mapName = "txt/pipeMap3.txt";
+			movableTiles.add(new Plumber(new Position(3,1), this));
+			movableTiles.add(new Water(new Position(3,1), this));
 			winningPosition = new Position(13,14);
 
 		}
@@ -217,8 +220,11 @@ public class PipeMap extends Board{
 				else{
 					if (checkWin()) {
 						syncItemMapAndField(movableTiles);
-						setChanged();
-						notifyObservers("Congratulations: You win!");
+						if(lastLevel()){
+							setChanged();
+							notifyObservers("Congratulations: You win!");
+						}
+						nextLevel();
 						runWater = false;
 						return;
 					}
@@ -233,8 +239,11 @@ public class PipeMap extends Board{
 			syncItemMapAndField(movableTiles);
 			if (checkWin()) {
 				syncItemMapAndField(movableTiles);
-				setChanged();
-				notifyObservers("Congratulations: You win!");
+				if(lastLevel()){
+					setChanged();
+					notifyObservers("Congratulations: You win!");
+				}
+				nextLevel();
 				runWater = false;
 				return;
 			}
@@ -280,9 +289,8 @@ public class PipeMap extends Board{
 		playingField = new Tile[height][width];	
 		itemMap = new Tile[height][width];
 		movableTiles = new ArrayList<Avatar>();
+		map=1;
 		populateItemMap();
-		movableTiles.add(new Plumber(new Position(1,1), this));
-		movableTiles.add(new Water(new Position(2,1), this));
 		syncItemMapAndField(movableTiles);
 	}
 
@@ -301,13 +309,13 @@ public class PipeMap extends Board{
 	}
 	
 	protected boolean lastLevel(){
-		if(map == 1){
+		if(map == MAP_ONE){
 			return false;
 		}
-		else if(map == 2){
+		else if(map == MAP_TWO){
 			return false;
 			}
-		else if(map == 3){
+		else if(map == MAP_THREE ){
 			return true;
 			}
 		return false;
