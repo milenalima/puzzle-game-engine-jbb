@@ -1,5 +1,7 @@
 package jbb.engine.pacman;
 
+import java.io.InputStream;
+
 import jbb.engine.R;
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,7 +17,11 @@ public class PacmanActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pacman);
-        PacWorld board = new PacWorld();
+        InputStream[] is = new InputStream[3];
+        is[0] = getResources().openRawResource(R.raw.pacman_map1);
+        is[1] = getResources().openRawResource(R.raw.pacman_map2);
+        is[2] = getResources().openRawResource(R.raw.pacman_map3);
+        PacWorld board = new PacWorld(is);
         PacManView view = (PacManView) findViewById(R.id.pacman_view);
         view.setModel(board);
         lives = (TextView) findViewById(R.id.lives);

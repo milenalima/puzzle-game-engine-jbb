@@ -1,5 +1,7 @@
 package jbb.engine.mouseland;
 
+import java.io.InputStream;
+
 import jbb.engine.R;
 import android.app.Activity;
 import android.os.Bundle;
@@ -19,7 +21,13 @@ public class MouselandActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mouseland);
-        board = new MouseLand();
+        InputStream[] is = new InputStream[3];
+        System.out.println("here");
+        is[0] = getResources().openRawResource(R.raw.mouseland_map1);
+        System.out.println("there");
+        is[1] = getResources().openRawResource(R.raw.mouseland_map2);
+        is[2] = getResources().openRawResource(R.raw.mouseland_map3);
+        board = new MouseLand(is);
         MouselandView view = (MouselandView) findViewById(R.id.mouseland_view);
         view.setModel(board);
         lives = (TextView) findViewById(R.id.lives);

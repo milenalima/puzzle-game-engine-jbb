@@ -1,5 +1,7 @@
 package jbb.engine.pipes;
 
+import java.io.InputStream;
+
 import jbb.engine.R;
 import android.app.Activity;
 import android.os.Bundle;
@@ -20,7 +22,11 @@ public class PipesActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pipes);
-        board = new PipeMap();
+        InputStream[] is = new InputStream[3];
+        is[0] = getResources().openRawResource(R.raw.pipe_map1);
+        is[1] =  getResources().openRawResource(R.raw.pipe_map2);
+        is[2] =  getResources().openRawResource(R.raw.pipe_map3);
+        board = new PipeMap(is);
         PipesView view = (PipesView) findViewById(R.id.pipes_view);
         view.setModel(board);
         nextPipe = (TextView) findViewById(R.id.nextPipe);

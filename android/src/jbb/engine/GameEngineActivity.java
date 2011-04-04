@@ -15,7 +15,7 @@ public class GameEngineActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gameselect);
-   }
+    }
     
     public void onClickPacman(View v) {
     	Intent intent = new Intent(GameEngineActivity.this,PacmanActivity.class);
