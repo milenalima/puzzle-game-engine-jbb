@@ -200,4 +200,19 @@ public class PacWorld extends Board{
 		// you have to call the following to initialise playing field
 		syncItemMapAndField(movableTiles);
 	}
+
+	@Override
+	public void nextLevel() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected boolean lastLevel() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
 }

@@ -112,10 +112,19 @@ public abstract class Board extends Observable{
 		// reload playingField
 		syncItemMapAndField(movableTiles);
 		if (checkWin()) {
-			setChanged();
-			notifyObservers("Congratulations: You win!");
+			if(lastLevel()){
+				setChanged();
+				notifyObservers("Congratulations: You win!");
+			}
+			nextLevel();
 		}
 	}
+
+	public abstract void nextLevel();	
+
+
+	protected abstract boolean lastLevel();
+
 	
 	/**
 	 * checks win conditions
