@@ -13,10 +13,13 @@ import jbb.engine.mouseland.Mouse;
 import jbb.engine.mouseland.MouseHero;
 
 public class PacWorld extends Board{
+	private static final int MAP_ONE = 1;
+	private static final int MAP_TWO = 2;
+	private static final int MAP_THREE = 3;	
 	public static final int WIDTH = 15;
 	public static final int HEIGHT = 15;
 	private static int map=1;
-	private static String mapName = "doc/mouseLandMap1.txt";
+	private static String mapName = "txt/packManMap1packManMap1.txt";
 	
 	
 	public static final Position DEFAULT_PACMAN_POS = new Position(6,1);
@@ -58,22 +61,22 @@ public class PacWorld extends Board{
 	{
 		Tile.setBlankImage(new ImageIcon("img/black-tile.png"));
 		
-		if(map == 1){
-			mapName= "doc/packManMap1.txt";
+		if(map == MAP_ONE){
+			mapName= "txt/packManMap1.txt";
 			movableTiles.add(new PacMan(new Position(7,1),this));
 			movableTiles.add(new Danny(new Position(1,13),this));
 			movableTiles.add(new Sam(new Position(7,13),this));
 			movableTiles.add(new Cam(new Position(13,13),this));
 			}
-		else if(map == 2){
-			mapName = "doc/packManMap2.txt";
+		else if(map == MAP_TWO){
+			mapName = "txt/packManMap2.txt";
 			movableTiles.add(new PacMan(new Position(5,1),this));
 			movableTiles.add(new Danny(new Position(13,5),this));
 			movableTiles.add(new Sam(new Position(1,13),this));
 			movableTiles.add(new Cam(new Position(6,13),this));
 			}
-		else if(map == 3){
-			mapName = "doc/packManMap3.txt";
+		else if(map == MAP_THREE ){
+			mapName = "txt/packManMap3.txt";
 			movableTiles.add(new PacMan(new Position(13,7),this));
 			movableTiles.add(new Danny(new Position(1,1),this));
 			movableTiles.add(new Sam(new Position(1,13),this));
@@ -127,7 +130,7 @@ public class PacWorld extends Board{
 	 */
 	@Override
 	public void resetPlayingField() {
-		if(mapName.equals("doc/packManMap1.txt")){
+		if(mapName.equals("txt/packManMap1.txt")){
 			movableTiles.get(0).setPosition(new Position(7,1));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
@@ -138,7 +141,7 @@ public class PacWorld extends Board{
 			if(movableTiles.get(3).getLives() == 1)
 				movableTiles.get(3).setPosition(new Position(13,13));
 		}
-		else if(mapName.equals("doc/packManMap2.txt")){
+		else if(mapName.equals("txt/packManMap2.txt")){
 			movableTiles.get(0).setPosition(new Position(5,1));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
@@ -149,7 +152,7 @@ public class PacWorld extends Board{
 			if(movableTiles.get(3).getLives() == 1)
 				movableTiles.get(3).setPosition(new Position(6,13));
 		}
-		else if(mapName.equals("doc/packManMap3.txt")){
+		else if(mapName.equals("txt/packManMap3.txt")){
 			movableTiles.get(0).setPosition(new Position(13,7));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
@@ -208,13 +211,13 @@ public class PacWorld extends Board{
 
 	@Override
 	protected boolean lastLevel() {
-		if(map == 1){
+		if(map == MAP_ONE){
 			return false;
 		}
-		else if(map == 2){
+		else if(map == MAP_TWO){
 			return false;
 			}
-		else if(map == 3){
+		else if(map == MAP_THREE ){
 			return true;
 			}
 		return false;

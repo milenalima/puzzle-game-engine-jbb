@@ -23,10 +23,13 @@ import jbb.engine.pacman.PacGameView;
 import jbb.engine.pipes.PipeGameView;
 
 public class MouseLand extends Board{
+	private static final int MAP_ONE = 1;
+	private static final int MAP_TWO = 2;
+	private static final int MAP_THREE = 3;	
 	public static final int WIDTH = 15;
 	public static final int HEIGHT = 15;
 	private static int map=1;
-	private static String mapName = "doc/mouseLandMap1.txt";
+	private static String mapName = "txt/mouseLandMap1.txt";
 	
 /**
  * the MouseLand constructor initialises a MouseHero and three Mouse instances on
@@ -35,7 +38,7 @@ public class MouseLand extends Board{
 
 	public MouseLand() {
 		super(WIDTH, HEIGHT);
-		mapName = "doc/mouseLandMap1.txt";
+		mapName = "txt/mouseLandMap1.txt";
 		syncItemMapAndField(movableTiles);
 	}
 
@@ -48,23 +51,23 @@ public class MouseLand extends Board{
 	@Override
 	protected void populateItemMap() {
 		Tile.setBlankImage(new ImageIcon("img/white-tile.png"));
-		if(map == 1){
-			mapName = "doc/mouseLandMap1.txt";
+		if(map == MAP_ONE){
+			mapName = "txt/mouseLandMap1.txt";
 			movableTiles.add(new MouseHero(new Position(14,7), this));
 			movableTiles.add(new Mouse(new Position(1,1), this));
 			movableTiles.add(new Mouse(new Position(7,7), this));
 			movableTiles.add(new Mouse(new Position(1,13), this));
 			movableTiles.add(new Mouse(new Position(13,13), this));
 			}
-		else if(map == 2){
-			mapName = "doc/mouseLandMap2.txt";
+		else if(map == MAP_TWO){
+			mapName = "txt/mouseLandMap2.txt";
 			movableTiles.add(new MouseHero(new Position(14,1), this));
 			movableTiles.add(new Mouse(new Position(1,3), this));
 			movableTiles.add(new Mouse(new Position(10,11), this));
 			movableTiles.add(new Mouse(new Position(1,13), this));
 			}
-		else if(map == 3){
-			mapName = "doc/mouseLandMap3.txt";
+		else if(map == MAP_THREE){
+			mapName = "txt/mouseLandMap3.txt";
 			movableTiles.add(new MouseHero(new Position(1,0), this));
 			movableTiles.add(new Mouse(new Position(13,1), this));
 			movableTiles.add(new Mouse(new Position(7,7), this));
@@ -117,7 +120,7 @@ public class MouseLand extends Board{
  */
 	@Override
 	public void resetPlayingField() {
-		if(mapName.equals("doc/mouseLandMap1.txt")){
+		if(mapName.equals("txt/mouseLandMap1.txt")){
 			movableTiles.get(0).setPosition(new Position(14,7));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
@@ -130,7 +133,7 @@ public class MouseLand extends Board{
 			if(movableTiles.get(4).getLives() == 1)
 				movableTiles.get(4).setPosition(new Position(13,13));
 		}
-		else if(mapName.equals("doc/mouseLandMap2.txt")){
+		else if(mapName.equals("txt/mouseLandMap2.txt")){
 			movableTiles.get(0).setPosition(new Position(14,1));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
@@ -141,7 +144,7 @@ public class MouseLand extends Board{
 			if(movableTiles.get(3).getLives() == 1)
 				movableTiles.get(3).setPosition(new Position(1,8));
 		}
-		else if(mapName.equals("doc/mouseLandMap3.txt")){
+		else if(mapName.equals("txt/mouseLandMap3.txt")){
 			movableTiles.get(0).setPosition(new Position(1,0));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
@@ -166,13 +169,13 @@ public class MouseLand extends Board{
 		//Create the End Tile and if the MouseHero has the same row and column 
 		//then her wins.
 		Position endPos = new Position(0,0);
-		if(mapName.equals("doc/mouseLandMap1.txt")){
+		if(mapName.equals("txt/mouseLandMap1.txt")){
 			endPos = new Position(0,7);
 		}
-		if(mapName.equals("doc/mouseLandMap2.txt")){
+		if(mapName.equals("txt/mouseLandMap2.txt")){
 			endPos = new Position(1,14);
 		}
-		if(mapName.equals("doc/mouseLandMap3.txt")){
+		if(mapName.equals("txt/mouseLandMap3.txt")){
 			endPos = new Position(13,14);
 		}
 
@@ -212,13 +215,13 @@ public class MouseLand extends Board{
 	}
 	
 	protected boolean lastLevel(){
-		if(map == 1){
+		if(map == MAP_ONE){
 			return false;
 		}
-		else if(map == 2){
+		else if(map == MAP_TWO){
 			return false;
 			}
-		else if(map == 3){
+		else if(map == MAP_THREE){
 			return true;
 			}
 		return false;
