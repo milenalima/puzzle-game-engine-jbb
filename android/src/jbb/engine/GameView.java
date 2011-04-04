@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -21,8 +22,8 @@ import android.view.View;
 
 public abstract class GameView extends View implements Observer {
 	
-	private int height_of_image = 13;
-	private int width_of_image = 13;
+	private int height_of_image = 20;
+	private int width_of_image = 20;
 	private int left = 0;
 	private int top = 0;
 	
@@ -78,10 +79,12 @@ public abstract class GameView extends View implements Observer {
 			mRedrawHandler.sendEmptyMessage(0);
 		} else {
 			AlertDialog.Builder myDiag = new AlertDialog.Builder(this.getContext());
-			myDiag.setMessage((String)data);
 			DiagHandler dh = new DiagHandler();
 			myDiag.setPositiveButton("Play Again", dh);
 			myDiag.setNegativeButton("Quit Game", dh);
+			Resources r = this.getContext().getResources();
+			myDiag.setTitle((String)data);
+			myDiag.setIcon(r.getDrawable(R.drawable.esfandiari));
 			myDiag.setCancelable(false);
 			myDiag.show();
 		}
@@ -118,8 +121,6 @@ public abstract class GameView extends View implements Observer {
 		super.onDraw(canvas);
 		mPaint.setStyle(Paint.Style.FILL);
 		canvas.drawPaint(mPaint);
-		left = canvas.getWidth()/2 - board.getWidth()*width_of_image/2;
-		top = canvas.getHeight()/2 - board.getHeight()*height_of_image/2;
 		for (int row = 0; row < board.getHeight(); row++) {
 			for (int col = 0; col < board.getWidth(); col ++) {
 				canvas.drawBitmap(image_map.get(board.getTile(new Position(row,col)).toString()),
@@ -133,9 +134,9 @@ public abstract class GameView extends View implements Observer {
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		width_of_image = (int) Math.ceil(w / board.getWidth());
-		height_of_image = (int) Math.floor(h / board.getHeight());
-		left = ((w - (width_of_image * board.getWidth())) / 2);
+		height_of_image = (int) Math.floor((h) / board.getHeight());
 		top = ((h - (height_of_image * board.getHeight())) / 2);
+		left = ((w - (width_of_image * board.getWidth())) / 2);
 		for(String key : image_map.keySet()){
 			image_map.put(key,Bitmap.createScaledBitmap(image_map.get(key),width_of_image,
 						height_of_image, false));
@@ -156,7 +157,7 @@ public abstract class GameView extends View implements Observer {
 				try {
 					this.board.playTurn(new Position(row,col));
 				} catch (Exception e) {
-					// do nothing
+					// do nothing to not interrupt user
 				}
 			}
 			return true;

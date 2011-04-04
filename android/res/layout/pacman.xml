@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
->
-<view class="jbb.engine.pacman.PacManView"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/pacman_view"
-    android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:text="@string/hello"
-/>
-</LinearLayout>
+	android:layout_height="fill_parent" >
+	
+	<jbb.engine.pacman.PacManView
+    	android:id="@+id/pacman_view"
+    	android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/hello"/>
+		
+	<TextView android:id="@+id/lives" android:text="@string/livesText"
+		android:visibility="invisible"
+		android:layout_width="300px" android:layout_height="300px"
+		android:background="#7Fffffff" android:layout_gravity="center"/>
+		
+</FrameLayout>
