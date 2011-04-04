@@ -45,4 +45,6 @@ public abstract class Hero extends Avatar {
 		return points;
 	}
 	
+
+	
 }

@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
-import jbb.engine.*;
-import jbb.engine.mouseland.Mouse;
-import jbb.engine.mouseland.MouseHero;
+import jbb.engine.Avatar;
+import jbb.engine.Board;
+import jbb.engine.Position;
+import jbb.engine.Tile;
+import jbb.engine.Wall;
 
 public class PacWorld extends Board{
 	private static final int MAP_ONE = 1;
@@ -186,12 +187,8 @@ public class PacWorld extends Board{
 		playingField = new Tile[width][height];	
 		itemMap = new Tile[width][height];
 		movableTiles = new ArrayList<Avatar>();
+		map=1;
 		populateItemMap();
-		// Hero is always at the start of the list;
-	//	movableTiles.add(new PacMan(DEFAULT_PACMAN_POS,this));
-	//	movableTiles.add(new Danny(DEFAULT_GHOST1_POS,this));
-	//	movableTiles.add(new Sam(DEFAULT_GHOST2_POS,this));
-	//	movableTiles.add(new Cam(DEFAULT_GHOST3_POS,this));
 		// you have to call the following to initialise playing field
 		syncItemMapAndField(movableTiles);
 	}
@@ -200,6 +197,8 @@ public class PacWorld extends Board{
 	public void nextLevel() {
 		this.width = WIDTH;
 		this.height = HEIGHT;
+		int oldLives = this.getHero().getLives();
+		int oldPoints = this.getHero().getPoints();
 		playingField = new Tile[width][height];	
 		itemMap = new Tile[width][height];
 		movableTiles = new ArrayList<Avatar>();
@@ -209,7 +208,9 @@ public class PacWorld extends Board{
 		else{
 			map++;
 		}
-		populateItemMap();
+		populateItemMap();		
+		this.getHero().setLives(oldLives);
+		this.getHero().addPoints(oldPoints);
 		syncItemMapAndField(movableTiles);
 		
 	}

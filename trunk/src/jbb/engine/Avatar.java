@@ -179,10 +179,17 @@ public abstract class Avatar extends Tile {
 	}
 
 	/**
+	 * Sets the number of lives
+	 */
+	public void setLives(int lives) {
+		this.lives=lives;
+	}
+	/**
 	 * determine what happens when the avatar collides with another
 	 * 
 	 * @param avatar
 	 * @return true if the character dies
 	 */
 	public abstract boolean collidesWith(Avatar avatar);
+	
 }
