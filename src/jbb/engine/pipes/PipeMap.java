@@ -30,7 +30,8 @@ public class PipeMap extends Board{
 	private int turnsUntilWater = WATER_START_TURN;
 	private int numTurns = 0;
 	private boolean runWater = false;
-	private String map;
+	private static int map=1;
+	private static String mapName = "doc/mouseLandMap1.txt";
 	
 	public PipeMap(){
 		super(WIDTH, HEIGHT);
@@ -40,38 +41,30 @@ public class PipeMap extends Board{
 	@Override
 	protected void populateItemMap() {
 		Tile.setBlankImage(new ImageIcon("img/black-tile.png"));
-		
-		String[] options = {"Map 1", "Map 2", "Map 3"};
-		int result = JOptionPane.showOptionDialog(null, "Select the map you would like to play",
-				"Pick Map Pipes", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
-				null);
-		switch (result) {
-		case 0:
-			map = "doc/pipeMap1.txt";
-			movableTiles.add(new Plumber(new Position(1,1), this));
-			movableTiles.add(new Water(new Position(2,1), this));
-			winningPosition = new Position(13,14);
-			break;
-		case 1:
-			map = "doc/pipeMap2.txt";
-			movableTiles.add(new Plumber(new Position(2,1), this));
+
+		if(map == 1){
+			mapName = "doc/pipeMap1.txt";
+			movableTiles.add(new Plumber(new Position(3,1), this));
 			movableTiles.add(new Water(new Position(3,1), this));
-			winningPosition = new Position(9,14);
-			break;
-		case 2:
-			map = "doc/pipeMap3.txt";
-			movableTiles.add(new Plumber(new Position(1,1), this));
-			movableTiles.add(new Water(new Position(2,1), this));
 			winningPosition = new Position(13,14);
-			break;
-		case JOptionPane.CLOSED_OPTION:
-			// shut down the application
-			System.exit(0);		
+		}
+		else if(map == 2){
+			mapName = "doc/pipeMap2.txt";
+			movableTiles.add(new Plumber(new Position(2,1), this));
+			movableTiles.add(new Water(new Position(2,1), this));
+			winningPosition = new Position(9,14);
+		}
+		else if(map == 3){
+			mapName = "doc/pipeMap3.txt";
+			movableTiles.add(new Plumber(new Position(1,1), this));
+			movableTiles.add(new Water(new Position(1,1), this));
+			winningPosition = new Position(13,14);
+
 		}
 
 	Scanner s;
 	try {
-		s = new Scanner(new File(map));
+		s = new Scanner(new File(mapName));
 		s.useDelimiter("\n");
 		char [] tiles;
 		int count = 0;
@@ -293,18 +286,33 @@ public class PipeMap extends Board{
 		syncItemMapAndField(movableTiles);
 	}
 
-	@Override
 	public void nextLevel() {
-		// TODO Auto-generated method stub
+		numTurns = 0;
+		runWater = false;
+		turnsUntilWater = WATER_START_TURN;
+		this.width = WIDTH;
+		this.height = HEIGHT;
+		playingField = new Tile[width][height];	
+		itemMap = new Tile[width][height];
+		movableTiles = new ArrayList<Avatar>();
+		map++;
+		populateItemMap();
+		syncItemMapAndField(movableTiles);
+	}
+	
+	protected boolean lastLevel(){
+		if(map == 1){
+			return false;
+		}
+		else if(map == 2){
+			return false;
+			}
+		else if(map == 3){
+			return true;
+			}
+		return false;
 		
 	}
-
-	@Override
-	protected boolean lastLevel() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 
 }
 

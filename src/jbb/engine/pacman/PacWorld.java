@@ -15,7 +15,8 @@ import jbb.engine.mouseland.MouseHero;
 public class PacWorld extends Board{
 	public static final int WIDTH = 15;
 	public static final int HEIGHT = 15;
-	private String map;
+	private static int map=1;
+	private static String mapName = "doc/mouseLandMap1.txt";
 	
 	
 	public static final Position DEFAULT_PACMAN_POS = new Position(6,1);
@@ -57,40 +58,31 @@ public class PacWorld extends Board{
 	{
 		Tile.setBlankImage(new ImageIcon("img/black-tile.png"));
 		
-		String[] options = {"Map 1", "Map 2", "Map 3"};
-		int result = JOptionPane.showOptionDialog(null, "Select the map you would like to play",
-				"Pick Map Pacman", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
-				null);
-		switch (result) {
-		case 0:
-			map = "doc/packManMap1.txt";
+		if(map == 1){
+			mapName= "doc/packManMap1.txt";
 			movableTiles.add(new PacMan(new Position(7,1),this));
 			movableTiles.add(new Danny(new Position(1,13),this));
 			movableTiles.add(new Sam(new Position(7,13),this));
 			movableTiles.add(new Cam(new Position(13,13),this));
-			break;
-		case 1:
-			map = "doc/packManMap2.txt";
+			}
+		else if(map == 2){
+			mapName = "doc/packManMap2.txt";
 			movableTiles.add(new PacMan(new Position(5,1),this));
 			movableTiles.add(new Danny(new Position(13,5),this));
 			movableTiles.add(new Sam(new Position(1,13),this));
 			movableTiles.add(new Cam(new Position(6,13),this));
-			break;
-		case 2:
-			map = "doc/packManMap3.txt";
+			}
+		else if(map == 3){
+			mapName = "doc/packManMap3.txt";
 			movableTiles.add(new PacMan(new Position(13,7),this));
 			movableTiles.add(new Danny(new Position(1,1),this));
 			movableTiles.add(new Sam(new Position(1,13),this));
 			movableTiles.add(new Cam(new Position(7,7),this));
-			break;
-		case JOptionPane.CLOSED_OPTION:
-			// shut down the application
-			System.exit(0);		
-		}
+			}
 
 	Scanner s;
 	try {
-		s = new Scanner(new File(map));
+		s = new Scanner(new File(mapName));
 		s.useDelimiter("\n");
 		char [] tiles;
 		int count = 0;
@@ -135,7 +127,7 @@ public class PacWorld extends Board{
 	 */
 	@Override
 	public void resetPlayingField() {
-		if(map.equals("doc/packManMap1.txt")){
+		if(mapName.equals("doc/packManMap1.txt")){
 			movableTiles.get(0).setPosition(new Position(7,1));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
@@ -146,7 +138,7 @@ public class PacWorld extends Board{
 			if(movableTiles.get(3).getLives() == 1)
 				movableTiles.get(3).setPosition(new Position(13,13));
 		}
-		else if(map.equals("doc/packManMap2.txt")){
+		else if(mapName.equals("doc/packManMap2.txt")){
 			movableTiles.get(0).setPosition(new Position(5,1));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
@@ -157,7 +149,7 @@ public class PacWorld extends Board{
 			if(movableTiles.get(3).getLives() == 1)
 				movableTiles.get(3).setPosition(new Position(6,13));
 		}
-		else if(map.equals("doc/packManMap3.txt")){
+		else if(mapName.equals("doc/packManMap3.txt")){
 			movableTiles.get(0).setPosition(new Position(13,7));
 			//Check to see if the mouse are still alive, if yes they are created again,
 			//if they are dead they will remain dead.
@@ -203,13 +195,28 @@ public class PacWorld extends Board{
 
 	@Override
 	public void nextLevel() {
-		// TODO Auto-generated method stub
+		this.width = WIDTH;
+		this.height = HEIGHT;
+		playingField = new Tile[width][height];	
+		itemMap = new Tile[width][height];
+		movableTiles = new ArrayList<Avatar>();
+		map++;
+		populateItemMap();
+		syncItemMapAndField(movableTiles);
 		
 	}
 
 	@Override
 	protected boolean lastLevel() {
-		// TODO Auto-generated method stub
+		if(map == 1){
+			return false;
+		}
+		else if(map == 2){
+			return false;
+			}
+		else if(map == 3){
+			return true;
+			}
 		return false;
 	}
 

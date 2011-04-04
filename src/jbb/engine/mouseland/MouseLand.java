@@ -154,19 +154,6 @@ public class MouseLand extends Board{
 		}
 	}
 
-	protected boolean lastLevel(){
-		if(map == 1){
-			return false;
-		}
-		else if(map == 2){
-			return false;
-			}
-		else if(map == 3){
-			return true;
-			}
-		return false;
-		
-	}
 	
 /**
  * The checkWin method returns true if the game is finished, the game is finished when the
@@ -222,5 +209,19 @@ public class MouseLand extends Board{
 		map++;
 		populateItemMap();
 		syncItemMapAndField(movableTiles);
+	}
+	
+	protected boolean lastLevel(){
+		if(map == 1){
+			return false;
+		}
+		else if(map == 2){
+			return false;
+			}
+		else if(map == 3){
+			return true;
+			}
+		return false;
+		
 	}
 }
