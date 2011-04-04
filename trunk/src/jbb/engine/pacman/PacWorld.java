@@ -19,7 +19,7 @@ public class PacWorld extends Board{
 	public static final int WIDTH = 15;
 	public static final int HEIGHT = 15;
 	private static int map=1;
-	private static String mapName = "txt/packManMap1packManMap1.txt";
+	private static String mapName = "txt/packManMap1.txt";
 	
 	
 	public static final Position DEFAULT_PACMAN_POS = new Position(6,1);
@@ -203,7 +203,12 @@ public class PacWorld extends Board{
 		playingField = new Tile[width][height];	
 		itemMap = new Tile[width][height];
 		movableTiles = new ArrayList<Avatar>();
-		map++;
+		if(map==MAP_THREE){
+			map = MAP_ONE;
+		}
+		else{
+			map++;
+		}
 		populateItemMap();
 		syncItemMapAndField(movableTiles);
 		
@@ -218,7 +223,7 @@ public class PacWorld extends Board{
 			return false;
 			}
 		else if(map == MAP_THREE ){
-			return true;
+			return false;
 			}
 		return false;
 	}
