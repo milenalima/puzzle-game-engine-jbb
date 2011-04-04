@@ -33,7 +33,7 @@ public class PipeGameView extends BoardView {
 		runWater = new JButton("Run Water");
 		runWater.addActionListener(new RunWaterButtonHandler(board));
 		updateComponents();
-		Component[] more = {lives, nextPipe, timer, runWater};
+		Component[] more = {nextPipe, timer, runWater};
 		addMoreComponents(more);
 	}
 	
@@ -48,7 +48,6 @@ public class PipeGameView extends BoardView {
 		Hero hero = board.getHero();
 		Plumber p = (Plumber) hero;
 		PipeMap pM = (PipeMap) board;
-		lives.setText("Lives: " + hero.getLives());
 		nextPipe.setText("Next Pipe: "+p.getNextPipeType());
 		if (pM.getTurnsUntilWater() > 0) 
 			timer.setText("Water in: " + (pM.getTurnsUntilWater()));
