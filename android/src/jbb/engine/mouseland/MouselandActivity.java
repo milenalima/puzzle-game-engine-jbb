@@ -25,9 +25,7 @@ public class MouselandActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mouseland);
         InputStream[] is = new InputStream[3];
-        System.out.println("here");
         is[0] = getResources().openRawResource(R.raw.mouseland_map1);
-        System.out.println("there");
         is[1] = getResources().openRawResource(R.raw.mouseland_map2);
         is[2] = getResources().openRawResource(R.raw.mouseland_map3);
         board = new MouseLand(is);

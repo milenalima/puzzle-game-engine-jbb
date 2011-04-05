@@ -118,6 +118,7 @@ public abstract class Board extends Observable{
 			if(lastLevel()){
 				setChanged();
 				notifyObservers("Congratulations: You win!");
+				return;
 			}
 			nextLevel();
 		}
