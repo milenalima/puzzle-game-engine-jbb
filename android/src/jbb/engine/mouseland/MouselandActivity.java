@@ -5,6 +5,9 @@ import java.io.InputStream;
 import jbb.engine.R;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,6 +35,28 @@ public class MouselandActivity extends Activity {
         view.setModel(board);
         lives = (TextView) findViewById(R.id.lives);
         traps = (Button) findViewById(R.id.traps);
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.undo_menu, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+        case R.id.undo_item:
+            System.out.println("undo");
+            return true;
+        case R.id.redo_item:
+        	System.out.println("redo");
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
     
     public void setLives(String text) {

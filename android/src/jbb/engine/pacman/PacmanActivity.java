@@ -5,6 +5,9 @@ import java.io.InputStream;
 import jbb.engine.R;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 public class PacmanActivity extends Activity {
@@ -26,6 +29,28 @@ public class PacmanActivity extends Activity {
         view.setModel(board);
         lives = (TextView) findViewById(R.id.lives);
         points = (TextView) findViewById(R.id.points);
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.undo_menu, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+        case R.id.undo_item:
+            System.out.println("undo");
+            return true;
+        case R.id.redo_item:
+        	System.out.println("redo");
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
     
     public void setLives(String text) {
