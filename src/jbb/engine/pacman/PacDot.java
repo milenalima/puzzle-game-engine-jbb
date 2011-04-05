@@ -33,6 +33,7 @@ public class PacDot extends Item {
 	}
 	public PacDot(PacDot pacDot){
 		this(new Position(pacDot.position.getRow(), pacDot.position.getCol()),pacDot.board, pacDot.powerPellet);
+		this.pointValue = pacDot.pointValue;
 	}
 
 	/**

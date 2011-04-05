@@ -32,6 +32,7 @@ public class MouseTrap extends Item {
 	}
 	public MouseTrap(MouseTrap mouseTrap){
 		this(new Position(mouseTrap.position.getRow(), mouseTrap.position.getCol()),mouseTrap.board);
+		this.is_set = mouseTrap.is_set;
 	}
 	
 /**
