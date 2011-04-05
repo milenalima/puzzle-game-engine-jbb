@@ -35,6 +35,10 @@ public class Mouse extends NPC{
 	public Mouse(Position position, Board board) {
 		super(mouseLeftImage, LIVES, position, board);
 	}
+	//copy constructor
+	public Mouse(Mouse mouse){
+		this(new Position(mouse.position.getRow(), mouse.position.getCol()), mouse.board);
+	}
 
 /**
  * the getNextPosition method uses a position as the parameter and returns the next position,

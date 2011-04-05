@@ -30,6 +30,9 @@ public class MouseTrap extends Item {
 		setImage(mouseTrapImage);
 		is_set = true;
 	}
+	public MouseTrap(MouseTrap mouseTrap){
+		this(new Position(mouseTrap.position.getRow(), mouseTrap.position.getCol()),mouseTrap.board);
+	}
 	
 /**
  * The getTrapPosition method returns the Position of the MouseTrap	

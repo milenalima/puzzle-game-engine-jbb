@@ -9,12 +9,14 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 
 import jbb.engine.BoardView;
+import jbb.engine.pacman.PacWorld;
 
 public class MouseGameView extends BoardView {
 
 	private JTextArea lives;
 	private JButton drop;
-	
+	private JButton undoButton;
+	private JButton redoButton;
 /**
  * Constructor for MouseGameView
  * -It thats the map from MouseLand
@@ -30,8 +32,14 @@ public class MouseGameView extends BoardView {
 		// make it as small as possible so it fits with the JTextArea
 		drop.setPreferredSize(new Dimension(1,1));
 		drop.addActionListener(new DropButtonHandler(board));
+	    undoButton = new JButton("Undo");
+	    undoButton.setPreferredSize(new Dimension(1,1));
+	    undoButton.addActionListener(new UndoButtonHandler(board));
+	    redoButton = new JButton("Redo");
+	    redoButton.setPreferredSize(new Dimension(1,1));
+	    redoButton.addActionListener(new RedoButtonHandler(board));
 		updateComponents();
-		Component[] more = {lives,drop};
+		Component[] more = {lives,drop,undoButton,redoButton};
 		addMoreComponents(more);
 	}
 	
@@ -53,7 +61,7 @@ public class MouseGameView extends BoardView {
 	protected void updateComponents() {
 		MouseHero hero = (MouseHero) board.getHero();
 		lives.setText("Lives: " + hero.getLives());
-		drop.setText("Set trap (" + hero.getNumMouseTraps() + ")");
+		drop.setText("Trap(" + hero.getNumMouseTraps() + ")");
 	}
 /**
  * This class is the action listener for the board.
@@ -77,7 +85,36 @@ public class MouseGameView extends BoardView {
 		public void actionPerformed(ActionEvent e) {
 			MouseHero hero = (MouseHero) board.getHero();
 			hero.setTrap();
-			drop.setText("Set trap (" + hero.getNumMouseTraps() + ")");
+			drop.setText("Trap(" + hero.getNumMouseTraps() + ")");
+		}
+		
+	}
+	
+	private class UndoButtonHandler implements ActionListener {
+
+		MouseLand board = null;
+
+		public UndoButtonHandler(MouseLand board) {
+			super();
+			this.board = board;
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			board.undoMove();
+		}
+		
+	}
+	private class RedoButtonHandler implements ActionListener {
+
+		MouseLand board = null;
+
+		public RedoButtonHandler(MouseLand board) {
+			super();
+			this.board = board;
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			board.redoMove();
 		}
 		
 	}
