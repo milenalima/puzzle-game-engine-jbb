@@ -10,7 +10,6 @@ import jbb.engine.Position;
  * PowerPellet, it grants PacMan invulnerability for 10 turns.
  * @author Jonathan Gravel
  */
-
 public class PacDot extends Item {
 	
 	private boolean powerPellet;
@@ -25,6 +24,9 @@ public class PacDot extends Item {
 		super(position, board);
 		this.powerPellet = powerPellet;
 		setPointValue(10);
+	}
+	public PacDot(PacDot pacDot){
+		this(new Position(pacDot.position.getRow(), pacDot.position.getCol()),pacDot.board, pacDot.powerPellet);
 	}
 
 	/**

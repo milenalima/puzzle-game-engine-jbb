@@ -14,6 +14,7 @@ public class PacmanActivity extends Activity {
 	
 	private TextView lives;
 	private TextView points;
+	private PacWorld board;
 	
     /** Called when the activity is first created. */
     @Override
@@ -24,7 +25,7 @@ public class PacmanActivity extends Activity {
         is[0] = getResources().openRawResource(R.raw.pacman_map1);
         is[1] = getResources().openRawResource(R.raw.pacman_map2);
         is[2] = getResources().openRawResource(R.raw.pacman_map3);
-        PacWorld board = new PacWorld(is);
+        board = new PacWorld(is);
         PacManView view = (PacManView) findViewById(R.id.pacman_view);
         view.setModel(board);
         lives = (TextView) findViewById(R.id.lives);
@@ -43,10 +44,10 @@ public class PacmanActivity extends Activity {
         // Handle item selection
         switch (item.getItemId()) {
         case R.id.undo_item:
-            System.out.println("undo");
+            board.undoMove();
             return true;
         case R.id.redo_item:
-        	System.out.println("redo");
+        	board.redoMove();
             return true;
         default:
             return super.onOptionsItemSelected(item);

@@ -13,7 +13,7 @@ import jbb.engine.Position;
 public class MouseTrap extends Item {
 	
 	private boolean is_set;			//false is MouseTrap already used
-
+	
 /**
  * Constructor for the MouseTrap using Position and Board as parameter
  * 
@@ -23,6 +23,9 @@ public class MouseTrap extends Item {
 	public MouseTrap(Position position, Board board) {
 		super(position, board);
 		is_set = true;
+	}
+	public MouseTrap(MouseTrap mouseTrap){
+		this(new Position(mouseTrap.position.getRow(), mouseTrap.position.getCol()),mouseTrap.board);
 	}
 	
 /**
@@ -53,7 +56,7 @@ public class MouseTrap extends Item {
 	/**
 	 * the toString method return the character "T" to show were the MouseTrap is on the board
 	 * 
-	 * @return name of image
+	 * @return string "T"
 	 */	
 	public String toString() {
 		String str = "mouse_trap";

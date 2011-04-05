@@ -47,10 +47,10 @@ public class MouselandActivity extends Activity {
         // Handle item selection
         switch (item.getItemId()) {
         case R.id.undo_item:
-            System.out.println("undo");
+            board.undoMove();
             return true;
         case R.id.redo_item:
-        	System.out.println("redo");
+        	board.redoMove();
             return true;
         default:
             return super.onOptionsItemSelected(item);
