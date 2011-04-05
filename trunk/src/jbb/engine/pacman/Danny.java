@@ -17,6 +17,10 @@ public class Danny extends Ghost {
 	public Danny(Position position, Board board) {
 		super(new ImageIcon("img/Ghost-D.png"),position, board);
 	}
+	//copy constructor
+	public Danny(Danny danny){
+		this(new Position(danny.position.getRow(), danny.position.getCol()), danny.board);
+	}
 	
 	@Override
 	/**
