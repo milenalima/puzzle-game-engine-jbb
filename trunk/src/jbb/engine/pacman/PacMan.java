@@ -40,6 +40,7 @@ public class PacMan extends Hero {
 		this.direction = pacMan.direction;
 		this.invulnerable = pacMan.invulnerable;
 		this.timer = pacMan.timer;
+		this.setPoints(pacMan.getPoints());
 	}
 	
 	/**
