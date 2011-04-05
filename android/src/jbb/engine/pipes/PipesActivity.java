@@ -72,7 +72,8 @@ public class PipesActivity extends Activity {
     }
     
     public void onClickWater(View v) {
-    	board.runWaterPressed();
     	setRunWater("Water is running!");
+    	board.runWaterPressed();
+    	setRunWater("Run water");
     }
 }

@@ -114,7 +114,9 @@ public class PipeMap extends Board{
 	@Override
 	public void playTurn(Position position) {
 		numTurns++;
-		turnsUntilWater--;
+		if (turnsUntilWater > 0) {
+			turnsUntilWater--;
+		}
 		//Hero is always the first element of the ArrayList
 		Plumber plumber = (Plumber) movableTiles.get(0);
 		
