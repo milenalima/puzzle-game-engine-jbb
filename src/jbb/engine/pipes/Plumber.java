@@ -24,6 +24,11 @@ public class Plumber extends Hero{
 		
 		acquireNextPipeType();
 	}
+	//copy constructor
+	public Plumber(Plumber plumber){
+		this(new Position(plumber.position.getRow(), plumber.position.getCol()), plumber.board);
+		this.nextPipeType = plumber.nextPipeType;
+	}
 	
 	/**
 	 * Method randomly generates the next kind of Pipe 

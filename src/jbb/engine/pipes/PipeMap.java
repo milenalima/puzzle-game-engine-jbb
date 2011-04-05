@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 import jbb.engine.Avatar;
 import jbb.engine.Board;
@@ -14,8 +13,7 @@ import jbb.engine.Item;
 import jbb.engine.Position;
 import jbb.engine.Tile;
 import jbb.engine.Wall;
-import jbb.engine.mouseland.Mouse;
-import jbb.engine.mouseland.MouseHero;
+
 
 /**
  * Board class for the Pipes game. 
@@ -35,6 +33,7 @@ public class PipeMap extends Board{
 	private boolean runWater = false;
 	private static int map=1;
 	private static String mapName = "txt/pipeMap1.txt";
+
 	
 	public PipeMap(){
 		super(WIDTH, HEIGHT);
@@ -53,8 +52,8 @@ public class PipeMap extends Board{
 		}
 		else if(map == MAP_TWO){
 			mapName = "txt/pipeMap2.txt";
-			movableTiles.add(new Plumber(new Position(3,1), this));
-			movableTiles.add(new Water(new Position(3,1), this));
+			movableTiles.add(new Plumber(new Position(1,1), this));
+			movableTiles.add(new Water(new Position(1,1), this));
 			winningPosition = new Position(9,14);
 		}
 		else if(map == MAP_THREE){
@@ -125,6 +124,22 @@ public class PipeMap extends Board{
 	 */
 	@Override
 	public void playTurn(Position position) {
+		//stuff for undo------------------------------------------------
+		//save the previous state for undo purposes:
+		/*prevItemMaps.addLast(itemMap);
+		ArrayList<Avatar> oldMovableTiles = new ArrayList<Avatar>(); 
+		for(int t = 0; t < movableTiles.size(); t++){
+			if(movableTiles.get(t) instanceof Plumber){
+				oldMovableTiles.add(new Plumber((Plumber)movableTiles.get(t))); 
+			}
+			else if(movableTiles.get(t) instanceof Water){
+				oldMovableTiles.add(new Water((Water)movableTiles.get(t))); 
+			}
+		}
+		prevMovableTiles.addLast(oldMovableTiles);*/
+		updateUndoLists();
+		//------------------------------------------------end undo stuff
+		
 		numTurns++;
 		turnsUntilWater--;
 		//Hero is always the first element of the ArrayList
@@ -157,9 +172,9 @@ public class PipeMap extends Board{
 			Water water;
 			Position[] nextWaterPositions;
 			//need the current number of movable Tiles to loop over
-			int currentMovableTilesSize = movableTiles.size();
+			//int currentMovableTilesSize = movableTiles.size();
 			//now to move the water...
-			for(int i = 1; i < currentMovableTilesSize; i++){
+			for(int i = 1; i < movableTiles.size(); i++){
 				water = (Water) movableTiles.get(i); 
 				int currentRow = water.getPosition().getRow();
 				int currentCol = water.getPosition().getCol();
@@ -170,8 +185,13 @@ public class PipeMap extends Board{
 					nextWaterPositions = water.getNextPositions(water.getPosition());
 					//water.setPosition(nextWaterPos);
 					//loop over possible next positions for water 
+					
+					//boolean true to begin with, set to false within for loop if it's false	
+					boolean allnull = true;
+					
 					for(int j = 0; j < nextWaterPositions.length; j++){
 						if(nextWaterPositions[j] != null){
+							allnull = false;
 							int nextRow = nextWaterPositions[j].getRow();
 							int nextCol = nextWaterPositions[j].getCol();
 							//get the tile at this position
@@ -180,31 +200,43 @@ public class PipeMap extends Board{
 							if(tile instanceof Pipe){
 								//for each possible opening, also check that the water is
 								//coming from the appropriate place.
-								if((((Pipe) tile).isOpenLeft()) &&
-										(currentRow == nextRow) && (currentCol == nextCol - 1)){
-									movableTiles.add(new Water(new Position(nextRow, nextCol),this));
+								if(!((Pipe) tile).isFilled()){
+									if((((Pipe) tile).isOpenLeft()) &&
+											(currentRow == nextRow) && (currentCol == nextCol - 1)){
+										movableTiles.add(new Water(new Position(nextRow, nextCol),this));
+										((Pipe) tile).fillUp();
+									}
+									else if((((Pipe) tile).isOpenBottom()) && 
+											(currentRow == nextRow + 1) && (currentCol == nextCol)){
+										movableTiles.add(new Water(new Position(nextRow, nextCol),this));
+										((Pipe) tile).fillUp();
+									}
+									else if((((Pipe) tile).isOpenRight()) &&
+											(currentRow == nextRow) && (currentCol == nextCol + 1)){
+										movableTiles.add(new Water(new Position(nextRow, nextCol),this));
+										((Pipe) tile).fillUp();
+									}
+									else if((((Pipe) tile).isOpenTop()) &&
+											(currentRow == nextRow - 1) && (currentCol == nextCol)){
+										movableTiles.add(new Water(new Position(nextRow, nextCol),this));
+										((Pipe) tile).fillUp();
+									}
+									//if the pipe cannot be filled (water trying to enter a blocked wall)
+									//it counts as a leak and you lose
+									else{
+										syncItemMapAndField(movableTiles);
+										setChanged();
+										notifyObservers("You have a leak: you lose");
+										runWater = false;
+										return;
+									}
 								}
-								else if((((Pipe) tile).isOpenBottom()) && 
-										(currentRow == nextRow + 1) && (currentCol == nextCol)){
-									movableTiles.add(new Water(new Position(nextRow, nextCol),this));
-								}
-								else if((((Pipe) tile).isOpenRight()) &&
-										(currentRow == nextRow) && (currentCol == nextCol + 1)){
-									movableTiles.add(new Water(new Position(nextRow, nextCol),this));
-								}
-								else if((((Pipe) tile).isOpenTop()) &&
-										(currentRow == nextRow - 1) && (currentCol == nextCol)){
-									movableTiles.add(new Water(new Position(nextRow, nextCol),this));
-								}
-								//if the pipe cannot be filled (water trying to enter a blocked wall)
-								//it counts as a leak and you lose
 								else{
-									syncItemMapAndField(movableTiles);
-									setChanged();
-									notifyObservers("You have a leak: you lose");
+									//syncItemMapAndField(movableTiles);
 									runWater = false;
 									return;
 								}
+								//syncItemMapAndField(movableTiles);
 							}
 							//if the tile is not a pipe the game ends with a win (winningTile) 
 							//or a loss (any other non-pipe tile)
@@ -213,6 +245,20 @@ public class PipeMap extends Board{
 
 							}
 						}
+					}
+					if(allnull){
+						movableTiles.remove(water);
+						//if(i < movableTiles.size()){
+							//i++;
+						//}
+						if(movableTiles.size()<=1){
+							runWater = false;
+							setChanged();
+							notifyObservers("You have created an infinite loop: you lose");
+							return;
+						}
+						allnull = false;
+						
 					}
 						
 					
@@ -261,6 +307,7 @@ public class PipeMap extends Board{
 	
 	public void runWaterPressed() {
 		runWater = true;
+		turnsUntilWater = 0;
 		while(runWater){
 			this.playTurn(new Position(1,1));
 		}
@@ -291,6 +338,7 @@ public class PipeMap extends Board{
 		movableTiles = new ArrayList<Avatar>();
 		map=1;
 		populateItemMap();
+
 		syncItemMapAndField(movableTiles);
 	}
 
@@ -321,6 +369,5 @@ public class PipeMap extends Board{
 		return false;
 		
 	}
-
 }
 

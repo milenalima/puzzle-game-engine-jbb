@@ -6,6 +6,7 @@ import jbb.engine.Avatar;
 import jbb.engine.Board;
 import jbb.engine.Item;
 import jbb.engine.Position;
+import jbb.engine.Tile;
 
 /**
  * An Item that the Plumber drops and Water flows through.
@@ -71,6 +72,18 @@ public class Pipe extends Item{
 				break;
 		}
 	}
+	
+	public Pipe(Pipe pipe){
+		this(new Position(pipe.position.getRow(), pipe.position.getCol()),pipe.board, pipe.getPipeType());
+		this.numOpenings = pipe.numOpenings;
+		this.pipeType = pipe.pipeType;
+		this.rotation = pipe.rotation;
+		this.filled = pipe.filled;
+		this.openBottom = pipe.openBottom;
+		this.openTop = pipe.openTop;
+		this.openRight = pipe.openRight;
+		this.openLeft = pipe.openLeft;
+	}
 
 	
 	/**
@@ -95,7 +108,7 @@ public class Pipe extends Item{
 	 * Sets boolean filled to true. 
 	 * Changes the Pipe's image to one with water.
 	 */
-	private void fillUp() {
+	public void fillUp() {
 		filled = true;
 		this.setImage(new ImageIcon("img/pipe-"+pipeType+"-water-"+rotation+".png"));
 	}
@@ -159,6 +172,21 @@ public class Pipe extends Item{
 	 */
 	public boolean isOpenTop() {
 		return openTop;
+	}
+	
+	public boolean isOpen(int direction){
+		switch(direction){
+			case Tile.TOP:
+				return openTop;
+			case Tile.RIGHT: 
+				return openRight;
+			case Tile.BOTTOM:
+				return openBottom;
+			case Tile.LEFT:
+				return openLeft;
+			default:
+				return false;			
+		}
 	}
 	
 	/**
