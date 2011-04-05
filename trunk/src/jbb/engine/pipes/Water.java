@@ -30,7 +30,10 @@ public class Water extends NPC{
 	public Water(Position position, Board board) {
 		super(new ImageIcon(), LIVES, position, board);
 	}
-	
+	//copy constructor
+	public Water(Water water){
+		this(new Position(water.position.getRow(), water.position.getCol()), water.board);
+	}
 	/**
 	 * METHOD SHOULD NOT BE USED BY WATER.
 	 * STUB.
@@ -58,6 +61,30 @@ public class Water extends NPC{
 		if(tile instanceof Pipe){
 			tile = (Pipe) board.getItem(position);
 			adjTiles = tile.getAdjacentTiles(); 
+			/*if(positionMovable((Pipe) tile, Tile.LEFT, Tile.RIGHT, adjTiles)){
+				nextPositions[0] = adjTiles[Tile.LEFT].getPosition();
+			}
+			else{
+				nextPositions[0] = null;	
+			}
+			if(positionMovable((Pipe) tile, Tile.BOTTOM, Tile.TOP, adjTiles)){
+				nextPositions[1] = adjTiles[Tile.BOTTOM].getPosition();
+			}
+			else{
+				nextPositions[1] = null;	
+			}
+			if(positionMovable((Pipe) tile, Tile.RIGHT, Tile.LEFT, adjTiles)){
+				nextPositions[2] = adjTiles[Tile.RIGHT].getPosition();
+			}
+			else{
+				nextPositions[2] = null;	
+			}
+			if(positionMovable((Pipe) tile, Tile.TOP, Tile.BOTTOM, adjTiles)){
+				nextPositions[3] = adjTiles[Tile.TOP].getPosition();
+			}
+			else{
+				nextPositions[3] = null;	
+			}*/
 			//in this if and the following three if statements:
 			//--check if a particular side of the current pipe is open
 			//--if that side is open, check:
@@ -158,6 +185,37 @@ public class Water extends NPC{
 		}
 		
 		return nextPositions;
+	}
+	
+	private boolean positionMovable(Pipe current, int direction, int opposite, Tile[] adjTiles){
+		if(current.isOpen(direction)){ //current.isOpenLeft()
+			if(adjTiles[Tile.LEFT]!=null) 
+				if(adjTiles[Tile.LEFT] instanceof Pipe)
+				{
+					Pipe p = (Pipe) adjTiles[Tile.LEFT];
+					if(!p.isFilled())
+						//nextPositions[0] = adjTiles[Tile.LEFT].getPosition();
+						return true;
+					else
+					{
+						if(p.isOpen(opposite)) //!p.isOpenRight()
+							//nextPositions[0] = adjTiles[Tile.LEFT].getPosition();
+							return true;
+						else
+							//nextPositions[0] = null;	
+							return false;
+					}
+				}
+				else
+					//nextPositions[0] = adjTiles[Tile.LEFT].getPosition();
+					return true;
+			else
+				//nextPositions[0] = null;
+				return false;
+		}
+		else
+			//nextPositions[0] = null;
+			return false;
 	}
 	
 	/**
