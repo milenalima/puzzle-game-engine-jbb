@@ -20,6 +20,7 @@ public class Danny extends Ghost {
 	//copy constructor
 	public Danny(Danny danny){
 		this(new Position(danny.position.getRow(), danny.position.getCol()), danny.board);
+		this.setLives(danny.getLives());
 	}
 	
 	@Override

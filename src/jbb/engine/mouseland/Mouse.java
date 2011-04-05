@@ -38,6 +38,8 @@ public class Mouse extends NPC{
 	//copy constructor
 	public Mouse(Mouse mouse){
 		this(new Position(mouse.position.getRow(), mouse.position.getCol()), mouse.board);
+		this.setLives(mouse.getLives());
+		this.recentPos = mouse.recentPos;
 	}
 
 /**
