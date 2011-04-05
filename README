@@ -18,11 +18,7 @@ Deliverables and task distribution:
 	TXT File levels and level sequences (Bruno)
 
 	Documentation:
-		- USER GUIDE
-			- PacGame (Jonathan)
-			- MouseGame (Bruno)
-			- Pipes (Boris)
-			- Engine (Jonathan)
+		- USER GUIDE and ReadME (updated by Bruno)
 
 Changes since Milestone #3:
 
@@ -42,4 +38,13 @@ Changes since Milestone #3:
 	
 Known issues:
 
-	- 
+	- When Pacman is invulnerable he is white, but when you click undo, he goes back to yellow
+	until you click again, then he will be back white.
+	-If you set a mousetrap and a mouse walks over it, the mousetrap image has blood 
+	splatter on it and the trap cannot be used. If you click undo, it will still be unable to kill 
+	a mouse BUT the image is set to original image.
+	-If you click on an invalide move it still counts as a turn, so when you click undo it "undos" 
+	the invalide move therefore nothing will change, until you clicks undo as more times than click on
+	an invalide move
+	-If you complete a level, and right away you undo, then bet it again, you will skip a level.
+	
