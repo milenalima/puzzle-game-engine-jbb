@@ -2,10 +2,8 @@ SYSC 2101 Project – puzzle-game-engine-jbb - Milestone 1
 
 Important Note:
 
-	The game was intended to run in a .jar file, with the main class being
-	GameLauncher, however the jar file does not allow images with our current
-	implementation. This will be something to fix later on, but for the time
-	being, the games are executed by running GameLauncher.java
+	The game launches via GameLauncher.java main method. For android, the android project
+	is launched.
 
 Project group members:
 
@@ -13,18 +11,11 @@ Project group members:
 
 Deliverables and task distribution:
 
-	Unit Tests:
-		- PacMan (Jonathan)
-		- MouseLand (Bruno)
-		- Pipes (Boris)
-		
-	Refined Design:
-		- Engine
-			- BoardView (Jonathan)
-			- ButtonHandler(Jonathan)
-		- PacMan (Jonathan)
-		- MouseLand (Bruno)
-		- Pipes classes (Boris)
+	Android View/Controller (Jonathan)
+	
+	Undo/Redo (Boris)
+	
+	TXT File levels and level sequences (Bruno)
 
 	Documentation:
 		- USER GUIDE
@@ -33,33 +24,22 @@ Deliverables and task distribution:
 			- Pipes (Boris)
 			- Engine (Jonathan)
 
-Changes since Milestone #2:
+Changes since Milestone #3:
 
-	- USER MANUAL has been updated for the GUI games explaining all the games and
-	the engine.
-	- A .jar file is created, which runs a game selector allowing the User to easily
-	select a game to play at the beginning, and when exiting another game.
-	- A general graphical representation of the game was developed. It is functional
-	for all games as it simply displays the content of playingField.
-	- The controller is a ButtonHandler which reacts to any tile on the board being
-	pressed.
-	- The pipes game is now a fully functional game. As images allows rotations to be
-	viewable, further testing and development was made to the game.
-	- The PacMan game now has three different personalities for each Ghost on the board.
-	One of the ghosts has a personality which causes it to flee from PacMan when he
-	becomes invulnerable. This makes the game more interesting.
-	- New map for MouseLand which should allow more challenging play.
+	- USER MANUAL has been updated for the games explaining the level sequence
+	- A general graphical representation of the game was developed for Android. It is
+	functional for all games.
+	- The screen is the controller, where buttons are displayed and the MENU button can be
+	pressed to find the undo/redo buttons.
+	- Three new levels for each game, played sequentially.
+		- In PacMan, the levels loop forever until you lose all your lives, accumulating as
+		many points as possible.
+		- In MouseLand, the levels are played sequentially, and the player will win when he
+		beats the final level.
+		- In Pipes, the levels are played sequentially, and the player will win when he beats
+		the final level.
+	- The undo/redo buttons are implemented such that you may undo forever and redo forever.
 	
-Known issues and roadmaps:
+Known issues:
 
-	- We will be adding a JMenuBar which will have the following JMenus:
-		(Game) which will have JMenuItems:
-			(New Game) restarts the game
-			(Level Code) allows user to input a level code which loads a certain game level
-			(Undo) allows 4 undos
-			(Redo)
-	- Since more levels will be required, it would be more ideal to have levels in text files,
-	and so it will be easier to load and create new levels (rather than hardcoding in java)
-	- Pipes currently throws a GameOver before an actual leak occurs. Though graphically this
-	makes sense because it seems there is a leak, our intent is to allow a more forgiving game
-	so this will be changed.
+	- 
