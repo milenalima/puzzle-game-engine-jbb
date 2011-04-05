@@ -37,6 +37,12 @@ public class MouseHero extends Hero{
 	public MouseHero(Position position, Board board) {
 		super(mhUpImage, LIVES, position, board);
 	}
+	//copy constructor
+	public MouseHero(MouseHero mouseHero){
+		this(new Position(mouseHero.position.getRow(), mouseHero.position.getCol()), mouseHero.board);
+		this.mouseTrap = mouseHero.mouseTrap;
+		this.numMouseTraps = mouseHero.numMouseTraps;
+	}
 	
 /**
  * the getNumMouseTraps method returns the amount of Mouse Traps from the Mouse 
