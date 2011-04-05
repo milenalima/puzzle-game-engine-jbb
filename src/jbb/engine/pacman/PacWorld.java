@@ -101,6 +101,9 @@ public class PacWorld extends Board{
 					else if(tiles[col] == ('w')){
 						itemMap[count][col] =new Wall(new Position(count,col),this);
 					}
+					else if(tiles[col] == ('0')){
+						itemMap[count][col] =new Tile(new Position(count,col),this);
+					}
 					else if(tiles[col] == (' ')){
 						itemMap[count][col] = new PacDot(new Position(count,col), this, false);
 						//itemMap[count][col] =new Tile(new Position(count,col),this);
