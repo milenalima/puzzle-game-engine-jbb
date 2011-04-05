@@ -24,6 +24,7 @@ public class Cam extends Ghost {
 	//copy constructor
 	public Cam(Cam cam){
 		this(new Position(cam.position.getRow(), cam.position.getCol()), cam.board);
+		this.setLives(cam.getLives());
 	}
 
 }

@@ -17,6 +17,7 @@ public class Sam extends Ghost {
 	public Sam(Sam sam){
 		this(new Position(sam.position.getRow(), sam.position.getCol()), sam.board);
 		this.lastPosition = sam.lastPosition; //??
+		this.setLives(sam.getLives());
 	}
 	
 	@Override
