@@ -31,6 +31,9 @@ public class PacDot extends Item {
 		} else this.setImage(new ImageIcon("img/pacdot.png"));
 		setPointValue(10);
 	}
+	public PacDot(PacDot pacDot){
+		this(new Position(pacDot.position.getRow(), pacDot.position.getCol()),pacDot.board, pacDot.powerPellet);
+	}
 
 	/**
 	 * @return true if it is a PowerPellet

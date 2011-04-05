@@ -34,6 +34,13 @@ public class PacMan extends Hero {
 		invulnerable = false;
 		timer = 0;
 	}
+	//copy constructor 
+	public PacMan(PacMan pacMan){
+		this(new Position(pacMan.position.getRow(), pacMan.position.getCol()), pacMan.board);
+		this.direction = pacMan.direction;
+		this.invulnerable = pacMan.invulnerable;
+		this.timer = pacMan.timer;
+	}
 	
 	/**
 	 * @return true if invulnerable

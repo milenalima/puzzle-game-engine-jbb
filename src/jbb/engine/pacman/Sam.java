@@ -13,6 +13,11 @@ public class Sam extends Ghost {
 	public Sam(Position position, Board board) {
 		super(new ImageIcon("img/Ghost-S.png"),position, board);
 	}
+	//copy constructor
+	public Sam(Sam sam){
+		this(new Position(sam.position.getRow(), sam.position.getCol()), sam.board);
+		this.lastPosition = sam.lastPosition; //??
+	}
 	
 	@Override
 	/**
