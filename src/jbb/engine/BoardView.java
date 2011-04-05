@@ -6,8 +6,10 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+
 import java.util.Observable;
 import java.util.Observer;
+
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -137,5 +139,4 @@ public abstract class BoardView implements Observer {
 		if (str.equals("update")) updateView();
 		else handleGameOver(str);
 	}
-
 }
